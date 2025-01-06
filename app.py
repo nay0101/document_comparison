@@ -4,6 +4,7 @@ from helpers.comparison_chain import ComparisonChain
 from helpers.reports import MarkdownPDFConverter
 from time import perf_counter
 from uuid import uuid4
+from helpers.document_processor import DocumentProcessor
 
 st.title("Document Comparer")
 
@@ -37,8 +38,16 @@ clear_btn = st.button(label="Clear", type="primary")
 
 
 if clear_btn:
-    session_state.chat_id = uuid4()
-    session_state.result = None
+    # session_state.chat_id = uuid4()
+    # session_state.result = None
+    document_processor = DocumentProcessor()
+    result = document_processor.extract_text_with_page_number(
+        pdf_bytes=session_state.doc1.getvalue()
+    )
+    # for data in result:
+    #     print(data["data"][0])
+    with open("./test.txt", "w") as file:
+        file.write(result)
 
 
 if compare_btn:
@@ -73,12 +82,12 @@ if session_state.result:
                     with col1:
                         doc1 = flag["doc1"]
                         st.markdown("<b style='font-size: 25px'>Document 1</b>", True)
-                        st.markdown(f'Page: {doc1["page"]}', True)
+                        # st.markdown(f'Page: {doc1["page"]}', True)
                         st.markdown(doc1["content"], True)
                     with col2:
                         doc2 = flag["doc2"]
                         st.markdown("<b style='font-size: 25px'>Document 2</b>", True)
-                        st.markdown(f'Page: {doc2["page"]}', True)
+                        # st.markdown(f'Page: {doc2["page"]}', True)
                         st.markdown(doc2["content"], True)
                     st.markdown(flag["explanation"], True)
 
@@ -98,7 +107,6 @@ with st.sidebar:
     st.text_input(label="Report File Name", key="report_file_name", value="test")
     print_btn = st.button(label="Generate Report")
     if print_btn:
-        print(session_state.chat_id)
         report_generator = MarkdownPDFConverter()
         report_generator.generate_report(
             chat_model_name=session_state.chat_model,
@@ -106,4 +114,6 @@ with st.sidebar:
             result=session_state.result,
             time_taken=session_state.time_taken,
             path=f"./reports/{session_state.report_file_name}.pdf",
+            file1_name=session_state.doc1.name,
+            file2_name=session_state.doc2.name,
         )

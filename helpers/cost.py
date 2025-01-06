@@ -25,7 +25,6 @@ def get_total_cost(
     for page_number in range(0, total_pages):
         traces = langfuse.fetch_traces(page=page_number + 1, **langfuse_config)
         for trace in traces.data:
-            print(trace)
             cost += trace.total_cost
 
     rounded_cost = round(cost, 6)

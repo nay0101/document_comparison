@@ -15,10 +15,10 @@ class DocumentProcessor:
             page = doc[page_num]
             text = page.get_text("text")
 
-            final_doc += (
-                f"<page{page_num + 1}>\n{text.strip()}\n</page{page_num + 1}>\n"
-            )
-            # final_doc += f"{text.strip()}\n"
+            # final_doc += (
+            #     f"<page{page_num + 1}>\n{text.strip()}\n</page{page_num + 1}>\n"
+            # )
+            final_doc += text.strip()
         return final_doc
 
     def extract_text(self, pdf_path: str) -> str:
@@ -33,6 +33,24 @@ class DocumentProcessor:
             # final_doc += f"Page {page_num + 1}\n{text.strip()}\n\n"
             final_doc += text.strip()
         return final_doc
+
+    def extract_tables_structured(self, pdf_path: Union[bytes, BytesIO]):
+        doc = pymupdf.open(pdf_path)
+        tables = []
+
+        for page_num in range(len(doc)):
+            page = doc[page_num]
+
+            # Extract tables using page.find_tables()
+            tab_list = page.find_tables()
+            for tab in tab_list:
+                table_data = tab.extract()
+                if table_data:
+                    tables.append(
+                        {"page": page_num + 1, "data": table_data, "bbox": tab.bbox}
+                    )
+
+        return tables
 
     def clean_xml(self, text: str) -> str:
         return re.sub(

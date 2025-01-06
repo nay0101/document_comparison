@@ -131,9 +131,13 @@ class MarkdownPDFConverter:
         result: List,
         path: str,
         time_taken: str,
+        file1_name: str,
+        file2_name: str,
     ) -> None:
         cost = get_total_cost(chat_id=chat_id)
         text = f"""# Document Comparison with {chat_model_name}
+* File 1: {file1_name}
+* File 2: {file2_name}
 * Total Cost: ${cost}
 * Time Taken: {time_taken}s
 # Discrepancies
@@ -148,8 +152,7 @@ Total Discrepancies Found: {len(result["flags"])}
 ### Flags: {flag_types}
 |Document 1                      |Document 2                      |
 |--------------------------------|--------------------------------|
-|Page: {flag["doc1"]["page"]}    |Page: {flag["doc2"]["page"]}    |
-|{content1}|{content2}"|
+|{content1}|{content2}|
 
 Explanation: {flag["explanation"]}
 
