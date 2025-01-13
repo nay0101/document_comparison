@@ -8,16 +8,9 @@ from helpers.document_processor import DocumentProcessor
 
 st.title("Document Comparer")
 
-chat_model_name = "chatgpt-4o-latest"
+session_state.default_chat_model = "gpt-4o"
 
-chat_model_list = [
-    "chatgpt-4o-latest",
-    "gpt-4o-mini",
-    "claude-3-5-sonnet-latest",
-    "claude-3-5-haiku-latest",
-    "gpt-4o-2024-11-20",
-    "gpt-4o",
-]
+chat_model_list = ["gpt-4o", "gemini-2.0-flash-exp"]
 
 
 col1, col2 = st.columns(2)
@@ -38,17 +31,8 @@ clear_btn = st.button(label="Clear", type="primary")
 
 
 if clear_btn:
-    # session_state.chat_id = uuid4()
-    # session_state.result = None
-    document_processor = DocumentProcessor()
-    result = document_processor.extract_filtered_content(
-        pdf_bytes=session_state.doc1.getvalue()
-    )
-    # for data in result:
-    #     print(data["data"][0])
-    with open("./test2.txt", "w") as file:
-        file.write(result)
-
+    session_state.chat_id = uuid4()
+    session_state.result = None
 
 if compare_btn:
     chain = ComparisonChain(chat_model_name=session_state.chat_model)
@@ -96,7 +80,7 @@ with st.sidebar:
     st.selectbox(
         label="Chat Models",
         options=chat_model_list,
-        index=chat_model_list.index(chat_model_name),
+        index=chat_model_list.index(session_state.default_chat_model),
         key="chat_model",
     )
     st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
