@@ -4,7 +4,6 @@ from helpers.comparison_chain import ComparisonChain
 from helpers.reports import MarkdownPDFConverter
 from time import perf_counter
 from uuid import uuid4
-from helpers.document_processor import DocumentProcessor
 
 st.title("Document Comparer")
 

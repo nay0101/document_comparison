@@ -1,13 +1,8 @@
-from weasyprint import HTML
 from weasyprint.text.fonts import FontConfiguration
 import markdown
-from typing import List
 from helpers.cost import get_total_cost
-
-import markdown
 from weasyprint import HTML, CSS
-from weasyprint.text.fonts import FontConfiguration
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
 
 class MarkdownPDFConverter:
