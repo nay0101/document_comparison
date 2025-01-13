@@ -24,7 +24,7 @@ class ComparisonChain:
         self.document_processor = DocumentProcessor()
 
     def _process_document(self, doc_file_bytes: Union[bytes, BytesIO]) -> str:
-        return self.document_processor.extract_text_with_page_number(
+        return self.document_processor.extract_filtered_content(
             pdf_bytes=BytesIO(doc_file_bytes)
         )
 
@@ -39,9 +39,14 @@ class ComparisonChain:
 
         chunk_list = []
 
-        for chunk in chunks:
-            content1 = chunk["language1"].strip()
-            content2 = chunk["language2"].strip()
+        if isinstance(chunks, list):
+            for chunk in chunks:
+                content1 = chunk["language1"].strip()
+                content2 = chunk["language2"].strip()
+                chunk_list.append({"doc1": content1, "doc2": content2})
+        else:
+            content1 = chunks["language1"].strip()
+            content2 = chunks["language2"].strip()
             chunk_list.append({"doc1": content1, "doc2": content2})
 
         return chunk_list
@@ -68,16 +73,16 @@ class ComparisonChain:
 
               ## END OF DOCUMENTS ##
 
-              Maximum number of words per chunks to create: <num_words>10000</num_words>
+              Maximum number of words per chunks to create: <num_words>3000</num_words>
 
               Follow these steps to complete the task:
 
               1. Analyze both documents to understand their overall structure and content.
               2. Identify natural break points in both documents (e.g., paragraph breaks, section headings, or sentence boundaries) that occur at roughly the same points in the content.
-              3. Divide each document into the specified number of chunks, ensuring that:
+              3. Divide each document into chunks, ensuring that:
                 a. Each chunk conveys a complete thought or section when possible.
                 b. Chunks in both languages cover approximately the same amount of content, even if the exact word count differs due to language differences.
-                c. If content is present in one language but not in the other, include the present content in the appropriate chunk without creating a corresponding paragraph in the other language and don't remove the present content.
+                c. If content is present in one language but not in the other, include the present content in the appropriate chunk without creating a corresponding content in the other language and don't remove the present content.
               4. Align the chunks between the two languages.
               5. Before giving output, analyze and ensure that all pages and content from both documents are fully processed and included in the chunks before finalizing your output.
               6. Output the chunked and aligned content using the specified format.
@@ -110,7 +115,7 @@ class ComparisonChain:
               - Do not add language identifiers like ```xml in the output.
               - Just output the xml format. Do not output any other text.
               - Do not summarize the content.
-              - If it's impossible to create the exact number of chunks specified while maintaining content alignment, create the closest number of chunks possible and explain the discrepancy.
+              - If it's impossible to create the exact number of chunks specified while maintaining content alignment, create the closest number of chunks possible.
             """
 
             # instruction = """
@@ -222,7 +227,7 @@ class ComparisonChain:
                             ),
                             (
                                 "human",
-                                "Continue EXACTLY from this last chunk shown above. Do not restart from the beginning. Generate the next chunks following the same format and numbering sequence. Don't stop halfway. Generate as long as possible.",
+                                "Continue EXACTLY from this last chunk shown above. Do not restart from the beginning. Generate the next chunks following the same format and numbering sequence. Don't stop halfway. Generate until you reach the END OF DOCUMENTS.",
                             ),
                         ]
                     )
@@ -356,71 +361,123 @@ class ComparisonChain:
         #   Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
         # """
 
+        # system_prompt = """
+        #   You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
+
+        #   Here are the two documents you need to compare:
+
+        #   Document 1 (considered the main reference):
+        #   <document1>
+        #   {doc1}
+        #   </document1>
+
+        #   Document 2:
+        #   <document2>
+        #   {doc2}
+        #   </document2>
+
+        #   ## END OF DOCUMENTS ##
+
+        #   Please follow these steps to complete your analysis:
+
+        #   1. Carefully read and compare both documents in their entirety.
+        #   2. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content. Ignore minor variations in wording or slight differences that don't impact the overall message.
+        #   3. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
+        #     - Inaccurate disclosure: Information that is incorrectly stated or translated
+        #     - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
+        #     - Outdated information: Data or statements that are no longer relevant or accurate
+        #     - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
+        #     - Major deviations from the English version: Any substantial differences from Document 1
+        #   4. For each flag, include:
+        #     - A list of applicable difference types (from the list above)
+        #     - The relevant content from both documents, including the page number
+        #     - An explanation of the difference, highlighting the main issues
+        #   5. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
+
+        #   After your comparison, format your response as a JSON object with the following structure:
+
+        #   {{
+        #     "flags": [
+        #       {{
+        #         "types": ["List of applicable difference types"],
+        #         "doc1": {{
+        #           "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
+        #         }},
+        #         "doc2": {{
+        #           "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
+        #         }},
+        #         "explanation": "Detailed explanation of the difference"
+        #       }}
+        #     ]
+        #   }}
+
+        #   If no major discrepancies are found, your JSON response should be:
+
+        #   {{
+        #     "flags": []
+        #   }}
+
+        #   Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
+        # """
+
         system_prompt = """
-          You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
+You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
 
-          Here are the two documents you need to compare:
+Here are the two documents you need to compare:
 
-          Document 1 (considered the main reference):
-          <document1>
-          {doc1}
-          </document1>
+<document1>
+{doc1}
+</document1>
 
-          Document 2:
-          <document2>
-          {doc2}
-          </document2>
+## END OF DOCUMENT 1 ##
 
-          Please follow these steps to complete your analysis:
+<document2>
+{doc2}
+</document2>
 
-          1. Carefully read and compare both documents in their entirety.
+## END OF DOCUMENT 2 ##
 
-          2. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content. Ignore minor variations in wording or slight differences that don't impact the overall message.
+Please follow these steps to complete your analysis:
 
-          3. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
-            - Inaccurate disclosure: Information that is incorrectly stated or translated
-            - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
-            - Outdated information: Data or statements that are no longer relevant or accurate
-            - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
-            - Major deviations from the English version: Any substantial differences from Document 1
+1. Carefully read and compare both documents until you reach the ## END OF DOCUMENT ## line by line, paragraph by paragraph.
+2. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content. Ignore minor variations in wording or slight differences that don't impact the overall message.
+3. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
+  - Inaccurate disclosure: Information that is incorrectly stated or translated
+  - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
+  - Outdated information: Data or statements that are no longer relevant or accurate
+  - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
+  - Major deviations from the English version: Any substantial differences from Document 1
+4. For each flag, include:
+  - A list of applicable difference types (from the list above)
+  - The relevant content from both documents, including the page number
+  - An explanation of the difference, highlighting the main issues
+5. You can flag same sentences or paragraphs more than once.
+6. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
 
-          4. For each flag, include:
-            - A list of applicable difference types (from the list above)
-            - A brief description of the flag
-            - The relevant content from both documents, including the page number
-            - An explanation of the difference, highlighting the main issues
+After your comparison, format your response as a JSON object with the following structure:
 
-          5. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
+{{
+  "flags": [
+    {{
+      "types": ["List of applicable difference types"],
+      "doc1": {{
+        "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
+      }},
+      "doc2": {{
+        "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
+      }},
+      "explanation": "Detailed explanation of the difference"
+    }}
+  ]
+}}
 
-          6. If you don't find any major discrepancies, state that no significant differences were found.
+If no major discrepancies are found, your JSON response should be:
 
-          After your comparison, format your response as a JSON object with the following structure:
+{{
+  "flags": []
+}}
 
-          {{
-            "flags": [
-              {{
-                "types": ["List of applicable difference types"],
-                "description": "Brief description of the flag",
-                "doc1": {{
-                  "page": "Page number in Document 1 (just the number)",
-                  "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
-                }},
-                "doc2": {{
-                  "page": "Page number in Document 2 (just the number)",
-                  "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
-                }},
-                "explanation": "Detailed explanation of the difference"
-              }}
-            ]
-          }}
-
-          If no major discrepancies are found, your JSON response should be:
-
-          {{
-            "flags": []
-          }}
-
-          Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
+Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
         """
 
         user_prompt = """Begin your analysis now."""
@@ -468,6 +525,67 @@ class ComparisonChain:
                 "use_existing_file": use_existing_file,
             },
             config={"callbacks": [CallbackHandler(user_id=str(chat_id))]},
+        )
+
+        return result
+
+    def _guideline_test(self, guideline_file, document_file):
+        instruction = """You will be comparing a document file against a set of guidelines and identifying exceptions where the document does not align with the guidelines. You will then provide recommendations to update the document to better align with the guidelines.
+
+        First, here are the guidelines you should use for comparison:
+
+        <guidelines>
+        {guideline}
+        </guidelines>
+
+        Now, here is the document to be compared against the guidelines:
+
+        <document>
+        {document}
+        </document>
+
+        To complete this task, follow these steps:
+
+        1. Carefully read through both the guidelines and the document.
+
+        2. Compare the content of the document against each point in the guidelines.
+
+        3. For each guideline, determine if the document fully complies, partially complies, or does not comply.
+
+        4. Identify specific exceptions where the document does not align with the guidelines. An exception is any instance where the document contradicts, omits, or inadequately addresses a guideline.
+
+        5. For each exception found, provide a specific recommendation on how to update the document to better align with the guideline.
+
+        6. Organize your findings in the following format:
+
+        <exceptions>
+        <exception>
+        <guideline>[Quote the relevant guideline here]</guideline>
+        <issue>[Describe how the document fails to meet this guideline]</issue>
+        <recommendation>[Provide a specific suggestion or an example for updating the document to align with this guideline]</recommendation>
+        </exception>
+        [Repeat for each exception found]
+        </exceptions>
+
+        <summary>
+        [Provide a brief overall summary of your findings, including the number of exceptions found and any general observations about the document's alignment with the guidelines]
+        </summary>
+
+        Remember to be thorough in your comparison, specific in identifying exceptions, and clear in your recommendations. If you're unsure about whether something constitutes an exception, err on the side of including it.
+
+        If you find no exceptions, state this clearly in your summary."""
+
+        user_prompt = """Begin your analysis now."""
+
+        prompt = ChatPromptTemplate.from_messages(
+            [("system", instruction), ("human", user_prompt)]
+        )
+
+        chain = prompt | self.chat_model | StrOutputParser()
+
+        result = chain.invoke(
+            {"guideline": guideline_file, "document": document_file},
+            config={"callbacks": [CallbackHandler(user_id="guideline_test")]},
         )
 
         return result

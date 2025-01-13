@@ -1,0 +1,226 @@
+<chunked_documents>
+  <chunk number="19">
+    <language1>
+      (d)
+      If at any time an adjustment is made or required to be made between the Owner and the relevant taxing authority on account of any amount paid as Tax as a consequence of any supply made or deemed to be made or other matter in connection with this agreement by the Owner, a corresponding adjustment may at the Owner’s discretion be made as between the Owner and the Hirer and in such event, any payment necessary to give effect to the adjustment shall be made;
+      (e)
+      All Tax as shall be payable by the Hirer to the Owner as herein provided shall be paid at such times and in such manner as shall be requested by the Owner;
+      (f)
+      The Hirer hereby agrees to do all things reasonably requested by the Owner to assist the Owner in complying with the Owner’s obligations under any applicable legislation under which any Tax is imposed. In the event a new Tax is introduced and such Tax is required to be charged on the transaction contemplated in this Agreement, the Hirer agrees to provide its fullest cooperation to the Owner in assisting the Owner in complying with the Owner’s obligations under the relevant laws;
+      (g)
+      For the avoidance of doubt, the parties agree that any sum payable or amount to be used in the calculation of a sum payable expressed elsewhere in this agreement has been determined without regard to and does not include amounts to be added on under this clause on account of Tax;
+      (h)
+      For the purpose of this Clause 19:
+      “Tax” means any present or future, direct or indirect, Malaysian or foreign tax, levy, impost, duty, charge, fee, deduction or withholding of any nature, that is imposed by any Appropriate Authority, including, without limitation, any consumption tax and other taxes by whatever name called, and any interest, fines or penalties in respect thereof.
+      “Appropriate Authority” means any government or taxing authority.”
+    </language1>
+    <language2>
+      (d)
+      Jika pada bila-bila masa sesuatu pelarasan dibuat atau perlu dibuat antara Pemunya dengan pihak berkuasa cukai berkaitan untuk apa-apa jumlah yang dibayar sebagai Cukai berikutan apa-apa bekalan dibuat atau dianggap telah dibuat atau hal lain bersabit dengan Perjanjian ini oleh Pemunya, maka pelarasan sepadan boleh, menurut budi bicara Pemunya, dibuat antara Pemunya dengan Penyewa dan jika begitu, apa-apa bayaran perlu untuk melaksanakan pelarasan itu hendaklah dibuat;
+      (e)
+      Segala Cukai yang perlu dibayar oleh Penyewa kepada Pemunya seperti yang diperuntukkan di sini hendaklah dibayar pada waktu-waktu berkenaan dan dengan cara seperti yang diminta oleh Pemunya;
+      (f)
+      Penyewa dengan ini bersetuju melakukan segala perkara yang semunasabahnya diminta oleh Pemunya bagi membantu Pemunya mematuhi kewajipan Pemunya menurut mana-mana undang-undang berkenaan yang mengenakan apa-apa Cukai. Sekiranya Cukai baharu diperkenalkan dan Cukai tersebut perlu dicaj ke atas transaksi yang dicadangkan dalam Perjanjian ini, Penyewa bersetuju memberikan kerjasama sepenuhnya kepada Pemunya untuk membantu Pemunya memenuhi kewajipan Pemunya menurut undang-undang berkaitan;
+      (g)
+      Bagi mengelakkan keraguan, kedua-dua pihak bersetuju bahawa apa-apa jumlah wang perlu bayar atau jumlah yang digunakan dalam pengiraan jumlah wang perlu bayar yang dinyatakan dalam perjanjian ini telah ditentukan tanpa mengambil kira dan tidak termasuk jumlah yang perlu ditambah menurut fasal ini bagi Cukai;
+      (h)
+      Bagi tujuan Fasal 19 ini:
+      “Cukai” bermakna apa-apa cukai, levi, impos, duti, caj, yuran, potongan atau penangguhan masa sekarang atau masa akan datang, langsung atau tak langsung, Malaysia atau asing biar apa pun jenisnya, yang dikenakan oleh mana-mana Pihak Berkuasa Berkenaan, termasuk tanpa batasan, sebarang cukai penggunaan dan cukai-cukai lain biar apa pun nama sebutannya, dan apa-apa faedah, denda atau penalti berkenaan dengannya. “Pihak Berkuasa Berkenaan” bermakna mana-mana pihak berkuasa kerajaan atau cukai.”
+    </language2>
+  </chunk>
+
+  <chunk number="20">
+    <language1>
+      20.
+      SEVERANCE
+      Any term, condition or provision contained herein which is illegal, void, prohibited or unenforceable shall be ineffective to the extent of such illegality, voidness, prohibition or unenforceability only without invalidating the remaining provisions hereof.
+      21.
+      VARIATION TO THE TERMS AND CONDITIONS
+      The provisions and terms of this Agreement may at any time and from time to time be varied or amended by the Owner, by giving twenty-one (21) days’ prior written notice to the Hirer before the variation takes effect. Such amendments and variations shall be deemed to become effective and the relevant provisions of this Agreement shall be deemed to have been amended or varied accordingly and shall be read and construed as if such amendments and variations have been incorporated in and formed part of this Agreement at the time of execution hereof.
+      22.
+      CONSENT TO DISCLOSURES
+      In addition to the permitted disclosures provided under Schedule 11 of the Financial Services Act 2013, the Hirer irrevocably authorizes and permits the Owner, its officers and employees to disclose and furnish all information concerning the Indebtedness under this Agreement, the Goods, present and future accounts of the Hirer and any other matters relating to the Hirer’s business and operations to:
+      (a)
+      other financial institutions granting or intending to grant any credit facilities to the Hirer, the Central Credit Bureau or any other central credit bureau established by Bank Negara Malaysia (“BNM”), Cagamas Berhad, Credit Guarantee Corporation, any other relevant authority as may be authorized by law to obtain such information or such authorities/agencies established by BNM or any agency established by the Association of Banks in Malaysia and/or Financial Information Services;
+    </language1>
+    <language2>
+      20.
+      PEMBERHENTIAN
+      Apa-apa terma, syarat atau peruntukan terkandung di dalam ini yang menyalahi undang-undang, tak sah, dilarang atau tak boleh dikuat kuasa menjadi tidak efektif setakat kepenyalahan undang-undang, ketaksahan, larangan atau ketakbolehkuatkuasaan tersebut sahaja tanpa mentaksahkan peruntukan-peruntukan Perjanjian yang selebihnya
+      21.
+      PENGUBAHAN TERMA DAN SYARAT
+      Peruntukan dan terma Perjanjian ini boleh pada bila-bila masa dan dari semasa ke semasa diubah atau dipinda oleh Pemunya, dengan memberikan notis bertulis dua puluh satu (21) hari terlebih dahulu kepada Penyewa sebelum perubahan itu berkuat kuasa. Pindaan dan variasi sedemikian akan dianggap berkuatkuasa dan peruntukan yang berkaitan dalam Perjanjian ini akan dianggap telah dipinda atau diubah dengan sewajarnya dan hendaklah dibaca dan ditafsirkan seolah-olah pindaan danperubahan tersebut telah dimasukkan dan menjadi sebahagian daripada Perjanjian ini pada masa pelaksanaan perjanjian ini.
+      22.
+      PERSETUJUAN BAGI PENDEDAHAN
+      Di samping pendedahan dibenarkan menurut Jadual 11 Akta Perkhidmatan Kewangan 2013, Penyewa memberi kuasa dan kebenaran tak boleh batal kepada Pemunya, para pegawai dan pekerjanya untuk mendedahkan dan menyampaikan segala maklumat darihal Keterhutangan di bawah Perjanjian ini, Barangan, akaun masa kini dan akaun masa akan datang Penyewa dan apa-apa hal lain berkaitan dengan perniagaan dan operasi Penyewa kepada:-
+      (a)
+      institusi kewangan lain yang memberi atau berniat memberi apa-apa kemudahan kredit kepada Penyewa, Biro Kredit Pusat atau mana-mana biro kredit pusat lain yang ditubuhkan oleh Bank Negara Malaysia (“BNM”), Cagamas Berhad, Credit Guarantee Corporation, mana-mana pihak berkuasa berkenaan lain yang diberi kuasa di sisi undang-undang untuk mendapatkan maklumat sedemikian atau pihak berkuasa/agensi lain yang ditubuhkan oleh BNM atau mana-mana agensi yang ditubuhkan oleh Persatuan Bank-bank di Malaysia dan/atau Perkhidmatan Maklumat Kewangan;
+    </language2>
+  </chunk>
+
+  <chunk number="21">
+    <language1>
+      (b)
+      any current or future corporation which may be associated with or related to the Owner (as defined in the Companies Act 2016), including representative and branch offices and their respective representatives as well as subsidiaries of the Owner’s holding company;
+      (c)
+      the Security Parties or any party intending to provide security in respect of the Indebtedness;
+      (d)
+      the Owner’s auditors, solicitors and/or other person, agents or organization in connection with the recovery of moneys due and payable hereunder;
+      (e)
+      the Owner’s professional advisers, service providers, nominees, agents, contractors or third party service providers who are involved in the provision of products and services to or by the Owner and the Owner’s related or associated companies; and
+      (f)
+      any person or organization for the purpose of collecting and recovering for and on the Owner’s behalf any sums of money owing to the Owner from the Hirer and/or the Guarantor.
+      The Hirer hereby irrevocably consents to such disclosure and confirms that the Owner, its officers and employees shall be under no liability for furnishing such information or for the consequences of any reliance which may be placed on the information so furnished in accordance with this Agreement.
+    </language1>
+    <language2>
+      (b)
+      mana-mana perbadanan masa sekarang atau masa akan datang yang mungkin bersekutu atau berkait dengan Pemunya (seperti ditakrif dalam Akta Syarikat 2016), termasuk pejabat wakil dan pejabat cawangan serta wakil mereka masing-masing sertai juga subsidiari-subsidiari syarikat induk Pemunya;
+      (c)
+      pihak-pihak Penyedia Cagaran atau mana-mana pihak yang bercadang menyediakan cagaran dalam hal Keterhutangan;
+      (d)
+      juruaudit Pemunya, peguam dan/atau orang, ejen atau pertubuhan lain bersabit dengan usaha mendapatkan kembali jumlah wang yang kena bayar dan belum bayar menurut Perjanjian;
+      (e)
+      penasihat profesional Pemunya, penyedia perkhidmatan, nomini, ejen, kontraktor atau penyedia perkhidmatan pihak ketiga yang terlibat dalam usaha penyediaan produk dan perkhidmatan kepada atau oleh Pemunya dan syarikat berkait/bersekutu Pemunya; dan
+      (f)
+      mana-mana orang atau pertubuhan bagi tujuan mengutip dan mendapat kembali untuk dan bagi pihak Pemunya apa-apa jumlah wang yang terhutang kepada Pemunya oleh Penyewa dan/atau Penjamin
+      Penyewa dengan ini memberi persetujuan tidak boleh batal dalam hal pendedahan tersebut dan mengesahkan bahawa Pemunya, para pegawai dan pekerjanya tidaklah bertanggungan atas menyampaikan maklumat tersebut atau atas akibat daripada pergantungan kepada maklumat yang disampaikan itu selaras dengan Perjanjian ini.
+    </language2>
+  </chunk>
+
+  <chunk number="22">
+    <language1>
+      23.
+      CONSENT TO PROCESSING PERSONAL DATA
+      (a)
+      The Hirer hereby agrees and consents to the holding, collection and use of all personal data provided to the Owner by the Hirer and/or acquired by the Owner from the public domain, as well as personal data that arises as a result of the provision of services to the Hirer in connection with the Indebtedness under this Agreement in accordance with the Owner’s Privacy Notice as may be amended from time to time.
+      “Privacy Notice” means the Owner’s policies and principles pertaining to the collection, use and storage of personal information of existing and prospective individuals and entities dealing with the Owner as may be amended from time to time and made available at the Owner’s website or in such manner as the Owner deems appropriate from time to time;
+      (b)
+      The Hirer hereby represents and warrants that the Hirer has obtained the consent of all persons named in the Hirer’s application for the Indebtedness under this Agreement or such other document submitted to the Owner in support of such application and/or their authorized representatives, including but not limited to the directors, shareholders, authorized signatories or such other persons as specified by the Owner (“Relevant Data Subjects”), for the Owner’s collection, holding and use of the personal information of the Relevant Data Subjects in accordance with the Bank’s Privacy Notice as may be amended from time to time.
+    </language1>
+    <language2>
+      23.
+      PERSETUJUAN MEMPROSES DATA PERIBADI
+      (a)
+      Penyewa dengan ini memberi persetujuan dalam hal memegang, mengutip dan menggunakan segala data peribadi yang diberikan kepada Pemunya oleh Penyewa dan/atau diperoleh oleh Pemunya daripada domain awam, serta juga data peribadi yang timbul hasil daripada menyediakan perkhidmatan kepada Penyewa bersabit dengan hal keterhutangan di bawah Perjanjian ini selaras dengan Notis Privasi Pemunya yang dipinda dari semasa ke semasa.
+      “Notis Privasi” bermakna dasar dan prinsip Pemunya berkenaan pengumpulan, penggunaan dan penyimpanan maklumat peribadi individu dan entiti sedia ada dan prospektif yang berurusan dengan Pemunya seperti dipinda dari semasa ke semasa dan boleh didapati di laman web Pemunya atau mengikut cara yang Pemunya anggap sesuai dari semasa ke semasa;
+      (b)
+      Penyewa dengan ini memberi representasi dan jaminan bahawa Penyewa telah memperoleh persetujuan semua orang yang dinamakan dalam permohonan Keterhutangan Penyewa menurut Perjanjian ini atau apa-apa dokumen yang dikemukakan kepada Pemunya sebagai menyokong permohonan tersebut dan/atau wakil-wakil sah mereka, termasuk tetapi tidak terhad kepada pengarah, pemegang saham, penandatangan sah atau mana-mana orang lain seperti disebut oleh Pemunya (“Subjek Data Berkenaan”), untuk Pemunya mengutip, memegang dan menggunakan maklumat peribadi Subjek Data Berkenaan selaras dengan Notis Privasi Bank yang dipinda dari semasa ke semasa.
+    </language2>
+  </chunk>
+
+  <chunk number="23">
+    <language1>
+      24.
+      RECORDS
+      Hirer hereby acknowledges and agrees that the Owner’s records in relation to the Hirer and this Agreement which are stored in any form or manner can be used as evidence in any court proceedings as proof of its contents. Hirer agrees that such records shall be final and conclusive of the information contained therein save in the case of manifest or clerical error.
+      25.
+      TIME
+      Time wherever mentioned in this Agreement shall be the essence of this Agreement.
+      26.
+      ASSIGNMENT
+      The Owner shall be entitled, with seven (7) days prior notice to the Hirer, to assign all or any part of the Owner’s rights, interest and benefit in or pursuant to this Agreement and or in the Goods including but not limited to the license conferred on the Owner, its employees, its representatives and/or its agents to enter upon land or premises to inspect and/or repossess the Goods and/or sell the Hirer’s Indebtedness under this Agreement in the event the account in respect of the Indebtedness has been classified as delinquent or impaired by the Owner to such third party as the Owner deems fit.
+    </language1>
+    <language2>
+      24.
+      REKOD
+      Penyewa dengan ini mengaku dan bersetuju bahawa rekod-rekod Pemunya berkaitan Penyewa dan Perjanjian ini yang disimpan dalam apa bentuk atau cara boleh digunakan sebagai bahan keterangan dalam mana-mana prosiding mahkamah sebagai bukti kandungannya. Penyewa bersetuju bahawa rekod-rekod sedemikian (yang disediakan kepada dan/atau oleh Penyewa sebelum Perjanjian ditandatangani untuk semakan) adalah terakhir dan muktamad akan maklumat yang terkandung di dalamnya melainkan dalam hal silap ketara atau silap sunting di pihak Pemunya.
+      25.
+      MASA
+      Masa apabila disebut dalam Perjanjian ini adalah intipati atau asas bagi Perjanjian ini.
+      26.
+      SERAH HAK
+      Pemunya adalah berhak, dengan notis awal tujuh (7) hari diberi kepada Penyewa, untuk menyerah hak kesemua atau mana-mana bahagian hak, kepentingan dan faedah Pemunya terkandung atau menurut Perjanjian ini dan atau pada Barangan termasuk tetapi tidak terhad kepada lesen yang diberi kepada Pemunya, pekerja, wakil dan/atau ejennya untuk memasuki tanah atau premis untuk memeriksa dan/atau mengambil semula milik barangan dan/atau menjual Keterhutangan Penyewa di bawah Perjanjian ini sekiranya akaun berkenaan Keterhutangan itu telah dikelaskan sebagai delinkuen atau terjejas oleh Pemunya kepada pihak ketiga tersebut jika Pemunya anggap wajar.
+    </language2>
+  </chunk>
+
+  <chunk number="24">
+    <language1>
+      27.
+      CONNECTED PARTIES
+      To enable the Owner to comply with the Financial Services Act 2013 (“FSA”) and the BNM Guidelines on Credit Transactions and Exposures with Connected Parties (“Guidelines”), the Hirer shall declare to the Owner whether the Hirer is a connected party under the Guidelines, which includes but is not limited to a spouse, child, parent or financial dependant of the Owner’s Director, Executive Officer or credit-approving/appraising/reviewing officer or in the case of a corporate/business customer, includes an entity controlled by such abovementioned persons of the Owner’s. If at any time the Hirer becomes a connected person, the Hirer must notify the Owner immediately. Owner reserves the right to terminate this Agreement in the event the Hirer fails to make the appropriate or correct declaration resulting in the Owner contravening the FSA or the said Guidelines.
+      28.
+      ENTIRE AGREEMENT
+      This Agreement comprises Parts I to V, these Terms and Conditions and the attached Appendix, as may be varied and/or supplemented by mutual written agreement of the parties, all of which shall be read and construed as a single integrated document.
+      29.
+      MINIMUM PRISCRIBED RATE
+      The minimum Prescribed Rate applicable to the facility where the terms charges are at a variable rate shall be not less than 1.70% per annum, calculated on monthly rests or shall be at such other minimum rate as may be prescribed by the Owner time to time with notice to the Hirer.
+    </language1>
+    <language2>
+      27.
+      PIHAK-PIHAK YANG ADA HUBUNGAN
+      Supaya Pemunya dapat mematuhi Akta Perkhidmatan Kewangan 2013 (“FSA”) dan Garis Panduan BNM mengenai Transaksi Kredit dan Pendedahan dengan Pihak-pihak Yang Ada Hubungan (“Garis Panduan”), Penyewa hendaklah membuat akuan kepada Pemunya sama ada Penyewa adalah pihak yang ada hubungan menurut Garis Panduan, yang termasuk tetapi tidak terhad kepada pasangan, anak, ibu/bapa atau tanggungan kewangan Pengarah, Pegawai Eksekutif atau pegawai pelulus/penaksir/penyemak kredit Pemunya atau bagi pelanggan korporat/perniagaan, termasuk entiti yang dikuasai orang tersebut tadi bagi Pemunya. Jika pada bila-bila masa Penyewa menjadi orang yang ada hubungan, maka Penyewa mestilah memberitahu Pemunya dengan serta-merta. Pemunya berhak menamatkan Perjanjian ini sekiranya Penyewa gagal membuat akuan yang wajar atau betul sehingga mengakibatkan Pemunya melanggar FSA atau Garis Panduan tersebut.
+      28.
+      PERJANJIAN KESELURUHAN
+      Perjanjian ini merangkumi Bahagian-bahagian 1 hingga V, Terma dan Syarat ini dan Lampiran, yang boleh dipinda dan/atau ditambah melalui perjanjian bertulis bersama, kesemuanya hendaklah dibaca dan ditafsirkan sebagai satudokumen bersepadu.
+      29.
+      KADAR DITETAPKAN MINIMUM
+      Kadar Ditetapkan minimum yang dikenakan kepada kemudahan pembiayaan yang caj termanya mengikut kadar berubah adalah tidak kurang daripada 1.70% setahun dikira atas kadar bulanan atau hendaklah pada kadar minimum lain yang ditetapkan oleh Pemunya dari semasa ke semasa.dengan memberi notis kepada Penyewa.
+    </language2>
+  </chunk>
+
+  <chunk number="25">
+    <language1>
+      30.
+      APPOINTMENT OF AGENT
+      In amplification and not in derogation of the Owner’s rights under this Agreement, the Owner shall have the right to appoint an agent of its choice to collect all and any sums due to the Owner from the Hirer under this Agreement provided always a seven (7) days prior written notice is delivered to the Hirer in the manner prescribed in Clause 15 herein.
+      31.
+      SECOND-HAND GOODS DECLARATIONS & INDEMNITY
+      Where the Goods in Part II of the Agreement are stated to be Second-Hand, all conditions and warranties as to quality and as to fitness and suitability are expressly negatived and the Hirer hereby acknowledge that the statement that the goods are Second-Hand and that such conditions and warranties are expressly negative have been brought to its notice.
+      32.
+      APPLICABLE LAW / SUBMISSION TO THE JURISDICTION
+      This Agreement shall be governed by the laws of Malaysia and the Hirer hereby agrees to submit to the non-exclusive jurisdiction of the Courts of Malaysia and to waive any objection on the grounds of venue or that the forum where the dispute is heard is not a convenient forum or similar grounds.
+    </language1>
+    <language2>
+      30.
+      PELANTIKAN EJEN
+      Sebagai menambahkan dan tidak mengurangkan hak-hak Pemunya di sisi Perjanjian ini, Pemunya adalah berhak melantik ejen pilihannya untuk mengutip kesemua dan apa-apa jumlah wang yang perlu dibayar kepada Pemunya oleh Penyewa menurut Perjanjian ini, dengan syarat notis awal tujuh (7) hari secara bertulis diserahkan kepada Penyewa mengikut cara yang dinyatakan dalam fasal 15.
+      31.
+      AKUAN & INDEMNITI BARANGAN TERPAKAI
+      Jika Barangan dalam Bahagian II Lampiran disebut Terpakai, semua syarat dan waranti kualiti, kelayakan dan kesesuaian nyata negatif, dan Penyewa dengan ini mengaku pernyataan yang menyebut barangan itu terpakai dan syarat dan waranti yang nyata negatif itu telah dibawa kepada pengetahuannya.
+      32.
+      UNDANG-UNDANG TERPAKAI /AKUR KEPADA BIDANG KUASA
+      Perjanjian ini adalah tertakluk kepada undang-undang Malaysia dan Penyewa dengan ini bersetuju untuk akur kepada bidang kuasa tidak eksklusif Mahkamah-mahkamah Malaysia dan menepikan sebarang bantahan atas alasan tempat langsungnya ataupun forum tempat hendak diperdengarkan itu bukannya forum yang sesuai atau alasan yang serupa.
+    </language2>
+  </chunk>
+
+  <chunk number="26">
+    <language1>
+      33.
+      ANTI-BRIBERY, ANTI-CORRUPTION AND WHISTLEBLOWING UNDERTAKINGS
+      (a)
+      For the purposes of this Clause 33, the following terms and expressions shall have the meanings specified below:
+      “ABC Policy” means the HLBG Anti-Bribery and Corruption Policy which is available at the website of Hong Leong Bank Berhad or Hong Leong Islamic Bank Berhad.
+      “Anti-Bribery Laws” means the Malaysian Anti-Corruption Commission Act 2009 as amended from time to time, and the rules and regulations issued thereunder, and any other applicable laws, statutes, regulations, rules and orders that relates to bribery or corruption.
+      “HLBG” means Hong Leong Bank Berhad and/or its subsidiaries.
+      “HLBB/HLISB Whistleblowing Policy” means The HLBG Whistleblowing Policy which is available at the website of Hong Leong Bank Berhad or Hong Leong Islamic Bank Berhad.
+      (b)
+      The Hirer hereby acknowledges that the Owner practices a zero-tolerance position towards any form of bribery and corruption in line with its ABC Policy.
+      (c)
+      In the event the Hirer is in non-compliance with or has breached the Owner’s ABC Policy and/or Anti-Bribery Laws, the Owner shall be entitled to terminate this Agreement without prejudice to any other rights or remedies of the Owner under this Agreement or any applicable law.
+      (d)
+      The Hirer hereby acknowledges and undertakes as follows:
+      (i) that the Hirer has read and understood the ABC Policy;
+      (ii) to immediately notify the Owner of any non-compliance or attempted non-compliance with the ABC Policy and/or Anti-Bribery Laws and/or any concerns about any improper conduct or wrongful act that may adversely affect the Owner. The Hirer may also report the same confidentially through the Owner’s whistleblowing channel as set out in the Whistleblowing Policy.
+      Note : If you have any enquiries regarding the terms and conditions and/or require a copy of the Bahasa Malaysia version, you may seek clarification from our staff who attended to you. Alternatively, please email us at hlonline@hlbb.hongleong.com.my or call 03-76268899
+    </language1>
+    <language2>
+      33.
+      PENCEGAHAN SOGOKAN, PENCEGAHAN RASUAH DAN AKU JANJI PEMBERIAN MAKLUMAT
+      (a)
+      Untuk tujuan Klausa 33 ini, istilah dan ungkapan berikut mempunyai maksud yang dinyatakan di bawah:
+      “Dasar ABC” bermakna Dasar Pencegahan Sogokan dan Rasuah HLBG yang boleh dibaca di laman sesawang Hong Leong Bank Berhad atau Hong Leong Islamic Bandk Berhad.
+      “Undang-undang Pencegahan Sogokan” bermakna Akta Suruhanjaya Pencegahan Rasuah Malaysia 2009 seperti dipinda dari semasa ke semasa, dan aturan dan peraturan yang diterbitkan di bawahnya, dan mana-mana undang-undang, statut, peraturan, aturan dan perintah yang berkait dengan penyogokan atau rasuah.
+      “HLBG”secara kolektif bermaksud Hong Leong Bank Berhad (“HLBB”) dan/atau anak syarikat HLBB.
+      “Dasar Pemberi Maklumat HLBB/HLISB” bermakna Polisi Pendedahan Maklumat HLBG yang boleh didapati di laman web HLB atau HLISB.
+      (b)
+      Penyewa dengan ini mengakui bahawa Pemunya mengamalkan sikap toleransi sifar terhadap sebarang bentuk sogokan dan rasuah selaras dengan Dasar ABCnya
+      (c)
+      Sekiranya Penyewa tidak mematuhi atau telah melanggar Polisi ABC Pemunya dan/atau Undang-undang Anti-Rasuah, Pemunya berhak untuk menamatkan Perjanjian ini tanpa menjejaskan sebarang hak atau remedi lain Pemunya di bawah Perjanjian ini atau mana-mana undang-undang yang terpakai.
+      (d)
+      Penyewa dengan ini mengaku dan mengaku janji seperti berikut:
+      (i) bahawa Penyewa telah membaca dan memahami Dasar ABC;
+      (ii) untuk segera memaklumkan kepada Pemunya tentang sebarang ketidakpatuhan atau percubaan ketidakpatuhan terhadap Dasar ABC dan/atau Undang-undang Anti-Rasuah dan/atau sebarang kebimbangan mengenai sebarang kelakuan tidak wajar atau kesalahan yang boleh menjejaskan Pemunya. Penyewa juga boleh melaporkan perkara yang sama secara sulit melalui saluran pemberi maklumat Pemunya seperti yang dinyatakan dalam Dasar Pemberian Maklumat.
+      Sekiranya anda mempunyai sebarang pertanyaan mengenai terma dan syarat dan/atau memerlukan Salinan terma dan syarat dalam versi Bahasa Inggeris, anda boleh mendapatkan penjelasan daripada kaitangan kami yang membantu anda. Sebagai alternatif, sila e-mel kami di hlonline@hlbb.hongleong.com.my atau hubungi 03- 76268899.
+    </language2>
+  </chunk>
+</chunked_documents>

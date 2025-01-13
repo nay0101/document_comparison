@@ -41,12 +41,12 @@ if clear_btn:
     # session_state.chat_id = uuid4()
     # session_state.result = None
     document_processor = DocumentProcessor()
-    result = document_processor.extract_text_with_page_number(
+    result = document_processor.extract_filtered_content(
         pdf_bytes=session_state.doc1.getvalue()
     )
     # for data in result:
     #     print(data["data"][0])
-    with open("./test.txt", "w") as file:
+    with open("./test2.txt", "w") as file:
         file.write(result)
 
 
