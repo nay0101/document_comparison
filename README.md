@@ -2,6 +2,9 @@
 
 ## Set Up
 
+### Install GTK
+* https://www.gtk.org/
+
 ### Create Virtual Environment
 ```
 python -m venv venv
