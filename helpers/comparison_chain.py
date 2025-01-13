@@ -509,14 +509,14 @@ Please follow these steps to complete your analysis:
   - Outdated information: Data or statements that are no longer relevant or accurate
   - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
   - Major deviations from the English version: Any substantial differences from Document 1
-  - Numbering Difference: The same content is listed under different point numbers
+  - Structural Difference: The same content is labelled in different enumeration labels [like (a)(b)(c) or 1, 2, 3] 
 5. For each flag, include:
   - A list of applicable difference types (from the list above)
   - The relevant content from both documents, including the page number
   - An explanation of the difference, highlighting the main issues
 6. You can flag same sentences or paragraphs more than once.
 7. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
-8. If there is no major discrepancy, don't make up one.
+8. If there is no major discrepancy, just reponse with an empty list. Don't explain that there is no discrepancy. 
 
 After your comparison, format your response as a JSON object with the following structure:
 
