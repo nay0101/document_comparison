@@ -125,23 +125,34 @@ class DocumentProcessor:
             final_doc += text.strip()
         return final_doc
 
-    def clean_xml(self, text: str) -> str:
-        return re.sub(
-            "(<[^>]*>)|([^<>]+)",
-            lambda m: m.group(1)
-            or escape(m.group(2)).replace("]]>", "]]&gt;").replace("--", "&#45;&#45;"),
-            text,
-        )
+    def clean_xml_format(self, text: str) -> str:
+        valid_tags = [
+            "chunk",
+            "language1",
+            "language2",
+            "chunked_documents",
+        ]
 
-    def clean_chunk_response(self, text: str) -> str:
-        text = text.strip()
-        if text.startswith("```xml"):
-            text = text[7:]
-        elif text.startswith("```"):
-            text = text[3:]
-        if text.endswith("```"):
-            text = text[:-3]
+        def replace_match(m):
+            if m.group(1):  # It's a tag
+                tag_name = re.match(r"</?([a-zA-Z0-9_]+)", m.group(1))
+                if (
+                    tag_name and tag_name.group(1) in valid_tags
+                ):  # Check if it's a valid tag
+                    return m.group(1)  # Keep valid tags unchanged
+                else:
+                    return re.sub(
+                        r"[<>]",
+                        lambda x: "&lt;" if x.group(0) == "<" else "&gt;",
+                        m.group(1),
+                    )  # Escape invalid tags
+            return (
+                escape(m.group(2)).replace("]]>", "]]&gt;").replace("--", "&#45;&#45;")
+            )  # Handle regular text
 
+        return re.sub(r"(</?[a-zA-Z0-9_][^>]*>)|([^<>]+)", replace_match, text)
+
+    def reformat_chunk_boundary(self, text: str) -> str:
         opening = "<chunked_documents>"
         closing = "</chunked_documents>"
 
@@ -149,16 +160,17 @@ class DocumentProcessor:
         text = text.replace(opening, "")
         text = text.replace(closing, "")
         text = f"{opening}\n{text}\n{closing}"
+
         return text
 
-    def clean_compare_response(self, text: str) -> str:
-        text = text.strip()
-        if text.startswith("```json"):
-            text = text[8:]
-        elif text.startswith("```"):
-            text = text[3:]
+    def remove_code_fences(self, text: str) -> str:
+        if text.startswith("```"):
+            newline_pos = text.find("\n")
+            text = text[newline_pos + 1 :]
+
         if text.endswith("```"):
             text = text[:-3]
+
         return text
 
     def get_last_chunk(self, text: str) -> str:

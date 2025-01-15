@@ -6,4 +6,5 @@ LLM_MAPPING = {
     "claude-3-5-sonnet-latest": "anthropic",
     "claude-3-5-haiku-latest": "anthropic",
     "gemini-2.0-flash-exp": "google",
+    "gemini-1.5-pro": "google",
 }

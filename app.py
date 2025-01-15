@@ -1,6 +1,8 @@
 import streamlit as st
 from streamlit import session_state
 from helpers.comparison_chain import ComparisonChain
+
+# from helpers.reports import MarkdownPDFConverter
 from helpers.reports import MarkdownPDFConverter
 from time import perf_counter
 from uuid import uuid4
@@ -9,7 +11,7 @@ st.title("Document Comparer")
 
 session_state.default_chat_model = "gpt-4o"
 
-chat_model_list = ["gpt-4o", "gemini-2.0-flash-exp"]
+chat_model_list = ["gpt-4o", "gemini-2.0-flash-exp", "gemini-1.5-pro"]
 
 
 col1, col2 = st.columns(2)
@@ -88,15 +90,20 @@ with st.sidebar:
     )
 
     st.text_input(label="Report File Name", key="report_file_name", value="test")
-    print_btn = st.button(label="Generate Report")
-    if print_btn:
+    # print_btn = st.button(label="Generate Report")
+    if session_state.result:
         report_generator = MarkdownPDFConverter()
-        report_generator.generate_report(
+        report = report_generator.generate_report(
             chat_model_name=session_state.chat_model,
             chat_id=session_state.chat_id,
             result=session_state.result,
             time_taken=session_state.time_taken,
-            path=f"./reports/{session_state.report_file_name}.pdf",
             file1_name=session_state.doc1.name,
             file2_name=session_state.doc2.name,
+        )
+        st.download_button(
+            "Download Report",
+            data=report,
+            file_name=f"{session_state.report_file_name}.pdf",
+            mime="application/pdf",
         )
