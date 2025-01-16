@@ -1,11 +1,8 @@
 from langchain_openai import ChatOpenAI
 from langchain_anthropic import ChatAnthropic
 from langchain_google_genai import ChatGoogleGenerativeAI
-from dotenv import load_dotenv
 from .types import Model, Engine
 from .llm_mappings import LLM_MAPPING
-
-load_dotenv()
 
 
 def get_llm(model: Model) -> ChatAnthropic | ChatOpenAI:

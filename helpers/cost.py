@@ -1,9 +1,6 @@
 from langfuse import Langfuse
 from typing import Optional
 import datetime as dt
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 def get_total_cost(

@@ -1,20 +1,16 @@
 import streamlit as st
 from streamlit import session_state
 from helpers.comparison_chain import ComparisonChain
-
-# from helpers.reports import MarkdownPDFConverter
 from helpers.reports import MarkdownPDFConverter
 from time import perf_counter
 from uuid import uuid4
+import os
+from dotenv import load_dotenv
 
-st.title("Document Comparer")
+load_dotenv()
 
 session_state.default_chat_model = "gpt-4o"
-
 chat_model_list = ["gpt-4o", "gemini-2.0-flash-exp", "gemini-1.5-pro"]
-
-
-col1, col2 = st.columns(2)
 
 if "result" not in session_state:
     session_state.result = None
@@ -22,18 +18,20 @@ if "result" not in session_state:
 if "chat_id" not in session_state:
     session_state.chat_id = uuid4()
 
+if "chat_model" not in session_state:
+    session_state.chat_model = session_state.default_chat_model
+
+
+st.header("Multilingual Document Comparison")
+st.caption(f"Session ID: {session_state.chat_id}")
+st.divider()
+col1, col2 = st.columns(2)
 with col1:
     st.file_uploader(label="Upload First Document", type=["pdf"], key="doc1")
 with col2:
     st.file_uploader(label="Upload Second Document", type=["pdf"], key="doc2")
 
 compare_btn = st.button(label="Compare", type="secondary")
-clear_btn = st.button(label="Clear", type="primary")
-
-
-if clear_btn:
-    session_state.chat_id = uuid4()
-    session_state.result = None
 
 if compare_btn:
     chain = ComparisonChain(chat_model_name=session_state.chat_model)
@@ -44,8 +42,16 @@ if compare_btn:
     result = chain.invoke_chain(
         doc1_file_bytes=doc1,
         doc2_file_bytes=doc2,
-        xml_file_path=f"./chunks/{session_state.chunks_file_name}.xml",
-        use_existing_file=session_state.use_existing_chunks_file,
+        xml_file_path=(
+            f"./chunks/{session_state.chunks_file_name}.xml"
+            if os.getenv("ENVIRONMENT") == "development"
+            else None
+        ),
+        use_existing_file=(
+            session_state.use_existing_chunks_file
+            if os.getenv("ENVIRONMENT") == "development"
+            else False
+        ),
         chat_id=session_state.chat_id,
     )
     session_state.result = result
@@ -53,57 +59,61 @@ if compare_btn:
 
 if session_state.result:
     final_result_json = session_state.result
-    with st.container(border=True):
-        st.title("Summary")
-        st.markdown(f'Discrepancies found: {len(final_result_json["flags"])}')
+    with st.container():
+        st.header(f'Discrepancies found: {len(final_result_json["flags"])}')
 
     if len(final_result_json) > 0:
-        with st.container(border=True):
-            st.title("Discrepancies")
+        with st.container():
             for flag in final_result_json["flags"]:
                 with st.container(border=True):
-                    st.title(", ".join(flag["types"]))
+                    st.markdown(
+                        f'<b style="font-size: 3rem;">{", ".join(flag["types"])}</b>',
+                        True,
+                    )
                     col1, col2 = st.columns(2)
                     with col1:
                         doc1 = flag["doc1"]
-                        st.markdown("<b style='font-size: 25px'>Document 1</b>", True)
-                        # st.markdown(f'Page: {doc1["page"]}', True)
+                        st.markdown(
+                            "<b style='font-size: 1.5rem;'>Document 1</b>", True
+                        )
                         st.markdown(doc1["content"], True)
                     with col2:
                         doc2 = flag["doc2"]
-                        st.markdown("<b style='font-size: 25px'>Document 2</b>", True)
-                        # st.markdown(f'Page: {doc2["page"]}', True)
+                        st.markdown(
+                            "<b style='font-size: 1.5rem;'>Document 2</b>", True
+                        )
                         st.markdown(doc2["content"], True)
                     st.markdown(flag["explanation"], True)
 
-with st.sidebar:
-    st.text(f"Chat ID: {session_state.chat_id}")
-    st.selectbox(
-        label="Chat Models",
-        options=chat_model_list,
-        index=chat_model_list.index(session_state.default_chat_model),
-        key="chat_model",
+    report_generator = MarkdownPDFConverter()
+    report = report_generator.generate_report(
+        chat_model_name=session_state.chat_model,
+        chat_id=session_state.chat_id,
+        result=session_state.result,
+        time_taken=session_state.time_taken,
+        file1_name=session_state.doc1.name,
+        file2_name=session_state.doc2.name,
     )
-    st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
-    st.checkbox(
-        label="Use Existing Chunks File", key="use_existing_chunks_file", value=False
+    st.download_button(
+        "Download Report",
+        data=report,
+        file_name=f"report.pdf",
+        mime="application/pdf",
     )
 
-    st.text_input(label="Report File Name", key="report_file_name", value="test")
-    # print_btn = st.button(label="Generate Report")
-    if session_state.result:
-        report_generator = MarkdownPDFConverter()
-        report = report_generator.generate_report(
-            chat_model_name=session_state.chat_model,
-            chat_id=session_state.chat_id,
-            result=session_state.result,
-            time_taken=session_state.time_taken,
-            file1_name=session_state.doc1.name,
-            file2_name=session_state.doc2.name,
+if os.getenv("ENVIRONMENT") == "development":
+    with st.sidebar:
+        st.selectbox(
+            label="Chat Models",
+            options=chat_model_list,
+            index=chat_model_list.index(session_state.default_chat_model),
+            key="chat_model",
         )
-        st.download_button(
-            "Download Report",
-            data=report,
-            file_name=f"{session_state.report_file_name}.pdf",
-            mime="application/pdf",
+        st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
+        st.checkbox(
+            label="Use Existing Chunks File",
+            key="use_existing_chunks_file",
+            value=False,
         )
+
+        st.text_input(label="Report File Name", key="report_file_name", value="test")

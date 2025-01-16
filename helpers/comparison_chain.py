@@ -1,4 +1,3 @@
-from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import Runnable, RunnableLambda, RunnablePassthrough
@@ -12,8 +11,10 @@ import xmltodict
 import json
 from operator import itemgetter
 from helpers.llm_mappings import LLM_MAPPING
+import streamlit as st
+import os
 
-load_dotenv()
+environment = os.getenv("ENVIRONMENT")
 
 
 class ComparisonChain:
@@ -30,14 +31,16 @@ class ComparisonChain:
             pdf_bytes=BytesIO(doc_file_bytes)
         )
 
-    def _load_xml_file(self, xml_file_path: str) -> List[str]:
-        xml_string = ""
-        with open(f"./{xml_file_path}", "r") as file:
-            xml_string = file.read()
+    def _load_xml_file(
+        self, xml_file_path: Optional[str] = None, xml_string: Optional[str] = None
+    ) -> List[str]:
+        if xml_string is None:
+            with open(f"./{xml_file_path}", "r") as file:
+                xml_string = file.read()
 
-        xml_string = self.document_processor.clean_xml_format(xml_string)
+        clean_xml_string = self.document_processor.clean_xml_format(xml_string)
 
-        data = xmltodict.parse(xml_string)
+        data = xmltodict.parse(clean_xml_string)
         chunks = data["chunked_documents"]["chunk"]
 
         chunk_list = []
@@ -62,7 +65,6 @@ class ComparisonChain:
         use_existing_file: bool = False,
     ) -> List[str]:
         if not use_existing_file:
-            print("Chunking...")
             instruction = """
               You are a skilled document analyst specializing in multilingual content alignment. Your task is to chunk two documents in different languages while maintaining content alignment between chunks. Here are the documents and relevant information:
 
@@ -241,15 +243,23 @@ class ComparisonChain:
 
                     chunks = recursive_chain.stream({"doc1": doc1, "doc2": doc2})
                     result = ""
-                    with open(f"./chunks/iteration_{iteration}.txt", "w") as file:
-                        file.write("")
+
+                    if environment == "development":
+                        with open(
+                            f"./chunks/iteration_{iteration}.txt", "w", encoding="utf-8"
+                        ) as file:
+                            file.write("")
+
                     for chunk in chunks:
                         result += chunk
-                        if "llm_result" in chunk:
-                            with open(
-                                f"./chunks/iteration_{iteration}.txt", "a"
-                            ) as file:
-                                file.write(chunk["llm_result"].content)
+                        if environment == "development":
+                            if "llm_result" in chunk:
+                                with open(
+                                    f"./chunks/iteration_{iteration}.txt",
+                                    "a",
+                                    encoding="utf-8",
+                                ) as file:
+                                    file.write(chunk["llm_result"].content)
 
                     return check_token_limit(result, accumulated_responses, iteration)
 
@@ -266,33 +276,43 @@ class ComparisonChain:
             result_chunks = chunking_chain.stream({"doc1": doc1, "doc2": doc2})
 
             result = ""
-            with open(f"./chunks/iteration_0.txt", "w") as file:
-                file.write("")
+            if environment == "development":
+                with open(f"./chunks/iteration_0.txt", "w", encoding="utf-8") as file:
+                    file.write("")
             for chunk in result_chunks:
                 result += chunk
-                if "llm_result" in chunk:
-                    with open(f"./chunks/iteration_0.txt", "a") as file:
-                        file.write(chunk["llm_result"].content)
+                if environment == "development":
+                    if "llm_result" in chunk:
+                        with open(
+                            f"./chunks/iteration_0.txt", "a", encoding="utf-8"
+                        ) as file:
+                            file.write(chunk["llm_result"].content)
 
             final_result = recursive_chain(result)
             final_result = self.document_processor.reformat_chunk_boundary(final_result)
 
-            with open(f"./{xml_file_path}", "w") as file:
-                file.write(final_result)
+            if environment == "development":
+                with open(xml_file_path, "w", encoding="utf-8") as file:
+                    file.write(final_result)
 
-        chunks = self._load_xml_file(f"./{xml_file_path}")
+        if use_existing_file:
+            with open(f"./{xml_file_path}", "r") as file:
+                final_result = file.read()
+        chunks = self._load_xml_file(xml_string=final_result)
 
         return chunks
 
     def chunk_documents(self, _input: Dict) -> List[str]:
-        return self._chunk_documents(
-            doc1=_input["doc1"],
-            doc2=_input["doc2"],
-            xml_file_path=_input["xml_file_path"],
-            use_existing_file=_input["use_existing_file"],
-        )
+        with st.spinner("Processing Documents"):
+            result = self._chunk_documents(
+                doc1=_input["doc1"],
+                doc2=_input["doc2"],
+                xml_file_path=_input["xml_file_path"],
+                use_existing_file=_input["use_existing_file"],
+            )
+        return result
 
-    def _processor_chain(self) -> Runnable:
+    def _comparison_chain(self) -> Runnable:
         """Compares two documents"""
 
         # system_prompt = """
@@ -684,14 +704,16 @@ class ComparisonChain:
             flags = []
             loop_chain = prompt | self.chat_model | StrOutputParser()
 
-            for index, chunk in enumerate(chunks):
-                print(f"Comparing Chunk: {index + 1}")
-                response = loop_chain.invoke(
-                    {"doc1": chunk["doc1"], "doc2": chunk["doc2"]}
-                )
-                response = self.document_processor.remove_code_fences(response)
-                flags.append(json.loads(response)["flags"])
-
+            with st.spinner("Comparing Documents"):
+                progress_bar = st.progress(0)
+                for index, chunk in enumerate(chunks):
+                    progress_bar.progress((index + 1) / len(chunks))
+                    response = loop_chain.invoke(
+                        {"doc1": chunk["doc1"], "doc2": chunk["doc2"]}
+                    )
+                    response = self.document_processor.remove_code_fences(response)
+                    flags.append(json.loads(response)["flags"])
+                progress_bar.empty()
             return {"flags": sum(flags, [])}
 
         processor_chain = RunnableLambda(self.chunk_documents) | (
@@ -704,13 +726,13 @@ class ComparisonChain:
         self,
         doc1_file_bytes: Union[BytesIO, bytes],
         doc2_file_bytes: Union[BytesIO, bytes],
-        xml_file_path: str,
+        xml_file_path: Optional[str] = None,
         use_existing_file: bool = False,
-        chat_id: str = None,
+        chat_id: Optional[str] = None,
     ) -> Dict:
         doc1 = self._process_document(doc1_file_bytes)
         doc2 = self._process_document(doc2_file_bytes)
-        final_chain = self._processor_chain()
+        final_chain = self._comparison_chain()
         result = final_chain.invoke(
             {
                 "doc1": doc1,
