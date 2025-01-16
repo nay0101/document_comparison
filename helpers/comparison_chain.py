@@ -35,11 +35,8 @@ class ComparisonChain:
         with open(f"./{xml_file_path}", "r") as file:
             xml_string = file.read()
 
-        print("Before")
-        print(xml_string)
         xml_string = self.document_processor.clean_xml_format(xml_string)
-        print("After")
-        print(xml_string)
+
         data = xmltodict.parse(xml_string)
         chunks = data["chunked_documents"]["chunk"]
 
