@@ -21,7 +21,6 @@ if "chat_id" not in session_state:
 if "chat_model" not in session_state:
     session_state.chat_model = session_state.default_chat_model
 
-
 st.header("Multilingual Document Comparison")
 st.caption(f"Session ID: {session_state.chat_id}")
 st.divider()
@@ -30,6 +29,9 @@ with col1:
     st.file_uploader(label="Upload First Document", type=["pdf"], key="doc1")
 with col2:
     st.file_uploader(label="Upload Second Document", type=["pdf"], key="doc2")
+
+if session_state.doc1 is None or session_state.doc2 is None:
+    session_state.result = None
 
 compare_btn = st.button(label="Compare", type="secondary")
 
