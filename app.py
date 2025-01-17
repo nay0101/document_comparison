@@ -103,19 +103,17 @@ if session_state.result:
         mime="application/pdf",
     )
 
-if os.getenv("ENVIRONMENT") == "development":
-    with st.sidebar:
-        st.selectbox(
-            label="Chat Models",
-            options=chat_model_list,
-            index=chat_model_list.index(session_state.default_chat_model),
-            key="chat_model",
-        )
+with st.sidebar:
+    st.selectbox(
+        label="Chat Models",
+        options=chat_model_list,
+        index=chat_model_list.index(session_state.default_chat_model),
+        key="chat_model",
+    )
+    if os.getenv("ENVIRONMENT") == "development":
         st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
         st.checkbox(
             label="Use Existing Chunks File",
             key="use_existing_chunks_file",
             value=False,
         )
-
-        st.text_input(label="Report File Name", key="report_file_name", value="test")

@@ -503,197 +503,308 @@ class ComparisonChain:
 
         # Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
         #         """
-        match LLM_MAPPING.get(self.chat_model_name, None):
-            case "openai":
-                system_prompt = """
-              You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
+        #         match LLM_MAPPING.get(self.chat_model_name, None):
+        #             case "openai":
+        #                 system_prompt = """
+        #               You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
 
-              Here are the two documents you need to compare:
+        #               Here are the two documents you need to compare:
 
-              <document1>
-              {doc1}
-              </document1>
+        #               <document1>
+        #               {doc1}
+        #               </document1>
 
-              ## END OF DOCUMENT 1 ##
+        #               ## END OF DOCUMENT 1 ##
 
-              <document2>
-              {doc2}
-              </document2>
+        #               <document2>
+        #               {doc2}
+        #               </document2>
 
-              ## END OF DOCUMENT 2 ##
+        #               ## END OF DOCUMENT 2 ##
 
-              Please follow these steps to complete your analysis:
+        #               Please follow these steps to complete your analysis:
 
-              1. Carefully read and compare both documents until you reach the ## END OF DOCUMENT ## line by line, paragraph by paragraph.
-              2. Ensure that every part of both documents is given equal attention, from the beginning to the end.
-              3. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content.
-              4. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
-                - Inaccurate disclosure: Information that is incorrectly stated or translated
-                - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
-                - Outdated information: Data or statements that are no longer relevant or accurate
-                - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
-                - Major deviations from the English version: Any substantial differences from Document 1
-                - Structural Difference: The same content is labelled in different enumeration labels [like (a)(b)(c) or 1, 2, 3]
-              5. For each flag, include:
-                - A list of applicable difference types (from the list above)
-                - The relevant content from both documents, including the page number
-                - An explanation of the difference, highlighting the main issues
-              6. You can flag same sentences or paragraphs more than once.
-              7. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
-              8. If there is no major discrepancy, just reponse with an empty list. Don't explain that there is no discrepancy.
+        #               1. Carefully read and compare both documents until you reach the ## END OF DOCUMENT ## line by line, paragraph by paragraph.
+        #               2. Ensure that every part of both documents is given equal attention, from the beginning to the end.
+        #               3. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content.
+        #               4. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
+        #                 - Inaccurate disclosure: Information that is incorrectly stated or translated
+        #                 - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
+        #                 - Outdated information: Data or statements that are no longer relevant or accurate
+        #                 - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
+        #                 - Major deviations from the English version: Any substantial differences from Document 1
+        #                 - Structural Difference: The same content is labelled in different enumeration labels [like (a)(b)(c) or 1, 2, 3]
+        #               5. For each flag, include:
+        #                 - A list of applicable difference types (from the list above)
+        #                 - The relevant content from both documents, including the page number
+        #                 - An explanation of the difference, highlighting the main issues
+        #               6. You can flag same sentences or paragraphs more than once.
+        #               7. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
+        #               8. If there is no major discrepancy, just reponse with an empty list. Don't explain that there is no discrepancy.
 
-              After your comparison, format your response as a JSON object with the following structure:
+        #               After your comparison, format your response as a JSON object with the following structure:
 
-              {{
-                "flags": [
-                  {{
-                    "types": ["List of applicable difference types"],
-                    "doc1": {{
-                      "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
-                    }},
-                    "doc2": {{
-                      "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
-                    }},
-                    "explanation": "Detailed explanation of the difference"
-                  }}
-                ]
-              }}
+        #               {{
+        #                 "flags": [
+        #                   {{
+        #                     "types": ["List of applicable difference types"],
+        #                     "doc1": {{
+        #                       "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
+        #                     }},
+        #                     "doc2": {{
+        #                       "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
+        #                     }},
+        #                     "explanation": "Detailed explanation of the difference"
+        #                   }}
+        #                 ]
+        #               }}
 
-              If no major discrepancies are found, your JSON response should be:
+        #               If no major discrepancies are found, your JSON response should be:
 
-              {{
-                "flags": []
-              }}
+        #               {{
+        #                 "flags": []
+        #               }}
 
-              Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
-                      """
-            case "google":
-                system_prompt = """
-        You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
+        #               Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
+        #                       """
+        #             case "google":
+        #                 system_prompt = """
+        #         ### Context ###
+        # You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents and identify **only major discrepancies** that could significantly alter the meaning, interpretation, or usability of the content.
 
-        Here are the two documents you need to compare:
+        # Here are the two documents you need to compare:
 
-        <document1>
-        {doc1}
-        </document1>
+        # <Document1>
+        # {doc1}
+        # </Document1>
 
-        ## END OF DOCUMENT 1 ##
+        # ## END OF DOCUMENT 1 ##
 
-        <document2>
-        {doc2}
-        </document2>
+        # <Document2>
+        # {doc2}
+        # </Document2>
 
-        ## END OF DOCUMENT 2 ##
+        # ## END OF DOCUMENT 2 ##
 
-        Please follow these steps to complete your analysis:
+        # ### Instructions for Analysis ###
+        # Please follow these steps to complete your analysis:
 
-        1. Carefully read and compare both documents until you reach the ## END OF DOCUMENT ## line by line, paragraph by paragraph.
-        2. Ensure that every part of both documents is given equal attention, from the beginning to the end.
-        3. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content. Ignore minor variations in wording or slight differences that don't impact the overall message.
-        4. Don't point out the language difference and seemingly minor differences.
-        5. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
-          - Inaccurate disclosure: Information that is entirely incorrect, not slight differences
-          - Outdated information: Data or statements that are no longer relevant or accurate
-          - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
-          - Major deviations from the English version: Any substantial differences from Document 1
-          - Structural Difference: The same content is labelled in different enumeration labels [like (a)(b)(c) or 1, 2, 3]
-        6. For each flag, include:
-          - A list of applicable difference types (from the list above)
-          - The relevant content from both documents, including the page number
-          - An explanation of the difference, highlighting the main issues
-        7. You can flag same sentences or paragraphs more than once.
-        8. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
-        9. If there is no major discrepancy, just reponse with an empty list. Don't explain that there is no discrepancy.
+        # 1. Compare both documents carefully until the ## END OF DOCUMENT ## markers, line by line, paragraph by paragraph.
+        # 2. Identify only the major discrepancies between the documents. Focus on significant discrepancies that change the meaning, interpretation, or intent of the content. Avoid highlighting minor wording, phrasing variations or slight differences that do not substantially impact the overall message.
+        # 3. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
+        #    - **Inaccurate disclosure:** Information incorrectly stated or mistranslated.
+        #    - **Misleading content:** Statements or omissions that could cause misunderstanding or misrepresentation.
+        #    - **Missing content:** Significant sections or details in one document but absent in the other.
+        #    - **Outdated information:** Data or statements no longer accurate or relevant.
+        #    - **Major deviations from Document 1:** Substantial differences in meaning or critical information.
+        # 4. For each flag, include:
+        #   - A list of applicable difference types (from the list above)
+        #   - The relevant content from both documents, including the page number
+        #   - An explanation of the difference, highlighting the main issues
+        # 5. You can flag same sentences or paragraphs more than once.
+        # 6. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
+        # 7. **Ignore minor differences** that do not impact the meaning or intent, such as:
+        #    - Slight variations in wording or phrasing.
+        #    - Minor grammatical or stylistic changes.
+        #    - Differences in formatting or punctuation.
 
-        After your comparison, format your response as a JSON object with the following structure:
+        # ### Output Format ###
+        # After your comparison, provide your analysis in a JSON object using the structure below:
 
-        {{
-          "flags": [
-            {{
-              "types": ["List of applicable difference types"],
-              "doc1": {{
-                "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
-              }},
-              "doc2": {{
-                "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
-              }},
-              "explanation": "Brief explanation of the difference"
-            }}
-          ]
-        }}
+        # {{
+        #   "flags": [
+        #     {{
+        #       "types": ["List of applicable difference types"],
+        #       "doc1": {{
+        #         "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
+        #       }},
+        #       "doc2": {{
+        #         "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
+        #       }},
+        #       "explanation": "Detailed explanation of the difference"
+        #     }}
+        #   ]
+        # }}
 
-        If no major discrepancies are found, your JSON response should be:
+        # If no major discrepancies are found, your JSON response should be:
 
-        {{
-          "flags": []
-        }}
+        # {{
+        #   "flags": []
+        # }}
 
-        Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
-                """
-            case _:
-                system_prompt = """
-              You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
+        # Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
 
-              Here are the two documents you need to compare:
+        # ### Example of a Major Discrepancy ###
+        # {{
+        #   "flags": [
+        #     {{
+        #       "types": ["Missing content"],
+        #       "doc1": {{
+        #         "content": "The policy clearly outlines <span style=\"color: red\">a 30-day return period</span>."
+        #       }},
+        #       "doc2": {{
+        #         "content": "The policy does not mention the return period."
+        #       }},
+        #       "explanation": "Document 2 omits the return period, which could lead to confusion for customers."
+        #     }}
+        #   ]
+        # }}
 
-              <document1>
-              {doc1}
-              </document1>
+        # ### Key Notes ###
+        # - **Only flag differences that significantly affect content meaning or usability.**
+        # - **Do not flag stylistic, grammatical, or formatting variations unless they create ambiguity.**
+        # - Ensure the JSON structure is valid and complete.
+        #                 """
+        #             case _:
+        #                 system_prompt = """
+        #               You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents in different languages and identify any major discrepancies between them.
 
-              ## END OF DOCUMENT 1 ##
+        #               Here are the two documents you need to compare:
 
-              <document2>
-              {doc2}
-              </document2>
+        #               <document1>
+        #               {doc1}
+        #               </document1>
 
-              ## END OF DOCUMENT 2 ##
+        #               ## END OF DOCUMENT 1 ##
 
-              Please follow these steps to complete your analysis:
+        #               <document2>
+        #               {doc2}
+        #               </document2>
 
-              1. Carefully read and compare both documents until you reach the ## END OF DOCUMENT ## line by line, paragraph by paragraph.
-              2. Ensure that every part of both documents is given equal attention, from the beginning to the end.
-              3. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content.
-              4. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
-                - Inaccurate disclosure: Information that is incorrectly stated or translated
-                - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
-                - Outdated information: Data or statements that are no longer relevant or accurate
-                - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
-                - Major deviations from the English version: Any substantial differences from Document 1
-                - Structural Difference: The same content is labelled in different enumeration labels [like (a)(b)(c) or 1, 2, 3]
-              5. For each flag, include:
-                - A list of applicable difference types (from the list above)
-                - The relevant content from both documents, including the page number
-                - An explanation of the difference, highlighting the main issues
-              6. You can flag same sentences or paragraphs more than once.
-              7. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
-              8. If there is no major discrepancy, just reponse with an empty list. Don't explain that there is no discrepancy.
+        #               ## END OF DOCUMENT 2 ##
 
-              After your comparison, format your response as a JSON object with the following structure:
+        #               Please follow these steps to complete your analysis:
 
-              {{
-                "flags": [
-                  {{
-                    "types": ["List of applicable difference types"],
-                    "doc1": {{
-                      "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
-                    }},
-                    "doc2": {{
-                      "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
-                    }},
-                    "explanation": "Detailed explanation of the difference"
-                  }}
-                ]
-              }}
+        #               1. Carefully read and compare both documents until you reach the ## END OF DOCUMENT ## line by line, paragraph by paragraph.
+        #               2. Ensure that every part of both documents is given equal attention, from the beginning to the end.
+        #               3. Look for major discrepancies between the documents. Focus on significant differences that could substantially alter the meaning or interpretation of the content.
+        #               4. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
+        #                 - Inaccurate disclosure: Information that is incorrectly stated or translated
+        #                 - Misleading statements or features: Content that could be misinterpreted or is presented in a potentially deceptive manner
+        #                 - Outdated information: Data or statements that are no longer relevant or accurate
+        #                 - Missing paragraphs or information: Significant sections or details present in one document but absent in the other
+        #                 - Major deviations from the English version: Any substantial differences from Document 1
+        #                 - Structural Difference: The same content is labelled in different enumeration labels [like (a)(b)(c) or 1, 2, 3]
+        #               5. For each flag, include:
+        #                 - A list of applicable difference types (from the list above)
+        #                 - The relevant content from both documents, including the page number
+        #                 - An explanation of the difference, highlighting the main issues
+        #               6. You can flag same sentences or paragraphs more than once.
+        #               7. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
+        #               8. If there is no major discrepancy, just reponse with an empty list. Don't explain that there is no discrepancy.
 
-              If no major discrepancies are found, your JSON response should be:
+        #               After your comparison, format your response as a JSON object with the following structure:
 
-              {{
-                "flags": []
-              }}
+        #               {{
+        #                 "flags": [
+        #                   {{
+        #                     "types": ["List of applicable difference types"],
+        #                     "doc1": {{
+        #                       "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
+        #                     }},
+        #                     "doc2": {{
+        #                       "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
+        #                     }},
+        #                     "explanation": "Detailed explanation of the difference"
+        #                   }}
+        #                 ]
+        #               }}
 
-              Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
-                      """
+        #               If no major discrepancies are found, your JSON response should be:
 
+        #               {{
+        #                 "flags": []
+        #               }}
+
+        #               Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
+        #                       """
+
+        system_prompt = """
+### Context ###
+You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents and identify **only major discrepancies** that could significantly alter the meaning, interpretation, or usability of the content. 
+
+Here are the two documents you need to compare:
+
+<Document1>
+{doc1}
+</Document1>
+
+## END OF DOCUMENT 1 ##
+
+<Document2>
+{doc2}
+</Document2>
+
+## END OF DOCUMENT 2 ##
+
+### Instructions for Analysis ###
+Please follow these steps to complete your analysis:
+
+1. Compare both documents carefully until the ## END OF DOCUMENT ## markers, line by line, paragraph by paragraph.
+2. Identify only the major discrepancies between the documents. Focus on significant discrepancies that change the meaning, interpretation, or intent of the content. Avoid highlighting minor wording, phrasing variations or slight differences that do not substantially impact the overall message.
+3. For each major discrepancy you identify, create a "flag" entry. Consider the following types of differences:
+   - **Inaccurate disclosure:** Information incorrectly stated or mistranslated.
+   - **Misleading content:** Statements or omissions that could cause misunderstanding or misrepresentation.
+   - **Missing content:** Significant sections or details in one document but absent in the other.
+   - **Outdated information:** Data or statements no longer accurate or relevant.
+   - **Major deviations from Document 1:** Substantial differences in meaning or critical information.
+4. For each flag, include:
+  - A list of applicable difference types (from the list above)
+  - The relevant content from both documents, including the page number
+  - An explanation of the difference, highlighting the main issues
+5. You can flag same sentences or paragraphs more than once.
+6. When including content in your flag, use a whole paragraph for context. Highlight the specific part of the content that contains the difference using the <span style="color: red"></span> tag.
+7. **Ignore minor differences** that do not impact the meaning or intent, such as:
+   - Slight variations in wording or phrasing.
+   - Minor grammatical or stylistic changes.
+   - Differences in formatting or punctuation.
+
+### Output Format ###
+After your comparison, provide your analysis in a JSON object using the structure below:
+
+{{
+  "flags": [
+    {{
+      "types": ["List of applicable difference types"],
+      "doc1": {{
+        "content": "Relevant content from Document 1 with <span style=\"color: red\">highlighted difference</span>"
+      }},
+      "doc2": {{
+        "content": "Relevant content from Document 2 with <span style=\"color: red\">highlighted difference</span>"
+      }},
+      "explanation": "Detailed explanation of the difference"
+    }}
+  ]
+}}
+
+If no major discrepancies are found, your JSON response should be:
+
+{{
+  "flags": []
+}}
+
+Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
+
+### Example of a Major Discrepancy ###
+{{
+  "flags": [
+    {{
+      "types": ["Missing content"],
+      "doc1": {{
+        "content": "The policy clearly outlines <span style=\"color: red\">a 30-day return period</span>."
+      }},
+      "doc2": {{
+        "content": "The policy does not mention the return period."
+      }},
+      "explanation": "Document 2 omits the return period, which could lead to confusion for customers."
+    }}
+  ]
+}}
+
+### Key Notes ###
+- **Only flag differences that significantly affect content meaning or usability.**
+- **Do not flag stylistic, grammatical, or formatting variations unless they create ambiguity.**
+- Ensure the JSON structure is valid and complete."""
         user_prompt = """Begin your analysis now."""
 
         prompt = ChatPromptTemplate.from_messages(
