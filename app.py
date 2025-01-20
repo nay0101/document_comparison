@@ -22,7 +22,7 @@ if "chat_id" not in session_state:
 if "chat_model" not in session_state:
     session_state.chat_model = session_state.default_chat_model
 
-st.header("Multilingual Document Comparison")
+st.header("Atenxion Multiligual Document Compare Agent")
 st.caption(f"Session ID: {session_state.chat_id}")
 st.divider()
 col1, col2 = st.columns(2)
@@ -70,6 +70,10 @@ if session_state.result:
             for i, flag in enumerate(final_result_json["flags"]):
                 with st.container(border=True):
                     st.markdown(
+                        f'<b style="font-size: 1.5rem; margin-right: 0">No. {i+1}</b>',
+                        True,
+                    )
+                    st.markdown(
                         f'<b style="font-size: 3rem;">{", ".join(flag["types"])}</b>',
                         True,
                     )
@@ -86,6 +90,7 @@ if session_state.result:
                             "<b style='font-size: 1.5rem;'>Document 2</b>", True
                         )
                         st.markdown(doc2["content"], True)
+                    st.markdown("<b style='font-size: 1.5rem;'>Explanation</b>", True)
                     st.markdown(flag["explanation"], True)
                     if environment == "development":
                         st.checkbox(label="Correct", key=f"check_{i}")
@@ -117,7 +122,7 @@ if session_state.result:
 
 with st.sidebar:
     st.selectbox(
-        label="Chat Models",
+        label="Models",
         options=chat_model_list,
         index=chat_model_list.index(session_state.default_chat_model),
         key="chat_model",

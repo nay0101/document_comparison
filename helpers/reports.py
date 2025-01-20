@@ -23,6 +23,16 @@ class MarkdownPDFConverter:
           <html>
           <head>
               <style>
+               @page {{
+                    size: letter portrait;
+                    @frame content_frame {{
+                        left: 50pt; width: 512pt; top: 50pt; height: 662pt;
+                    }}
+                    @frame footer_frame {{
+                        -pdf-frame-content: footer_content;
+                        left: 50pt; width: 512pt; top: 722pt; height: 70pt;
+                    }}
+                }}
               body {{
                   font-family: Arial, sans-serif;
                   font-size: {self.font_size}pt;
@@ -69,10 +79,20 @@ class MarkdownPDFConverter:
                   max-width: 100%;
                   height: auto;
               }}
+              .logo {{
+                  max-width: 150px;
+                  max-height: 60px;
+              }}
+              .footer {{
+                  text-align: right;
+              }}
             </style>
         </head>
         <body>
             {html_content}
+            <div class="footer" id="footer_content">
+              <img src="../assets/atenxion-logo.svg" class="logo"/>
+            </div>
         </body>
         </html>
         """
@@ -96,7 +116,7 @@ class MarkdownPDFConverter:
         correct_results: Optional[List] = None,
     ) -> None:
         cost = get_total_cost(chat_id=chat_id)
-        text = f"""# Document Comparison with {chat_model_name}
+        text = f"""# Atenxion Multiligual Document Compare Agent Report ({chat_model_name})
 * File 1: {file1_name}
 * File 2: {file2_name}
 * Total Cost: ${cost}
@@ -119,7 +139,8 @@ Total Discrepancies Found: {len(result["flags"])}
 |--------------------------------|--------------------------------|
 |{content1}|{content2}|
 
-Explanation: {flag["explanation"]}
+<b>Explanation</b></br>
+{flag["explanation"]}
 
 """
 
