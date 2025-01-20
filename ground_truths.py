@@ -203,15 +203,6 @@ renewed for another 12 months.
 Interests for this renewed JFD will
 only be paid at the end of the 12-
 month tenure on 31 August 2022.""",
-    """(e) Any placement made to the JFD is
-receiptless. All transactions and
-activity of JFD will be reflected in the 
-3-in-1 JA monthly e-statement.""",
-    """Interest for JFD placement via SI from
-JSA will be based on the JFD
-prevailing board rate for the respective
-Tenure and reflected in the 3-in-1 JA
-monthly e-statement.""",
     """Partial withdrawals of JFD are permissible
 with a minimum withdrawal of Ringgit
 Malaysia Three Thousand (RM3,000) or in
@@ -242,20 +233,6 @@ converted into a normal savings account
 the Customer as the primary
 accountholder and beneficiary as the joint
 accountholder.""",
-    """If you have any enquiries regarding the terms
-and conditions and/or require a copy of the
-Bahasa Malaysia version, you may seek
-clarification from our staff who attended to
-you. Alternatively, please email us at
-hlonline@hlbb.hongleong.com.my Sekiranya
-anda mempunyai sebarang pertanyaan
-mengenai terma dan syarat dan/atau
-memerlukan salinan terma dan syarat dalam
-versi Bahasa Malaysia, anda boleh
-mendapatkan penjelasan daripada kakitangan
-kami yang membantu anda. Sebagai
-alternatif, sila e-mel kami di
-hlonline@hlbb.hongleong.com.my.""",
 ]
 
 foreign = [
@@ -351,6 +328,10 @@ Limit”), taking into account estimated
 brokerage and other costs related to
 the purchase of the Approved
 Securities (“Transaction Costs”).""",
+    """34.1.2 The Trading Limit will vary from time to time
+based on the available credit balance in the Account
+and HLB’s computation and determination of the
+Trading Limit shall be final and conclusive.""",
     """34.1.3 For the avoidance of doubt, any
 securities sold by the Accountholder
 through the Trading Account will not be
@@ -403,3 +384,5 @@ Charges. Account Debit Card
 www.hlb.com.my/depositcharges
 www.hlb.com.my/dc1""",
 ]
+
+print(len(pay_and_save))

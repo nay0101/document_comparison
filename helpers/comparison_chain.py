@@ -125,6 +125,7 @@ class ComparisonChain:
               - Do not add language identifiers like ```xml in the output.
               - Just output the xml format. Do not output any other text.
               - Do not summarize the content.
+              - Make sure that all the content of original documents are included in the output chunks.
               - If it's impossible to create the exact number of chunks specified while maintaining content alignment, create the closest number of chunks possible.
             """
 

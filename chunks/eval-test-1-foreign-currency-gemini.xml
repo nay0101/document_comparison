@@ -1,5 +1,5 @@
-```xml
 <chunked_documents>
+
   <chunk number="1">
     <language1>
 1
@@ -412,7 +412,7 @@ disebabkan penukaran atau penukaran semula tersebut.
 
     </language2>
   </chunk>
-  <chunk number="5">
+<chunk number="5">
     <language1>
 5
 11. Set Off
@@ -433,7 +433,8 @@ to HLB at the cost of the Customer.
 12. Liability
 12.1 Save and except for damages arising directly from HLB’s willful default or gross negligence, HLB shall
 not be held liable or responsible for any loss, damage or other liability suffered by the Customer or HLB
-which arises:(a) as a result of HLB acting on any instruction or communication which HLB believes in good faith to be
+which arises:
+(a) as a result of HLB acting on any instruction or communication which HLB believes in good faith to be
 given by the Customer or any person(s) authorized by the Customer to give or send instructions or
 communications to HLB; or
 (b) as a result of any error or failure in transmission of any instruction or communication attributable to
@@ -447,25 +448,6 @@ bank charges, commissions, postage, cable charges. HLB reserves the right to var
 and other charges at any time and from time to time with prior notice and the Customer hereby authorizes
 HLB to debit the Account(s) or deduct from such proceeds received with such fees, commissions and
 charges without further notice to the Customer.
-14. Notices
-14.1 Any notification from HLB to Customers may be given in any of the following manner:
-(a) by ordinary post or registered post or courier or by hand sent to or left at the Customer’s last known
-address registered with HLB and shall be deemed to be received by the Customer within three (3)
-Business Days from posting if sent by ordinary post or registered post and within two (2) Business
-Days from sending if by courier or upon acknowledgement of receipt if by hand; or
-(b) by general notice in one major newspaper or posted at HLB’s branch premises or on visual screen
-through a computer or visual terminal or at its website “www.hlb.com.my” and the notice shall be
-deemed to have been sent or effective from the date of such notice is made available or the date
-specified in the notice.
-14.2 Any notices (excluding any form of instructions in dealing with the Account(s)) required to be sent by the
-Customer to HLB must be sent to the relevant branch at which the Account(s) is maintained by ordinary
-post or registered post or courier sent to or left at the said branch of HLB and shall be deemed to be
-received by HLB when acknowledged by HLB.
-15. Right to Disclosure Information
-15.1 In addition to the permitted disclosures provided under Schedule 11 of the Financial Services Act 2013,
-the Customer irrevocably authorizes and permits HLB, its officers and employees to disclose and furnish
-all information concerning the Account(s), these T&Cs, present and future accounts of the Customer and
-any other matters relating to the Customer or its business and operations to:
 
 
     </language1>
@@ -492,10 +474,146 @@ kena dibayar, terhutang atau ditanggung HLB, maka HLB akan berhak dan setelah me
 awal kepada Pelanggan, menukar mata wang tersebut kepada mata wang yang diluluskan oleh HLB
 dengan kosnya ditanggung Pelanggan.
 12. Liabiliti
-12.1 Kecuali dalam hal ganti rugi yang terbit secara langsung daripada keingkaran sengaja atau kecuaian
-melampau di pihak HLB, HLB tidak bertanggungjawab terhadap, apa-apa kerugian kerosakan atau
+12.1 Kecuali dalam hal ganti rugi yang terbit secara langsung daripada keingkaran sengaja atau kecuaianmelampau di pihak HLB, HLB tidak bertanggungjawab terhadap, apa-apa kerugian kerosakan atau
 liabiliti lain yang dialami Pelanggan atau HLB yang timbul
 (a) akibat HLB bertindak atas apa-apa arahan atau komunikasi yang HLB percaya dengan niat baik
 dikeluarkan oleh Pelanggan atau sesiapa sahaja yang diberi kuasa oleh Pelanggan untuk
 memberi atau menghantar arahan atau komunikasi kepada HLB; atau
-(b) akibat kesilapan atau kegagalan penyampaian apa-
+(b) akibat kesilapan atau kegagalan penyampaian apa-apa arahan atau komunikasi berpunca
+daripada kesilapan Pelanggan.
+12.2 HLB sama sekali tidak bertanggungan terhadap Pelanggan atau mana-mana orang lain kerana
+sebarang kerugian tak langsung atau berbangkit yang dialami Pelanggan.
+13. Fi Perkhidmatan, Caj dan Kos
+13.1 HLB berhak mengenakan atau melevi fi perkhidmatan dan kos serta caj lain berkenaan dengan segala
+cek, draf, surat cara lain yang dimasukkan atau dikeluarkan atas Akaun dan segala transaksi,
+termasuk caj bank yang biasa, komisen, belanja pos, caj kawat. HLB berhak mengubah fi
+perkhidmatan tersebut dan caj lain pada bila-bila masa dan dari semasa ke semasa setelah memberi
+notis awal, dan Pelanggan dengan ini memberi kuasa kepada HLB untuk mendebit Akaun atau
+memotong daripada hasil kutipan yang diterima bagi fi, komisen dan caj tersebut tanpa memberi lagi
+notis kepada Pelanggan.
+
+    </language2>
+  </chunk>
+<chunk number="6">
+    <language1>
+6
+14. Notices
+14.1 Any notification from HLB to Customers may be given in any of the following manner:
+(a) by ordinary post or registered post or courier or by hand sent to or left at the Customer’s last known
+address registered with HLB and shall be deemed to be received by the Customer within three (3)
+Business Days from posting if sent by ordinary post or registered post and within two (2) Business
+Days from sending if by courier or upon acknowledgement of receipt if by hand; or
+(b) by general notice in one major newspaper or posted at HLB’s branch premises or on visual screen
+through a computer or visual terminal or at its website “www.hlb.com.my” and the notice shall be
+deemed to have been sent or effective from the date of such notice is made available or the date
+specified in the notice.
+14.2 Any notices (excluding any form of instructions in dealing with the Account(s)) required to be sent by the
+Customer to HLB must be sent to the relevant branch at which the Account(s) is maintained by ordinary
+post or registered post or courier sent to or left at the said branch of HLB and shall be deemed to be
+received by HLB when acknowledged by HLB.
+15. Right to Disclosure Information
+15.1 In addition to the permitted disclosures provided under Schedule 11 of the Financial Services Act 2013,
+the Customer irrevocably authorizes and permits HLB, its officers and employees to disclose and furnish
+all information concerning the Account(s), these T&Cs, present and future accounts of the Customer and
+any other matters relating to the Customer or its business and operations to:
+(a) other financial institutions granting or intending to grant any credit facilities to the Customer, the
+Central Credit Bureau or any other central credit bureau established by Bank Negara Malaysia,
+Cagamas Berhad, Credit Guarantee Corporation, any other relevant authority as may be authorized
+by law to obtain such information or such authorities/agencies established by Bank Negara Malaysia
+or any agency established by the Association of Banks in Malaysia;
+(b) any current or future corporation which may be associated with or related to HLB (as defined in the
+Companies Act 2016), including representative and branch offices and their respectiverepresentatives as well as subsidiaries of HLB’s holding company;
+(c) the security parties or any party intending to provide security in respect of the Account(s);
+(d) HLB’s auditors, solicitors and/or other agents in connection with the recovery of moneys due and
+payable hereunder; and
+(e) HLB’s professional advisers, service providers, nominees, agents, contractors or third-party service
+providers who are involved in the provision of products and services to or by HLB and its related or
+associated companies. The Customer hereby irrevocably consents to such disclosure and confirms
+that HLB, its officers and employees shall be under no liability for furnishing such information or for
+the consequences of any reliance which may be placed on the information so furnished in accordance
+with these T&Cs.
+16. Representations and Warranties
+16.1 The Customer hereby confirm that all the representations and warranties made to HLB in the
+application(s) are true and correct and shall remain true and correct for as long as the Account(s) are
+maintained with HLB. The Customer undertakes to immediately inform HLB of any changes in respect
+of any of the information provided to HLB.
+17. Governing Law
+17.1 These T&Cs shall be governed by and construed in accordance with the laws of Malaysia and the
+Customer agrees to submit to the non-exclusive jurisdiction of the courts of Malaysia or any other court
+of competent jurisdiction as HLB may at its sole discretion elect to submit and the service of any legal
+process may be affected by any manner permitted by law.
+17.2 The Account(s) shall be governed by and subject to the rules and regulations and directives of the
+Association of Banks in Malaysia, BNM or any appropriate monetary authority and any laws in effect
+from time to time at HLB.
+Foreign Currency Account is protected by PIDM up to RM250,000 for each depositor.
+The operations, sources and uses of funds to and from a Foreign Currency Account (“FCA”) shall be governed
+in accordance with the Investment Foreign Currency Asset (“IFCA”) under the Foreign Exchange Policy
+Notices (“FEP Notices”) issued by Bank Negara Malaysia (“BNM”).
+
+    </language1>
+    <language2>
+7
+14. Notis
+14.1 Apa-apa pemberitahuan daripada HLB kepada pelanggan boleh diberi dengan salah satu cara
+berikut :-
+(a) melalui pos biasa atau pos berdaftar atau kurier atau dengan tangan yang dihantar kepada atau
+ditinggalkan di alamat Pelanggan terkini yang berdaftar dengan HLB dan akan dianggap telah
+diterima oleh Pelanggan dalam masa tiga (3) Hari Perniagaan dari tarikh diposkan jika dihantar
+melalui pos biasa atau pos berdaftar dan dalam masa dua (2) Hari Perniagaan dari tarikh hantaran
+jika melalui kurier atau dengan akuan terima jika dengan tangan; atau
+(b) melalui notis umum dalam satu akhbar utama atau dihebahkan di premis cawangan HLB atau
+pada skrin visual komputer atau terminal visual atau di laman webnya “www.hlb.com.my” dan
+notis itu akan dianggap telah dihantar atau berkuat kuasa dari tarikh notis tersebut dikeluarkan
+atau dari tarikh yang disebut dalam notis.
+14.2 Apa-apa notis (tak termasuk sebarang bentuk arahan berkenaan Akaun yang perlu dihantar oleh
+Pelanggan kepada HLB) mestilah dihantar kepada cawangan berkaitan tempat Akaun itu diselenggara
+melalui pos biasa atau pos berdaftar atau kurier dihantar kepada atau ditinggalkan di cawangan HLB
+tersebut dan akan dianggap telah diterima oleh HLB apabila diakui terima oleh HLB.
+15. Hak Mendedahkan Maklumat
+15.1 Selain pendedahan dibenarkan seperti yang diperuntukkan di bawah Jadual 11 Akta Perkhidmatan
+Kewangan 2013, Pelanggan memberi kuasa dan keizinan tak boleh batal kepada HLB, para pegawai
+dan para pekerjanya untuk mendedahkan dan membekalkan segala maklumat berkenaan Akaun,
+Terma dan Syarat ini, akaun Pelanggan masa sekarang dan masa akan datang dan apaapa hal lain
+berkaitan dengan Pelanggan atau perniagaan dan operasinya kepada:
+(a) institusi kewangan lain yang memberi atau bercadang memberi apa-apa kemudahan kredit
+kepada Pelanggan, Biro Kredit Pusat atau mana-mana kredit pusat yang ditubuhkan oleh Bank
+Negara Malaysia, Cagamas Berhad, Credit Guarantee Corporation, mana-mana pihak berkuasa
+berkenaan yang lain seperti yang dibenarkan undang-undang untuk mendapatkan maklumat
+tersebut atau mana-mana pihak berkuasa/agensi yang ditubuhkan oleh Bank Negara Malaysia
+atau mana-mana agensi yang ditubuhkan oleh Persatuan Bank-bank di Malaysia;
+(b) mana-mana perbadanan masa sekarang atau masa akan datang yang bersekutu atau berkaitan
+dengan HLB (mengikut takrif dalam Akta Syarikat 2016), termasuk pejabat wakil dan pejabat
+cawangan serta wakil mereka masing-masing serta juga subisidiari-subsidiari Syarikat induk
+HLB;
+(c) pihak-pihak penyedia cagaran atau mana-mana pihak yang bercadang menyediakan cagaran
+berkenaan Akaun;
+(d) juruaudit HLB, peguam cara dan/atau ejen-ejen lain bersabit dengan usaha mendapat Kembali
+jumlah wang yang kena dibayar dan perlu dibayar di bawah ini; dan
+(e) Penasihat profesional HLB, penyedia perkhidmatan, nomini, ejen, kontraktor atau penyedia
+perkhidmatan pihak ketiga yang terlibat dengan penyediaan produk dan perkhidmatan kepada
+atau oleh HLB dan syarikat-syarikat berkaitan atau bersekutunya. Pelanggan dengan ini
+memberi keizinan tak boleh batal untuk pendedahan tersebut dan mengesahkan bahawa HLB,
+para pegawai dan para pekerjanya tidaklah bertanggungan untuk membekalkan maklumat
+tersebut atau terhadap akibat daripada kebergantungan yang diletakkan pada maklumat yang
+dibekalkan itu selaras dengan Terma dan Syarat ini.16. Representasi dan Waranti
+16.1 Pelanggan dengan ini mengesahkan bahawa segala representasi dan waranti yang dibuat kepada
+HLB dalam permohonan adalah benar dan betul dan hendaklah tetap benar dan betul selagi Akaun
+itu diselenggara dengan HLB. Pelanggan beraku janji akan memberitahu HLB dengan serta-merta
+tentang apa-apa perubahan berkenaan mana-mana maklumat yang disediakan kepada HLB.
+17. Undang-undang Terpakai
+17.1 Terma dan Syarat ini adalah tertakluk kepada dan ditafsirkan menurut undang-undang Malaysia dan
+Pelanggan bersetuju untuk akur kepada bidang kuasa tidak eksklusif mahkamah-mahkamah Malaysia
+atau mana-mana mahkamah lain berbidang kuasa kompeten yang Bank boleh, atas budi bicara
+mutlaknya, pilih untuk akur dan penyampaian sebarang proses undang-undang boleh dilaksanakan
+dengan apa-apa cara yang dibenarkan undang-undang.
+17.2 Akaun hendaklah diselia oleh dan tertakluk kepada peraturan serta arahan Persatuan Bank-bank di
+Malaysia, BNM atau mana-mana pihak berkuasa kewangan yang sesuai dan mana-mana undang-
+undang yang dikuatkuasakan di HLB dari semasa ke semasa
+Akaun Mata Wang Asing dilindungi oleh PIDM setakat RM250,000 bagi setiap pendeposit.
+Operasi, sumber dan penggunaan dana dari dan ke Akaun Mata Wang Asing (“FCA”) akan diselia mengikut
+Pelaburan Aset Mata Wang Asing (“IFCA”) di bawah Notis Dasar Pertukaran Asing (“Notis FEP”) yang
+dikeluarkan oleh Bank Negara Malaysia (“BNM”).
+    </language2>
+  </chunk>
+
+</chunked_documents>
