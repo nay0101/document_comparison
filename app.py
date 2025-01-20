@@ -9,8 +9,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+environment = os.getenv("ENVIRONMENT")
 session_state.default_chat_model = "gpt-4o"
-chat_model_list = ["gpt-4o", "gemini-2.0-flash-exp", "gemini-1.5-pro"]
+chat_model_list = ["gpt-4o", "gemini-1.5-pro"]
 
 if "result" not in session_state:
     session_state.result = None
@@ -66,7 +67,7 @@ if session_state.result:
 
     if len(final_result_json) > 0:
         with st.container():
-            for flag in final_result_json["flags"]:
+            for i, flag in enumerate(final_result_json["flags"]):
                 with st.container(border=True):
                     st.markdown(
                         f'<b style="font-size: 3rem;">{", ".join(flag["types"])}</b>',
@@ -86,8 +87,11 @@ if session_state.result:
                         )
                         st.markdown(doc2["content"], True)
                     st.markdown(flag["explanation"], True)
+                    if environment == "development":
+                        st.checkbox(label="Correct", key=f"check_{i}")
 
     report_generator = MarkdownPDFConverter()
+
     report = report_generator.generate_report(
         chat_model_name=session_state.chat_model,
         chat_id=session_state.chat_id,
@@ -95,6 +99,14 @@ if session_state.result:
         time_taken=session_state.time_taken,
         file1_name=session_state.doc1.name,
         file2_name=session_state.doc2.name,
+        correct_results=(
+            [
+                session_state[f"check_{i}"]
+                for i in range(len(final_result_json["flags"]))
+            ]
+            if environment == "development"
+            else None
+        ),
     )
     st.download_button(
         "Download Report",
@@ -110,7 +122,7 @@ with st.sidebar:
         index=chat_model_list.index(session_state.default_chat_model),
         key="chat_model",
     )
-    if os.getenv("ENVIRONMENT") == "development":
+    if environment == "development":
         st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
         st.checkbox(
             label="Use Existing Chunks File",

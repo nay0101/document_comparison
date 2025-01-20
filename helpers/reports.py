@@ -1,6 +1,6 @@
 import markdown
 from xhtml2pdf import pisa
-from typing import List
+from typing import List, Optional
 from helpers.cost import get_total_cost
 from io import BytesIO
 
@@ -93,6 +93,7 @@ class MarkdownPDFConverter:
         time_taken: str,
         file1_name: str,
         file2_name: str,
+        correct_results: Optional[List] = None,
     ) -> None:
         cost = get_total_cost(chat_id=chat_id)
         text = f"""# Document Comparison with {chat_model_name}
@@ -108,7 +109,11 @@ Total Discrepancies Found: {len(result["flags"])}
             flag_types = ", ".join(flag["types"])
             content1 = self._escape_table_cell(flag["doc1"]["content"])
             content2 = self._escape_table_cell(flag["doc2"]["content"])
-            text += f"""## No. {index+1}
+            if correct_results is not None and correct_results[index]:
+                text += f"""## <span style='color: green;'>No. {index + 1} (Correct)</span>"""
+            else:
+                text += f"""## No. {index + 1}"""
+            text += f"""
 ### Flags: {flag_types}
 |Document 1                      |Document 2                      |
 |--------------------------------|--------------------------------|
