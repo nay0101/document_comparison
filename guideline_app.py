@@ -31,7 +31,22 @@ if "compare_btn" in session_state and session_state.compare_btn:
 st.header("Atenxion Guideline Compare Agent")
 st.caption(f"Session ID: {session_state.chat_id }")
 st.divider()
-st.text_area(label="Enter Guidelines", key="guidelines")
+
+guidelines_example = """
+Example:\n
+S 16.1 A FSP shall provide a PDS (following the order and sequence of items as specified in the PDS 
+templates provided in the Schedules) for financial consumers to make product comparisons and 
+informed decisions. The FSP shall comply with the “Notes on PDS requirements” provided in the PDS 
+templates.\n
+G 16.2 For the avoidance of doubt, a FSP may use appropriate infographics, illustrations or colours to 
+draw the attention of financial consumers to important terms in the PDS.
+"""
+
+st.text_area(
+    label="Enter Guidelines",
+    key="guidelines",
+    help=guidelines_example,
+)
 st.file_uploader(label="Upload a Document to be Compared", type=["pdf"], key="doc")
 
 if session_state.guidelines is None or session_state.doc is None:

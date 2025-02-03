@@ -1,8 +1,8 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import Runnable
+from langchain_core.runnables import Runnable, RunnableLambda
 from io import BytesIO
-from typing import Union, Optional, List
+from typing import Union, Optional, List, Dict
 from langfuse.callback import CallbackHandler
 from .types import Model, Deviation
 from .llm_integrations import get_llm
@@ -80,7 +80,46 @@ class GuidelineComparisonChain:
             [("system", instruction), ("human", user_prompt)]
         )
 
-        chain = prompt | self.chat_model | StrOutputParser()
+        if environment == "development":
+            with open("./test.json", "w") as file:
+                file.write("{\n")
+
+        def loop_invoke(_input: Dict) -> List[Dict]:
+            guidelines = self.document_processor.split_guidelines(
+                (_input["guidelines"])
+            )
+            document = _input["document"]
+            deviations = []
+            loop_chain = prompt | self.chat_model | StrOutputParser()
+
+            with st.spinner("Comparing"):
+                progress_bar = st.progress(0)
+                for index, chunk in enumerate(guidelines):
+                    progress_bar.progress((index + 1) / len(guidelines))
+                    output = loop_chain.invoke(
+                        {
+                            "guideline": chunk,
+                            "document": document,
+                        },
+                    )
+
+                    deviations.append(
+                        self.document_processor.remove_code_fences(output)
+                    )
+
+                    if environment == "development":
+                        with open("./test.json", "a") as file:
+                            file.write(f"{output},")
+
+                progress_bar.empty()
+
+                if environment == "development":
+                    with open("./test.json", "a") as file:
+                        file.write("}")
+
+            return deviations
+
+        chain = RunnableLambda(loop_invoke)
 
         return chain
 
@@ -90,37 +129,15 @@ class GuidelineComparisonChain:
         document_file: Union[BytesIO, bytes],
         chat_id: Optional[str] = None,
     ) -> List[Deviation]:
-        deviations = []
-        guideline_chunks = self.document_processor.split_guidelines(guidelines)
         document = self.document_processor.extract_full_content(document_file)
         chain = self._guideline_comparison_chain()
 
-        if environment == "development":
-            with open("./test.json", "w") as file:
-                file.write("{\n")
-        with st.spinner("Comparing Documents"):
-            progress_bar = st.progress(0)
-            for index, guideline in enumerate(guideline_chunks):
-                progress_bar.progress((index + 1) / len(guideline_chunks))
+        output = chain.invoke(
+            {
+                "guidelines": guidelines,
+                "document": document,
+            },
+            config={"callbacks": [CallbackHandler(user_id=str(chat_id))]},
+        )
 
-                output = chain.invoke(
-                    {
-                        "guideline": guideline,
-                        "document": document,
-                    },
-                    config={"callbacks": [CallbackHandler(user_id=str(chat_id))]},
-                )
-
-                deviations.append(self.document_processor.remove_code_fences(output))
-
-                if environment == "development":
-                    with open("./test.json", "a") as file:
-                        file.write(f"{output},")
-
-            if environment == "development":
-                with open("./test.json", "a") as file:
-                    file.write("}")
-
-            progress_bar.empty()
-
-        return deviations
+        return output
