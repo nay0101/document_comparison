@@ -4,7 +4,7 @@ from langchain_core.runnables import Runnable, RunnableLambda, RunnablePassthrou
 from io import BytesIO
 from typing import Union, Optional, List, Dict
 from langfuse.callback import CallbackHandler
-from .types import Model
+from .types import Model, Mismatches
 from .llm_integrations import get_llm
 from .document_processor import DocumentProcessor
 import xmltodict
@@ -15,22 +15,13 @@ import streamlit as st
 import os
 
 environment = os.getenv("ENVIRONMENT")
-print(environment)
 
 
-class ComparisonChain:
-    def __init__(
-        self,
-        chat_model_name: Model = "gpt-4o-mini",
-    ):
+class DocumentComparisonChain:
+    def __init__(self, chat_model_name: Model = "gpt-4o", temperature: float = 0.0):
         self.chat_model_name = chat_model_name
-        self.chat_model = get_llm(model=chat_model_name)
+        self.chat_model = get_llm(model=chat_model_name, temperature=temperature)
         self.document_processor = DocumentProcessor()
-
-    def _process_document(self, doc_file_bytes: Union[bytes, BytesIO]) -> str:
-        return self.document_processor.extract_filtered_content(
-            pdf_bytes=BytesIO(doc_file_bytes)
-        )
 
     def _load_xml_file(
         self, xml_file_path: Optional[str] = None, xml_string: Optional[str] = None
@@ -847,9 +838,9 @@ Remember to use proper JSON formatting, including quotes around keys and string 
         xml_file_path: Optional[str] = None,
         use_existing_file: bool = False,
         chat_id: Optional[str] = None,
-    ) -> Dict:
-        doc1 = self._process_document(doc1_file_bytes)
-        doc2 = self._process_document(doc2_file_bytes)
+    ) -> Mismatches:
+        doc1 = self.document_processor.extract_filtered_content(doc1_file_bytes)
+        doc2 = self.document_processor.extract_filtered_content(doc2_file_bytes)
         final_chain = self._comparison_chain()
         result = final_chain.invoke(
             {
@@ -859,67 +850,6 @@ Remember to use proper JSON formatting, including quotes around keys and string 
                 "use_existing_file": use_existing_file,
             },
             config={"callbacks": [CallbackHandler(user_id=str(chat_id))]},
-        )
-
-        return result
-
-    def _guideline_test(self, guideline_file, document_file):
-        instruction = """You will be comparing a document file against a set of guidelines and identifying exceptions where the document does not align with the guidelines. You will then provide recommendations to update the document to better align with the guidelines.
-
-        First, here are the guidelines you should use for comparison:
-
-        <guidelines>
-        {guideline}
-        </guidelines>
-
-        Now, here is the document to be compared against the guidelines:
-
-        <document>
-        {document}
-        </document>
-
-        To complete this task, follow these steps:
-
-        1. Carefully read through both the guidelines and the document.
-
-        2. Compare the content of the document against each point in the guidelines.
-
-        3. For each guideline, determine if the document fully complies, partially complies, or does not comply.
-
-        4. Identify specific exceptions where the document does not align with the guidelines. An exception is any instance where the document contradicts, omits, or inadequately addresses a guideline.
-
-        5. For each exception found, provide a specific recommendation on how to update the document to better align with the guideline.
-
-        6. Organize your findings in the following format:
-
-        <exceptions>
-        <exception>
-        <guideline>[Quote the relevant guideline here]</guideline>
-        <issue>[Describe how the document fails to meet this guideline]</issue>
-        <recommendation>[Provide a specific suggestion or an example for updating the document to align with this guideline]</recommendation>
-        </exception>
-        [Repeat for each exception found]
-        </exceptions>
-
-        <summary>
-        [Provide a brief overall summary of your findings, including the number of exceptions found and any general observations about the document's alignment with the guidelines]
-        </summary>
-
-        Remember to be thorough in your comparison, specific in identifying exceptions, and clear in your recommendations. If you're unsure about whether something constitutes an exception, err on the side of including it.
-
-        If you find no exceptions, state this clearly in your summary."""
-
-        user_prompt = """Begin your analysis now."""
-
-        prompt = ChatPromptTemplate.from_messages(
-            [("system", instruction), ("human", user_prompt)]
-        )
-
-        chain = prompt | self.chat_model | StrOutputParser()
-
-        result = chain.invoke(
-            {"guideline": guideline_file, "document": document_file},
-            config={"callbacks": [CallbackHandler(user_id="guideline_test")]},
         )
 
         return result

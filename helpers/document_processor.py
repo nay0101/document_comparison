@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, List
 import pymupdf
 from io import BytesIO
 import re
@@ -117,17 +117,118 @@ class DocumentProcessor:
 
         return "\n".join(filtered_content)
 
-    def extract_text(self, pdf_path: str) -> str:
-        """Extract text from PDF with location metadata."""
-        doc = pymupdf.open(pdf_path)
-        final_doc = ""
+    def extract_full_content(
+        self,
+        pdf_bytes: Union[BytesIO, bytes],
+    ) -> str:
+        with st.spinner("Loading Documents"):
+            doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
+            special_chars = {
+                # Bullets and List Markers
+                "\uf0b7": "•",  # Common bullet
+                "\uf0a7": "•",  # Another bullet variant
+                "\uf0be": "•",  # Circle bullet
+                "\uf0a8": "○",  # White circle
+                "\uf0d8": "▪",  # Square bullet
+                "\uf0e8": "◆",  # Diamond bullet
+                "\uf0de": "▲",  # Up triangle
+                "\uf0da": "►",  # Right triangle
+                "\uf0dd": "▼",  # Down triangle
+                "\uf0db": "◄",  # Left triangle
+                # Spaces and Breaks
+                "\uf0a0": " ",  # Non-breaking space
+                "\uf020": " ",  # Space
+                "\uf0b6": "¶",  # Paragraph mark
+                "\uf0b8": "¬",  # Line break
+                # Punctuation and Symbols
+                "\uf02d": "-",  # Special hyphen
+                "\uf0ad": "–",  # En dash
+                "\uf0bd": "—",  # Em dash
+                "\uf02e": ".",  # Period
+                "\uf0fc": "✓",  # Checkmark
+                "\uf0fb": "✗",  # Cross mark
+                "\uf0d0": "†",  # Dagger
+                "\uf0d1": "‡",  # Double dagger
+                # Quotes and Brackets
+                "\uf0ab": "«",  # Left double angle quotes
+                "\uf0bb": "»",  # Right double angle quotes
+                "\uf027": "'",  # Single quote
+                "\uf022": '"',  # Double quote
+                "\uf05b": "[",  # Left bracket
+                "\uf05d": "]",  # Right bracket
+                "\uf07b": "{",  # Left brace
+                "\uf07d": "}",  # Right brace
+                # Arrows and Directions
+                "\uf0e0": "→",  # Right arrow
+                "\uf0e1": "←",  # Left arrow
+                "\uf0e2": "↑",  # Up arrow
+                "\uf0e3": "↓",  # Down arrow
+                "\uf0df": "↔",  # Left-right arrow
+                # Mathematical Symbols
+                "\uf0b1": "±",  # Plus-minus
+                "\uf0d7": "×",  # Multiplication
+                "\uf0f7": "÷",  # Division
+                "\uf0b3": "³",  # Superscript 3
+                "\uf0b2": "²",  # Superscript 2
+                # Currency Symbols
+                "\uf0a3": "£",  # Pound
+                "\uf0a5": "¥",  # Yen
+                "\uf0a2": "¢",  # Cent
+                "\uf0b0": "°",  # Degree
+                # Legal and Commercial Symbols
+                "\uf0a4": "®",  # Registered trademark
+                "\uf0a9": "©",  # Copyright
+                "\uf0ae": "™",  # Trademark
+                "\uf0a7": "§",  # Section
+                # Accented Characters
+                "\uf0e4": "ä",  # a umlaut
+                "\uf0f6": "ö",  # o umlaut
+                "\uf0fc": "ü",  # u umlaut
+                "\uf0e9": "é",  # e acute
+                "\uf0e8": "è",  # e grave
+                # Additional Symbols
+                "\uf0ac": "⌂",  # House
+                "\uf0af": "⌐",  # Reversed not
+                "\uf0dc": "♠",  # Spade
+                "\uf0db": "♥",  # Heart
+                "\uf0df": "♣",  # Club
+                "\uf0de": "♦",  # Diamond
+            }
+            final_doc = ""
+            for page_num in range(len(doc)):
+                page = doc[page_num]
+                text = page.get_text("text")
+                for special, normal in special_chars.items():
+                    text = text.replace(f"{special} \n", normal)
+                    text = text.replace(special, normal)
 
-        for page_num in range(len(doc)):
-            page = doc[page_num]
-            text = page.get_text("text")
+                final_doc += f"{text.strip()}\n"
+                lines = [
+                    line.strip() for line in final_doc.splitlines() if line.strip()
+                ]
 
-            final_doc += text.strip()
-        return final_doc
+                final_result = "\n".join(lines)
+
+        return final_result
+
+    def split_guidelines(self, text: str) -> List[str]:
+        with st.spinner("Loading Documents"):
+            chunks = []
+            current_chunk = ""
+            lines = text.split("\n")
+
+            for line in lines:
+                if line.startswith(("S ", "G ", "P ")):
+                    if current_chunk:
+                        chunks.append(current_chunk.strip())
+                    current_chunk = line
+                else:
+                    current_chunk += " " + line.strip()
+
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+
+        return chunks
 
     def clean_xml_format(self, text: str) -> str:
         valid_tags = [

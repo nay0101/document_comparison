@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit import session_state
-from helpers.comparison_chain import ComparisonChain
+from helpers.document_comparison import DocumentComparisonChain
 from helpers.reports import MarkdownPDFConverter
 from time import perf_counter
 from uuid import uuid4
@@ -22,6 +22,9 @@ if "chat_id" not in session_state:
 if "chat_model" not in session_state:
     session_state.chat_model = session_state.default_chat_model
 
+if "compare_btn" in session_state and session_state.compare_btn:
+    session_state.chat_id = uuid4()
+
 st.header("Atenxion Multiligual Document Compare Agent")
 st.caption(f"Session ID: {session_state.chat_id}")
 st.divider()
@@ -34,10 +37,10 @@ with col2:
 if session_state.doc1 is None or session_state.doc2 is None:
     session_state.result = None
 
-compare_btn = st.button(label="Compare", type="secondary")
+compare_btn = st.button(label="Compare", type="secondary", key="compare_btn")
 
 if compare_btn:
-    chain = ComparisonChain(chat_model_name=session_state.chat_model)
+    chain = DocumentComparisonChain(chat_model_name=session_state.chat_model)
     start_time = perf_counter()
     doc1 = session_state.doc1.getvalue()
     doc2 = session_state.doc2.getvalue()
@@ -55,7 +58,7 @@ if compare_btn:
             if os.getenv("ENVIRONMENT") == "development"
             else False
         ),
-        chat_id=session_state.chat_id,
+        chat_id=f"document_{session_state.chat_id}",
     )
     session_state.result = result
     session_state.time_taken = perf_counter() - start_time
@@ -99,7 +102,7 @@ if session_state.result:
 
     report = report_generator.generate_report(
         chat_model_name=session_state.chat_model,
-        chat_id=session_state.chat_id,
+        chat_id=f"document_{session_state.chat_id}",
         result=session_state.result,
         time_taken=session_state.time_taken,
         file1_name=session_state.doc1.name,

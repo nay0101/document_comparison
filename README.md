@@ -26,8 +26,14 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-### Run
+### Run Document Compare Agent
 
 ```
-streamlit run app.py
+streamlit run app.py --server.port 8501
+```
+
+### Run Guideline Compare Agent
+
+```
+streamlit run app.py --server.port 8502
 ```

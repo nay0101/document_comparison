@@ -3,6 +3,7 @@ from xhtml2pdf import pisa
 from typing import List, Optional
 from helpers.cost import get_total_cost
 from io import BytesIO
+import json
 
 
 class MarkdownPDFConverter:
@@ -90,9 +91,6 @@ class MarkdownPDFConverter:
         </head>
         <body>
             {html_content}
-            <div class="footer" id="footer_content">
-              <img src="../assets/atenxion-logo.svg" class="logo"/>
-            </div>
         </body>
         </html>
         """
@@ -144,5 +142,45 @@ Total Discrepancies Found: {len(result["flags"])}
 
 """
 
+        result = self.convert_using_xhtml2pdf(markdown_content=text)
+        return result
+
+    def generate_guideline_report(
+        self,
+        chat_model_name: str,
+        chat_id: str,
+        result: List,
+        time_taken: str,
+        document_name: str,
+    ) -> None:
+        cost = get_total_cost(chat_id=chat_id)
+        text = f"""# Guideline Compare ({chat_model_name})
+* Document: {document_name}
+* Total Cost: ${cost}
+* Time Taken: {time_taken}s
+<div style="page-break-after: always;"></div>
+# Comparison Summary
+"""
+        for deviation in result:
+            deviation = json.loads(deviation)
+            text += f"""## {deviation["guideline"]}\n"""
+            if len(deviation["exceptions"]) > 0:
+                for i, exception in enumerate(deviation["exceptions"]):
+                    text += f"""### Exception {i+1}\n"""
+                    text += f"""{exception["description"]}\n"""
+                    text += """#### Issue Items\n"""
+                    for j, issue_item in enumerate(exception["issue_items"]):
+                        text += f"""
+  ({j+1}) {issue_item}
+  """
+                    text += """\n#### Recommendations For Fixes\n"""
+                    for k, fix_recommendation in enumerate(
+                        exception["fix_recommendations"]
+                    ):
+                        text += f"""
+  ({k+1}) {fix_recommendation}
+"""
+            else:
+                text += """## No Exception Found."""
         result = self.convert_using_xhtml2pdf(markdown_content=text)
         return result
