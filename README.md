@@ -35,5 +35,5 @@ streamlit run app.py --server.port 8501
 ### Run Guideline Compare Agent
 
 ```
-streamlit run app.py --server.port 8502
+streamlit run guideline_app.py --server.port 8502
 ```
