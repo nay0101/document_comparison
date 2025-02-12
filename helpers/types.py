@@ -1,4 +1,5 @@
-from typing import Literal, TypedDict, List
+from typing import Literal, TypedDict, List, Optional
+from io import BytesIO
 
 Model = Literal[
     "chatgpt-4o-latest",
@@ -39,3 +40,8 @@ class Flag(TypedDict):
 
 class Mismatches(TypedDict):
     flags: List[Flag]
+
+
+class GuidelineInfo(TypedDict):
+    clause: str
+    image_urls: List[str]

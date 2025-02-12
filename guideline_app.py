@@ -1,5 +1,6 @@
 import streamlit as st
-from streamlit import session_state
+from streamlit import session_state as ss
+from streamlit_pdf_viewer import pdf_viewer
 from helpers.guideline_comparison import GuidelineComparisonChain
 from helpers.reports import MarkdownPDFConverter
 from helpers.document_processor import DocumentProcessor
@@ -12,64 +13,139 @@ import json
 load_dotenv()
 
 environment = os.getenv("ENVIRONMENT")
-session_state.default_chat_model = "gpt-4o"
+ss.default_chat_model = "gpt-4o"
 chat_model_list = ["gpt-4o", "gemini-1.5-pro"]
+document_processor = DocumentProcessor()
 
-if "result" not in session_state:
-    session_state.result = None
+if "result" not in ss:
+    ss.result = None
 
-if "chat_id" not in session_state:
-    session_state.chat_id = uuid4()
+if "chat_id" not in ss:
+    ss.chat_id = uuid4()
 
-if "chat_model" not in session_state:
-    session_state.chat_model = session_state.default_chat_model
+if "chat_model" not in ss:
+    ss.chat_model = ss.default_chat_model
 
-if "compare_btn" in session_state and session_state.compare_btn:
-    session_state.chat_id = uuid4()
+if "formatted_guidelines" not in ss:
+    ss.formatted_guidelines = None
+
+if "clauses" not in ss:
+    ss.clauses = None
+
+if "titles" not in ss:
+    ss.titles = None
+
+if "compare_btn" in ss and ss.compare_btn:
+    ss.chat_id = uuid4()
+
+if ("guidelines" in ss and ss.guidelines is None) or ("doc" in ss and ss.doc is None):
+    ss.result = None
+
+if "guidelines" in ss and ss.guidelines is None:
+    ss.formatted_guidelines = None
+    ss.clauses = None
+    ss.titles = None
 
 
 st.header("Atenxion Guideline Compare Agent")
-st.caption(f"Session ID: {session_state.chat_id }")
+st.caption(f"Session ID: {ss.chat_id }")
 st.divider()
 
-guidelines_example = """
-Example:\n
-S 16.1 A FSP shall provide a PDS (following the order and sequence of items as specified in the PDS 
-templates provided in the Schedules) for financial consumers to make product comparisons and 
-informed decisions. The FSP shall comply with the “Notes on PDS requirements” provided in the PDS 
-templates.\n
-G 16.2 For the avoidance of doubt, a FSP may use appropriate infographics, illustrations or colours to 
-draw the attention of financial consumers to important terms in the PDS.
-"""
+st.file_uploader(label="Upload guideline file", type=["pdf"], key="guidelines")
+if ss.guidelines:
+    # pdf_viewer(ss.guidelines.getvalue())
+    if ss.formatted_guidelines is None:
+        ss.formatted_guidelines = document_processor.extract_filtered_content(
+            pdf_bytes=ss.guidelines.getvalue(), pagination=True
+        )
+        ss.titles = document_processor.extract_titles(
+            ss.formatted_guidelines["content"]
+        )
 
-st.text_area(
-    label="Enter Guidelines",
-    key="guidelines",
-    help=guidelines_example,
+st.selectbox(
+    "Choose a guideline section to extract", key="section_title", options=ss.titles
 )
+# st.text_input("Enter section title to extract", key="section_title")
+load_guidelines_btn = st.button("Load Guidelines", disabled=ss.section_title is None)
+
+if load_guidelines_btn:
+    ss.clauses = document_processor.extract_clauses(
+        target_title=ss.section_title, text=ss.formatted_guidelines["content"]
+    )
+
+if "clauses" in ss and ss.clauses is not None:
+    for i in range(len(ss.clauses)):
+        if f"remove_clause_{i}" in ss and ss[f"remove_clause_{i}"]:
+            ss.clauses.pop(i)
+
+if ss.clauses:
+    for index, clause in enumerate(ss.clauses):
+        st.title(body=f"Guideline {index+1}")
+        st.text_area(
+            label="Guideline",
+            value=clause,
+            key=f"guideline_{index}",
+            label_visibility="hidden",
+        )
+        st.multiselect(
+            label="Attach page(s) as supporting element(s). (Optional)",
+            key=f"attachments_{index}",
+            placeholder="Choose page numbers",
+            options=[i + 1 for i in range(ss.formatted_guidelines["total_pages"])],
+        )
+        st.file_uploader(
+            label="Attach additional file(s) as supporting element(s). (Optional)",
+            key=f"external_attachment_{index}",
+            type=["pdf"],
+            accept_multiple_files=True,
+        )
+        st.button(label="Remove Clause", type="primary", key=f"remove_clause_{index}")
+        st.divider()
+
 st.file_uploader(label="Upload a Document to be Compared", type=["pdf"], key="doc")
 
-if session_state.guidelines is None or session_state.doc is None:
-    session_state.result = None
-
-compare_btn = st.button(label="Compare", type="secondary", key="compare_btn")
+compare_btn = st.button(
+    label="Compare",
+    type="secondary",
+    key="compare_btn",
+    disabled=ss.clauses is None or ss.doc is None,
+)
 
 if compare_btn:
-    chain = GuidelineComparisonChain(chat_model_name=session_state.chat_model)
+    guideline_info = []
+    for i in range(len(ss.clauses)):
+        image_urls = []
+        clause = ss[f"guideline_{i}"]
+        if ss[f"attachments_{i}"]:
+            image_urls.extend(
+                document_processor.pdf_to_image(
+                    pdf_bytes=ss.guidelines.getvalue(),
+                    page_numbers=ss[f"attachments_{i}"],
+                )
+            )
+        if ss[f"external_attachment_{i}"]:
+            for attachment in ss[f"external_attachment_{i}"]:
+                image_urls.extend(
+                    document_processor.pdf_to_image(
+                        pdf_bytes=attachment.getvalue(),
+                    )
+                )
+        guideline_info.append({"clause": clause, "image_urls": image_urls})
+
+    chain = GuidelineComparisonChain(chat_model_name=ss.chat_model)
     start_time = perf_counter()
-    guidelines = session_state.guidelines
-    doc = session_state.doc.getvalue()
+    doc = ss.doc.getvalue()
 
     deviations = chain.invoke_chain(
-        guidelines=guidelines,
+        guidelines=guideline_info,
         document_file=doc,
-        chat_id=f"guideline_{session_state.chat_id}",
+        chat_id=f"guideline_{ss.chat_id}",
     )
-    session_state.result = deviations
-    session_state.time_taken = perf_counter() - start_time
+    ss.result = deviations
+    ss.time_taken = perf_counter() - start_time
 
-if session_state.result:
-    final_result = session_state.result
+if ss.result:
+    final_result = ss.result
     with st.container():
         st.header(f"Comparison Summary")
 
@@ -116,11 +192,11 @@ if session_state.result:
     report_generator = MarkdownPDFConverter()
 
     report = report_generator.generate_guideline_report(
-        chat_model_name=session_state.chat_model,
-        chat_id=f"guideline_{session_state.chat_id}",
-        result=session_state.result,
-        time_taken=session_state.time_taken,
-        document_name=session_state.doc.name,
+        chat_model_name=ss.chat_model,
+        chat_id=f"guideline_{ss.chat_id}",
+        result=ss.result,
+        time_taken=ss.time_taken,
+        document_name=ss.doc.name,
     )
     st.download_button(
         "Download Report",
@@ -133,6 +209,6 @@ with st.sidebar:
     st.selectbox(
         label="Models",
         options=chat_model_list,
-        index=chat_model_list.index(session_state.default_chat_model),
+        index=chat_model_list.index(ss.default_chat_model),
         key="chat_model",
     )
