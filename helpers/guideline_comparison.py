@@ -85,10 +85,11 @@ class GuidelineComparisonChain:
             user_message = [
                 {
                     "type": "text",
-                    "text": f"""<guideline>{guideline}</guideline>\n{'Refer to the images in the provided sequence for accurate output. The text does not need to be an exact match in the case of comparing the layouts but should follow the expected layout, including correct section order, headings, and formatting elements like tables and lists.' if image_urls else ''}""",
+                    "text": f"""<guideline>{guideline}</guideline>\n{'The images are provided as part of the guideline. Refer to the them for accurate output as required by the guideline. If the images are used for comparing the layouts or formats, the document does not need to have the exact same elements as in images. There will be some differences because of comparing text and images. The document just need to resembles the format.' if image_urls else ''}""",
                 },
             ]
-            for image in image_urls:
+            for index, image in enumerate(image_urls):
+                user_message.append({"type": "text", "text": f"Image {index+1}"})
                 user_message.append(
                     {
                         "type": "image_url",
@@ -142,7 +143,7 @@ class GuidelineComparisonChain:
           "exceptions": [],
         }}}}
 
-        Remember to be thorough and identify all possible exceptions. Your analysis should cover the entire document and consider all aspects of the guideline.
+        Remember to be thorough and identify all possible exceptions but do not make up the exceptions. Be comprehensive on issue description. Your analysis should cover the entire document and consider all aspects of the guideline.
         Remember to just response with the JSON format.
         """
 
