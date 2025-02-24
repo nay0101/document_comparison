@@ -51,7 +51,7 @@ st.header("Atenxion Guideline Compare Agent")
 st.caption(f"Session ID: {ss.chat_id }")
 st.divider()
 
-st.file_uploader(label="Upload guideline file", type=["pdf"], key="guidelines")
+st.file_uploader(label="Upload BNM Guideline Document", type=["pdf"], key="guidelines")
 if ss.guidelines:
     # pdf_viewer(ss.guidelines.getvalue())
     if ss.formatted_guidelines is None:
