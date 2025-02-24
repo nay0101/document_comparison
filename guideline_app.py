@@ -1,6 +1,5 @@
 import streamlit as st
 from streamlit import session_state as ss
-from streamlit_pdf_viewer import pdf_viewer
 from helpers.guideline_comparison import GuidelineComparisonChain
 from helpers.reports import MarkdownPDFConverter
 from helpers.document_processor import DocumentProcessor
