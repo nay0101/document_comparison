@@ -50,7 +50,9 @@ st.header("Atenxion Guideline Compare Agent")
 st.caption(f"Session ID: {ss.chat_id }")
 st.divider()
 
-st.file_uploader(label="Upload BNM Guideline Document", type=["pdf"], key="guidelines")
+st.file_uploader(
+    label="Upload Central Bank Guideline Document", type=["pdf"], key="guidelines"
+)
 if ss.guidelines:
     # pdf_viewer(ss.guidelines.getvalue())
     if ss.formatted_guidelines is None:
@@ -92,12 +94,12 @@ if ss.clauses:
             placeholder="Choose page numbers",
             options=[i + 1 for i in range(ss.formatted_guidelines["total_pages"])],
         )
-        st.file_uploader(
-            label="Attach additional file(s) as supporting element(s). (Optional)",
-            key=f"external_attachment_{index}",
-            type=["pdf"],
-            accept_multiple_files=True,
-        )
+        # st.file_uploader(
+        #     label="Attach additional file(s) as supporting element(s). (Optional)",
+        #     key=f"external_attachment_{index}",
+        #     type=["pdf"],
+        #     accept_multiple_files=True,
+        # )
         st.button(label="Remove Clause", type="primary", key=f"remove_clause_{index}")
         st.divider()
 
@@ -122,13 +124,13 @@ if compare_btn:
                     page_numbers=ss[f"attachments_{i}"],
                 )
             )
-        if ss[f"external_attachment_{i}"]:
-            for attachment in ss[f"external_attachment_{i}"]:
-                image_urls.extend(
-                    document_processor.pdf_to_image(
-                        pdf_bytes=attachment.getvalue(),
-                    )
-                )
+        # if ss[f"external_attachment_{i}"]:
+        #     for attachment in ss[f"external_attachment_{i}"]:
+        #         image_urls.extend(
+        #             document_processor.pdf_to_image(
+        #                 pdf_bytes=attachment.getvalue(),
+        #             )
+        #         )
         guideline_info.append({"clause": clause, "image_urls": image_urls})
 
     chain = GuidelineComparisonChain(chat_model_name=ss.chat_model)
