@@ -54,11 +54,17 @@ st.file_uploader(
     label="Upload Central Bank Guideline Document", type=["pdf"], key="guidelines"
 )
 if ss.guidelines:
-    # pdf_viewer(ss.guidelines.getvalue())
     if ss.formatted_guidelines is None:
-        ss.formatted_guidelines = document_processor.extract_filtered_content(
-            pdf_bytes=ss.guidelines.getvalue(), pagination=True
+        ss.formatted_guidelines = {}
+        filtered_content = document_processor.extract_filtered_content(
+            pdf_bytes=ss.guidelines.getvalue()
         )
+        ss.formatted_guidelines["total_page"] = filtered_content["total_pages"]
+        ss.formatted_guidelines["content"] = "\n".join(
+            f"<npage>{page['page']}</npage>\n{page['content']}"
+            for page in filtered_content["document"]
+        )
+
         ss.titles = document_processor.extract_titles(
             ss.formatted_guidelines["content"]
         )

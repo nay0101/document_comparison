@@ -84,17 +84,65 @@ if session_state.result:
                     with col1:
                         doc1 = flag["doc1"]
                         st.markdown(
-                            "<b style='font-size: 1.5rem;'>Document 1</b>", True
+                            f"<b style='font-size: 1.5rem;'>Document 1</b></br>Page(s): {','.join(str(item) for item in doc1['page'])}",
+                            True,
                         )
                         st.markdown(doc1["content"], True)
                     with col2:
                         doc2 = flag["doc2"]
                         st.markdown(
-                            "<b style='font-size: 1.5rem;'>Document 2</b>", True
+                            f"<b style='font-size: 1.5rem;'>Document 2</b></br>Page(s): {','.join(str(item) for item in doc2['page'])}",
+                            True,
                         )
                         st.markdown(doc2["content"], True)
                     st.markdown("<b style='font-size: 1.5rem;'>Explanation</b>", True)
                     st.markdown(flag["explanation"], True)
+                    st.divider()
+                    suggestions = flag["suggestions"]
+                    st.markdown(
+                        "<b style='font-size: 1.5rem;'>Suggestions for Document 1</b>",
+                        True,
+                    )
+                    before1, after1 = st.columns(2)
+                    with before1:
+                        st.markdown(
+                            "<b style='font-size: 1rem;'>Before</b>",
+                            True,
+                        )
+                        st.markdown(doc1["content"], True)
+                    with after1:
+                        st.markdown(
+                            "<b style='font-size: 1rem;'>After</b>",
+                            True,
+                        )
+                        if suggestions.get("document1_suggestions"):
+                            for suggestion in suggestions["document1_suggestions"]:
+                                st.markdown(suggestion["modification"], True)
+                        else:
+                            st.markdown("No suggestions available.")
+
+                    st.markdown(
+                        "<b style='font-size: 1.5rem;'>Suggestions for Document 2</b>",
+                        True,
+                    )
+                    before2, after2 = st.columns(2)
+                    with before2:
+                        st.markdown(
+                            "<b style='font-size: 1rem;'>Before</b>",
+                            True,
+                        )
+                        st.markdown(doc2["content"], True)
+                    with after2:
+                        st.markdown(
+                            "<b style='font-size: 1rem;'>After</b>",
+                            True,
+                        )
+                        if suggestions.get("document2_suggestions"):
+                            for suggestion in suggestions["document2_suggestions"]:
+                                st.markdown(suggestion["modification"], True)
+                        else:
+                            st.markdown("No suggestions available.")
+
                     if environment == "development":
                         st.checkbox(label="Correct", key=f"check_{i}")
 

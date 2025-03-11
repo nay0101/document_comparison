@@ -1,204 +1,915 @@
-<chunk number="5">
+<chunked_documents>
+  <chunk number="21">
     <language1>
-5
-11. Set Off
-11.1 Without prejudice to and in addition to any remedy of set-off which HLB may have under the laws of any
-relevant jurisdiction, HLB may exercise at any time with prior notice to the Customer any right of set-off,
-combination or consolidation between any sums in any accounts held by HLB and any liabilities due to
-HLB or any right of forfeiture, retention or pledge over any sums held by HLB in accordance with and
-subject to the laws of Malaysia notwithstanding the following:
-(a) that the sums held by HLB are denominated in a different currency to that due, owing or incurred to
-HLB: or
-(b) that the sums held by HLB are not yet due and payable to the Customer; or
-(c) that the sums due, owing or incurred to HLB are not presently payable; or
-(d) that the sums held by HLB are situated in a different jurisdiction or branch of HLB from the sums due
-or owing or incurred to HLB.
-11.2 If any amounts held by HLB are in currencies other than those due, owing or incurred to HLB, HLB will
-have the right and with prior notice to the Customer, to convert such currencies to currencies acceptable
-to HLB at the cost of the Customer.
-12. Liability
-12.1 Save and except for damages arising directly from HLB’s willful default or gross negligence, HLB shall
-not be held liable or responsible for any loss, damage or other liability suffered by the Customer or HLB
-which arises:
-(a) as a result of HLB acting on any instruction or communication which HLB believes in good faith to be
-given by the Customer or any person(s) authorized by the Customer to give or send instructions or
-communications to HLB; or
-(b) as a result of any error or failure in transmission of any instruction or communication attributable to
-the fault of the Customer.
-12.2 HLB shall under no circumstances have any liability to the Customer or any other person for any indirect
-or consequential loss suffered by the Customer.
-13. Service Fees, Charges and Costs
-13.1 HLB shall be entitled to impose or levy service fees and other costs and charges in respect of all cheques,
-drafts, other instruments deposited or drawn on the Account(s) and all transactions, including the usual
-bank charges, commissions, postage, cable charges. HLB reserves the right to vary such service fees
-and other charges at any time and from time to time with prior notice and the Customer hereby authorizes
-HLB to debit the Account(s) or deduct from such proceeds received with such fees, commissions and
-charges without further notice to the Customer.
-
-
+      5.0 Cardholder’s Statement
+      5.1 The Statement will be incorporated in the passbook/statement of the Cardholder’s designated
+      Savings/Savings Account-i or Current Account/Current Account-i (“CASA/CASA-i”) and the
+      Cardholder can view his/her Statement for free via HLB Connect which consists, amongst others, the
+      Card Transaction and Posting Date of the Card Transactions performed by the Cardholder for the
+      relevant period stated.
+      5.2 Upon request by the Cardholder, the printed monthly Statement will be sent to the Cardholder’s last
+      known mailing address in the Bank’s records. A service charge will be charged and debited to the
+      Account. The printed monthly Statement shall indicate all the Card Transactions, Posting Date and
+      Transaction Date for the relevant month. The Cardholder may request for an ad hoc printed Statement
+      and the Bank shall levy a service fee of Ringgit Malaysia Ten (RM10) plus Ringgit Malaysia Two (RM2)
+      per page for Statement up to one (1) year ago or Ringgit Malaysia Ten (RM10) plus Ringgit Malaysia
+      Five (RM5) per page for Statement more than one (1) year ago per request.
     </language1>
     <language2>
-6
-11. Tolak selesai
-11.1 Tanpa menjejaskan dan di samping apa-apa remedi tolak selesai HLB di bawah undang-undang
-mana-mana bidang kuasa berkenaan, HLB boleh menggunakan, pada bila-bila masa dengan
-memberi notis awal kepada Pelanggan, sebarang hak tolak selesai, penggabungan atau penyatuan
-antara sebarang jumlah wang dalam mana-mana akaun yang dipegang oleh HLB dan sebarangn
-liabiliti terhutang kepada HLB atau sebarang hak perlucutan, pegangan atau sandaran ke atas apa-
-apa jumlah wang yang dipegang oleh HLB selaras dengan dan tertakluk kepada undang-undang
-Malaysia tanpa mengira perkara-perkara yang berikut:
-(a) jumlah wang yang dipegang oleh HLB berdenominasi mata wang lain yang berbeza dengan yang
-kena dibayar, terhutang atau ditanggung HLB;
-(b) jumlah wang yang dipegang oleh HLB belum lagi kena dibayar dan perlu dibayar kepada
-Pelanggan;
-(c) jumlah wang yang kena dibayar, terhutang atau ditanggung HLB belum lagi perlu dibayar buat
-masa sekarang; atau
-(d) jumlah wang yang dipegang oleh HLB berada di suatu bidang kuasa atau cawangan HLB berbeza
-daripada jumlah wang yang kena dibayar atau terhutang atau ditanggung HLB.
-11.2 Jika apa-apa amaun yang dipegang oleh HLB adalah dalam mata wang berbeza dengan amaun yang
-kena dibayar, terhutang atau ditanggung HLB, maka HLB akan berhak dan setelah memberi notis
-awal kepada Pelanggan, menukar mata wang tersebut kepada mata wang yang diluluskan oleh HLB
-dengan kosnya ditanggung Pelanggan.
-12. Liabiliti
-12.1 Kecuali dalam hal ganti rugi yang terbit secara langsung daripada keingkaran sengaja atau kecuaianmelampau di pihak HLB, HLB tidak bertanggungjawab terhadap, apa-apa kerugian kerosakan atau
-liabiliti lain yang dialami Pelanggan atau HLB yang timbul
-(a) akibat HLB bertindak atas apa-apa arahan atau komunikasi yang HLB percaya dengan niat baik
-dikeluarkan oleh Pelanggan atau sesiapa sahaja yang diberi kuasa oleh Pelanggan untuk
-memberi atau menghantar arahan atau komunikasi kepada HLB; atau
-(b) akibat kesilapan atau kegagalan penyampaian apa-apa arahan atau komunikasi berpunca
-daripada kesilapan Pelanggan.
-12.2 HLB sama sekali tidak bertanggungan terhadap Pelanggan atau mana-mana orang lain kerana
-sebarang kerugian tak langsung atau berbangkit yang dialami Pelanggan.
-13. Fi Perkhidmatan, Caj dan Kos
-13.1 HLB berhak mengenakan atau melevi fi perkhidmatan dan kos serta caj lain berkenaan dengan segala
-cek, draf, surat cara lain yang dimasukkan atau dikeluarkan atas Akaun dan segala transaksi,
-termasuk caj bank yang biasa, komisen, belanja pos, caj kawat. HLB berhak mengubah fi
-perkhidmatan tersebut dan caj lain pada bila-bila masa dan dari semasa ke semasa setelah memberi
-notis awal, dan Pelanggan dengan ini memberi kuasa kepada HLB untuk mendebit Akaun atau
-memotong daripada hasil kutipan yang diterima bagi fi, komisen dan caj tersebut tanpa memberi lagi
-notis kepada Pelanggan.
-
+      5.0 Penyata Pemegang Kad
+      5.1 Penyata akan dikemas kini ke dalam penyata/buku Akaun Simpanan/Akaun Simpanan-i atau
+      Akaun Semasa/Akaun Semasa-i yang ditetapkan, dan Pemegang Kad boleh menyemak
+      Penyatanya secara percuma melalui Hong Leong Connect yang meliputi, antara lain, Transaksi
+      Kad dan Tarikh Pengeposan Transaksi Kad yang dilakukan oleh Pemegang Kad untuk tempoh
+      yang dinyatakan.
+      5.2 Atas permintaan oleh Pemegang Kad, Penyata bulanan bercetak akan dihantar ke alamat surat-
+      menyurat Pemegang Kad yang terakhir dicatatkan di dalam rekod Bank. Caj perkhidmatan bulanan akan
+      didebitkan dari dalam Akaun. Penyata bulanan yang dicetak menunjukkan semua TransaksiKad,
+      Tarikh Pengeposan dan Tarikh Transaksi untuk bulan yang berkenaan. Pemegang Kad boleh
+      meminta Penyata dicetak pada bila-bila masa dan Bank akan mengenakan bayaran perkhidmatan
+      sebanyak Ringgit Malaysia Sepuluh (RM10) dan Ringgit Malaysia Dua (RM2) bagi setiap halaman
+      untuk Penyata sehingga satu (1) tahun yang lalu atau Ringgit Malaysia Sepuluh (RM10) dan
+      Ringgit Malaysia Lima (RM5) bagi setiap halaman untuk Penyata lebih daripada satu (1) tahun
+      yang lalu untuk setiap permintaan.
     </language2>
   </chunk>
-<chunk number="6">
-    <language1>
-6
-14. Notices
-14.1 Any notification from HLB to Customers may be given in any of the following manner:
-(a) by ordinary post or registered post or courier or by hand sent to or left at the Customer’s last known
-address registered with HLB and shall be deemed to be received by the Customer within three (3)
-Business Days from posting if sent by ordinary post or registered post and within two (2) Business
-Days from sending if by courier or upon acknowledgement of receipt if by hand; or
-(b) by general notice in one major newspaper or posted at HLB’s branch premises or on visual screen
-through a computer or visual terminal or at its website “www.hlb.com.my” and the notice shall be
-deemed to have been sent or effective from the date of such notice is made available or the date
-specified in the notice.
-14.2 Any notices (excluding any form of instructions in dealing with the Account(s)) required to be sent by the
-Customer to HLB must be sent to the relevant branch at which the Account(s) is maintained by ordinary
-post or registered post or courier sent to or left at the said branch of HLB and shall be deemed to be
-received by HLB when acknowledged by HLB.
-15. Right to Disclosure Information
-15.1 In addition to the permitted disclosures provided under Schedule 11 of the Financial Services Act 2013,
-the Customer irrevocably authorizes and permits HLB, its officers and employees to disclose and furnish
-all information concerning the Account(s), these T&Cs, present and future accounts of the Customer and
-any other matters relating to the Customer or its business and operations to:
-(a) other financial institutions granting or intending to grant any credit facilities to the Customer, the
-Central Credit Bureau or any other central credit bureau established by Bank Negara Malaysia,
-Cagamas Berhad, Credit Guarantee Corporation, any other relevant authority as may be authorized
-by law to obtain such information or such authorities/agencies established by Bank Negara Malaysia
-or any agency established by the Association of Banks in Malaysia;
-(b) any current or future corporation which may be associated with or related to HLB (as defined in the
-Companies Act 2016), including representative and branch offices and their respectiverepresentatives as well as subsidiaries of HLB’s holding company;
-(c) the security parties or any party intending to provide security in respect of the Account(s);
-(d) HLB’s auditors, solicitors and/or other agents in connection with the recovery of moneys due and
-payable hereunder; and
-(e) HLB’s professional advisers, service providers, nominees, agents, contractors or third-party service
-providers who are involved in the provision of products and services to or by HLB and its related or
-associated companies. The Customer hereby irrevocably consents to such disclosure and confirms
-that HLB, its officers and employees shall be under no liability for furnishing such information or for
-the consequences of any reliance which may be placed on the information so furnished in accordance
-with these T&Cs.
-16. Representations and Warranties
-16.1 The Customer hereby confirm that all the representations and warranties made to HLB in the
-application(s) are true and correct and shall remain true and correct for as long as the Account(s) are
-maintained with HLB. The Customer undertakes to immediately inform HLB of any changes in respect
-of any of the information provided to HLB.
-17. Governing Law
-17.1 These T&Cs shall be governed by and construed in accordance with the laws of Malaysia and the
-Customer agrees to submit to the non-exclusive jurisdiction of the courts of Malaysia or any other court
-of competent jurisdiction as HLB may at its sole discretion elect to submit and the service of any legal
-process may be affected by any manner permitted by law.
-17.2 The Account(s) shall be governed by and subject to the rules and regulations and directives of the
-Association of Banks in Malaysia, BNM or any appropriate monetary authority and any laws in effect
-from time to time at HLB.
-Foreign Currency Account is protected by PIDM up to RM250,000 for each depositor.
-The operations, sources and uses of funds to and from a Foreign Currency Account (“FCA”) shall be governed
-in accordance with the Investment Foreign Currency Asset (“IFCA”) under the Foreign Exchange Policy
-Notices (“FEP Notices”) issued by Bank Negara Malaysia (“BNM”).
 
+  <chunk number="22">
+    <language1>
+      5.3 The records and entries in the Account with the Bank which appears on the monthly Statement shall
+      be deemed to be correct and binding on the Cardholder unless written notice to the contrary is given
+      to the Bank by the Cardholder within fourteen (14) days after the receipt of the Statement.
+      5.4 If the Cardholder for any reason whatsoever does not, within fourteen (14) days, notify the Bank in
+      writing of any error in the Statement, and in the absence of any obvious error on the face of the
+      statement or fraud by the Bank then the Cardholder shall be deemed to have accepted the records and
+      entries in the Statement as correct, final and conclusive. The Statement shall be considered conclusive
+      and binding on the Cardholder and the Cardholder’s legal representatives and successors.
+      5.5 Upon receipt by the Bank of such written notice duly given by the Cardholder within the stipulated time,
+      the Bank shall look into the Account to make the necessary adjustments and rectifications, if any. Any
+      money due to or from the Cardholder shall be credited or debited into the Account respectively.
     </language1>
     <language2>
-7
-14. Notis
-14.1 Apa-apa pemberitahuan daripada HLB kepada pelanggan boleh diberi dengan salah satu cara
-berikut :-
-(a) melalui pos biasa atau pos berdaftar atau kurier atau dengan tangan yang dihantar kepada atau
-ditinggalkan di alamat Pelanggan terkini yang berdaftar dengan HLB dan akan dianggap telah
-diterima oleh Pelanggan dalam masa tiga (3) Hari Perniagaan dari tarikh diposkan jika dihantar
-melalui pos biasa atau pos berdaftar dan dalam masa dua (2) Hari Perniagaan dari tarikh hantaran
-jika melalui kurier atau dengan akuan terima jika dengan tangan; atau
-(b) melalui notis umum dalam satu akhbar utama atau dihebahkan di premis cawangan HLB atau
-pada skrin visual komputer atau terminal visual atau di laman webnya “www.hlb.com.my” dan
-notis itu akan dianggap telah dihantar atau berkuat kuasa dari tarikh notis tersebut dikeluarkan
-atau dari tarikh yang disebut dalam notis.
-14.2 Apa-apa notis (tak termasuk sebarang bentuk arahan berkenaan Akaun yang perlu dihantar oleh
-Pelanggan kepada HLB) mestilah dihantar kepada cawangan berkaitan tempat Akaun itu diselenggara
-melalui pos biasa atau pos berdaftar atau kurier dihantar kepada atau ditinggalkan di cawangan HLB
-tersebut dan akan dianggap telah diterima oleh HLB apabila diakui terima oleh HLB.
-15. Hak Mendedahkan Maklumat
-15.1 Selain pendedahan dibenarkan seperti yang diperuntukkan di bawah Jadual 11 Akta Perkhidmatan
-Kewangan 2013, Pelanggan memberi kuasa dan keizinan tak boleh batal kepada HLB, para pegawai
-dan para pekerjanya untuk mendedahkan dan membekalkan segala maklumat berkenaan Akaun,
-Terma dan Syarat ini, akaun Pelanggan masa sekarang dan masa akan datang dan apaapa hal lain
-berkaitan dengan Pelanggan atau perniagaan dan operasinya kepada:
-(a) institusi kewangan lain yang memberi atau bercadang memberi apa-apa kemudahan kredit
-kepada Pelanggan, Biro Kredit Pusat atau mana-mana kredit pusat yang ditubuhkan oleh Bank
-Negara Malaysia, Cagamas Berhad, Credit Guarantee Corporation, mana-mana pihak berkuasa
-berkenaan yang lain seperti yang dibenarkan undang-undang untuk mendapatkan maklumat
-tersebut atau mana-mana pihak berkuasa/agensi yang ditubuhkan oleh Bank Negara Malaysia
-atau mana-mana agensi yang ditubuhkan oleh Persatuan Bank-bank di Malaysia;
-(b) mana-mana perbadanan masa sekarang atau masa akan datang yang bersekutu atau berkaitan
-dengan HLB (mengikut takrif dalam Akta Syarikat 2016), termasuk pejabat wakil dan pejabat
-cawangan serta wakil mereka masing-masing serta juga subisidiari-subsidiari Syarikat induk
-HLB;
-(c) pihak-pihak penyedia cagaran atau mana-mana pihak yang bercadang menyediakan cagaran
-berkenaan Akaun;
-(d) juruaudit HLB, peguam cara dan/atau ejen-ejen lain bersabit dengan usaha mendapat Kembali
-jumlah wang yang kena dibayar dan perlu dibayar di bawah ini; dan
-(e) Penasihat profesional HLB, penyedia perkhidmatan, nomini, ejen, kontraktor atau penyedia
-perkhidmatan pihak ketiga yang terlibat dengan penyediaan produk dan perkhidmatan kepada
-atau oleh HLB dan syarikat-syarikat berkaitan atau bersekutunya. Pelanggan dengan ini
-memberi keizinan tak boleh batal untuk pendedahan tersebut dan mengesahkan bahawa HLB,
-para pegawai dan para pekerjanya tidaklah bertanggungan untuk membekalkan maklumat
-tersebut atau terhadap akibat daripada kebergantungan yang diletakkan pada maklumat yang
-dibekalkan itu selaras dengan Terma dan Syarat ini.16. Representasi dan Waranti
-16.1 Pelanggan dengan ini mengesahkan bahawa segala representasi dan waranti yang dibuat kepada
-HLB dalam permohonan adalah benar dan betul dan hendaklah tetap benar dan betul selagi Akaun
-itu diselenggara dengan HLB. Pelanggan beraku janji akan memberitahu HLB dengan serta-merta
-tentang apa-apa perubahan berkenaan mana-mana maklumat yang disediakan kepada HLB.
-17. Undang-undang Terpakai
-17.1 Terma dan Syarat ini adalah tertakluk kepada dan ditafsirkan menurut undang-undang Malaysia dan
-Pelanggan bersetuju untuk akur kepada bidang kuasa tidak eksklusif mahkamah-mahkamah Malaysia
-atau mana-mana mahkamah lain berbidang kuasa kompeten yang Bank boleh, atas budi bicara
-mutlaknya, pilih untuk akur dan penyampaian sebarang proses undang-undang boleh dilaksanakan
-dengan apa-apa cara yang dibenarkan undang-undang.
-17.2 Akaun hendaklah diselia oleh dan tertakluk kepada peraturan serta arahan Persatuan Bank-bank di
-Malaysia, BNM atau mana-mana pihak berkuasa kewangan yang sesuai dan mana-mana undang-
-undang yang dikuatkuasakan di HLB dari semasa ke semasa
-Akaun Mata Wang Asing dilindungi oleh PIDM setakat RM250,000 bagi setiap pendeposit.
-Operasi, sumber dan penggunaan dana dari dan ke Akaun Mata Wang Asing (“FCA”) akan diselia mengikut
-Pelaburan Aset Mata Wang Asing (“IFCA”) di bawah Notis Dasar Pertukaran Asing (“Notis FEP”) yang
-dikeluarkan oleh Bank Negara Malaysia (“BNM”).
+      5.3 Rekod dan catatan dalam Akaun yang ditetapkan dengan Bank yang terdapat pada Penyata
+      bulanan akan dianggap sebagai tepat dan mengikat ke atas Pemegang Kad kecuali makluman
+      bertulis bertentangan dengannya diberi oleh Pemegang Kad kepada Bank dalam masa empat
+      belas (14) hari kalendar selepas menerima.
+      5.4 Jika atas sebarang sebab Pemegang Kad tidak memaklumkan kepada Bank secara bertulis dalam
+      masa empat belas (14) hari tentang sebarang percanggahan di dalam Penyata dan sekiranya
+      tiada sebarang kesilapan yang jelas pada muka penyata atau penipuan oleh Bank,maka
+      PemegangKad akan dianggap telah menerima rekod dan catatan di dalam Penyata sebagai betul,
+      akhir danmuktamad. Penyata itu harus dianggap sebagai muktamad dan terikat kepada Pemegang
+      Kad, wakil perundangan dan pengganti Pemegang Kad, dan sebarang tuntutan atau dakwa
+      terhadap Bank yang mendakwa Penyata itu adalah salah adalah tidak sah.
+      5.5 Apabila Bank menerima notis bertulis yang diberi oleh Pemegang Kad dalam tempoh yang
+      dinyatakan, Bank akan menyiasat Akaun untuk membuat pelarasan dan pembetulan yang
+      sewajarnya, jika ada. Sebarang wang yang perlu dibayar kepada atau dibayar oleh Pemegang Kad
+      akan dikredit atau didebit ke dalam Akaun berkaitan.
     </language2>
   </chunk>
-</chunked_documents>
+
+  <chunk number="23">
+    <language1>
+      5.6 Only Card Transactions which have been duly verified by the Bank shall appear in the Statement of
+      the Account of the Cardholder.
+      5.7 The Cardholders may also obtain the record of last ten (10) CASA/CASA-i transactions via ATM. In
+      the ATM transaction slip generated by the ATM, all Retail Transactions are represented by the three
+      (3) alphabet word “POS”.
+      6.0 Joint Accountholders
+      6.1 For Joint Accountholders, either one of the accountholders may issue instructions and authorise the
+      Bank to effect any Card Transactions on a joint account. All Card Transactions arising shall be binding
+      on all accountholders, who are jointly and severally liable. The mandate of a joint accountholder shall
+      not be revoked until and unless the joint accountholder whose mandate is to be revoked surrenders
+      his/her Debit Card to the Bank.
+    </language1>
+    <language2>
+      5.6 Hanya Transaksi Kad yang telah disahkan dengan sewajarnya oleh Bank akan muncul di dalam
+      Penyata Akaun Pemegang Kad.
+      5.7 Pemegang Kad juga boleh mendapatkan rekod sepuluh (10) transaksi terakhir Akaun Simpanan
+      atau Semasa/Akaun Simpanan-i atau Semasa -i melalui ATM. Di dalam rekod transaksi ATM yang
+      dikeluarkan oleh ATM, semua Transaksi Belian Runcit diwakili oleh perkataan tiga (3)-huruf “POS”.
+      6.0 Pemegang Akaun Bersama
+      6.1 Untuk Pemegang Akaun Bersama, salah seorang pemegang akaun boleh mengeluarkan arahan
+      dan membenarkan Bank untuk melaksanakan sebarang Transaksi Kad ke atas akaun bersama.
+      Semua Transaksi Kad yang dilakukan akan mengikat ke atas semua pemegang kad, yang
+      bertanggungjawab secara bersama dan bersendiri. Mandat pemegang akaun bersama tidak akan
+      ditarik-balik kecuali dan sehingga pemegang akaun bersama yang mana mandatnya akan ditarik-
+      balik menyerahkan Kad Debitnya kepada Bank.
+    </language2>
+  </chunk>
+
+  <chunk number="24">
+    <language1>
+      7.0 Hold On Account
+      7.1 The Bank may debit or place a hold on the Retail Purchase Account (“Hold on Account”) for the
+      amount of the Card Transactions either on the day it is presented to the Bank for payment or on the
+      day the Bank receives notice of the Card Transaction, whichever is earlier.
+      7.2 The Hold on Account is applicable for retail transactions made with Authorised Merchant who require
+      such hold. If an Authorised Merchant requests for an authorisation of any Card Transaction, the Bank
+      may place a Hold on Account for the amount of the Card Transaction as set by the Authorised Merchant
+      and agreed by the Cardholder. The balance available to the Cardholder for use in the Retail Purchase
+      Account shall be reduced by the amount on hold.
+      7.3 Subject to the Daily Retail Purchase Limit and Current Balance in the Retail Purchase Account and the
+      T&Cs herein, the Bank shall place a Hold on Account for petrol purchases by the Cardholder at
+      automated fuel dispensers at petrol stations where the systems will automatically earmark Ringgit
+      Malaysia Two Hundred (RM200). Such pre-authorisation amount will be automatically released once
+      the acquiring bank claims for the actual purchase value to the bank within three (3) Business Days or
+      such other period as may be notified by the Bank.
+    </language1>
+    <language2>
+      7.0 Akaun Pegangan
+      7.1 Bank mungkin akan mendebit atau mengenakan pegangan ke atas Akaun Pembelian Runcit
+      (“Akaun Pegangan”) untuk amaun Transaksi Kad sama ada pada hari ianya diserahkan kepada
+      Bank untuk bayaran atau pada hari Bank menerima makluman mengenai Transaksi Kad, yang
+      mana lebih awal.
+      7.2 Akaun Pegangan ke atas akaun adalah sah untuk semua transaksi runcit yang dilakukan dengan
+      Peniaga Sah yang memerlukan pegangan sedemikian. Jika Peniaga Sah meminta kebenaran
+      untuk sebarang Transaksi Kad, Bank mungkin akan mengenakan pegangan ke atas Akaun
+      Pegangan untuk amaun Transaksi Kad yang ditetapkan oleh Peniaga Sah and dipersetujui oleh
+      Pemegang Kad. Baki tersedia di dalam Akaun Pembelian Runcit untuk digunakan oleh Pemegang
+      Kad akan berkurangan sejajar dengan amaun yang dipegang.
+      7.3 Tertakluk kepada Had Pembelian Runcit Harian dan Baki Semasa dalam Akaun Belian Runcit dan
+      Terma & Syarat di sini, Bank hendaklah meletakkan Akaun Pegangan untuk pembelian petrol oleh
+      Pemegang Kad di dispenser bahan api automatik di stesen minyak di mana sistem akan secara
+      automatik memperuntukkan Ringgit Malaysia Dua Ratus (RM200). Amaun pra-kuasa tersebut
+      akan dikeluarkan secara automatik sebaik sahaja bank pemeroleh menuntut nilai pembelian
+      sebenar kepada bank dalam tempoh tiga (3) Hari Perniagaan atau tempoh lain yang mungkin
+      dimaklumkan oleh Bank.
+    </language2>
+  </chunk>
+
+  <chunk number="25">
+    <language1>
+      7.4 In the case of any Retail Transaction other than as set out under Clause 7.3 above, the Bank shall
+      have discretion to place such amount on hold for up to twenty-one (21) calendar days or for such
+      period as it deems fit. The Bank shall debit the amount on hold to the Retail Purchase Account when
+      the corresponding Card Transactions are presented to the Bank for payment. The Bank shall release
+      the amounts on hold if the corresponding Card Transactions are not presented to the Bank for payment
+      within such periods as the Bank deems fit. The Cardholder further expressly agrees that the Bank shall
+      have the right to place a hold back onto the Retail Purchase Account and to debit the Retail Purchase
+      Account if the Card Transactions are likely to be or are presented for payment subsequently by the
+      Authorised Merchants upon expiry of twenty-one one (21) calendar days. The Cardholder agrees that
+      all receipts forwarded by the Authorised Merchants for the Card Transactions via Transaction Receipts
+      including confirmation receipts and acknowledgement shall be deemed final and conclusive evidence
+      of usage by the Cardholder.
+      7.5 Upon the Bank receiving proof of the actual transaction amount from the Authorised Merchant, the
+      Bank shall release the pre-authorisation amount and debit the actual transaction amount to the Retail
+      Purchase Account of the Cardholder.
+    </language1>
+    <language2>
+      7.4 Selain daripada yang dinyatakan seperti Klausa 7.3 di atas, Bank mempunyai budi bicara untuk
+      menahan jumlah tersebut sehingga dua puluh satu (21) hari kalendar atau untuk tempoh yang
+      difikirkan sesuai. Bank hendaklah mendebitkan jumlah yang ditahan ke Akaun Belian Runcit
+      apabila Transaksi Kad yang sepadan dikemukakan kepada Bank untuk pembayaran. Bank
+      hendaklah mengeluarkan jumlah yang ditahan jika Transaksi Kad yang sepadan tidak
+      dikemukakan kepada Bank untuk pembayaran dalam tempoh yang dianggap sesuai oleh Bank.
+      Pemegang Kad selanjutnya dengan nyata bersetuju bahawa Bank berhak untuk menahan Akaun
+      Belian Runcit dan mendebit Akaun Belian Runcit jika Transaksi Kad berkemungkinan akan atau
+      dibentangkan untuk pembayaran kemudiannya oleh Pedagang Dibenarkan apabila tamat tempoh
+      dua puluh satu satu (21) hari kalendar. Pemegang Kad bersetuju bahawa semua resit yang
+      dikemukakan oleh Pedagang Sah untuk Urus Niaga Kad melalui Resit Transaksi termasuk resit
+      pengesahan dan pengakuan hendaklah dianggap sebagai bukti penggunaan muktamad dan
+      konklusif oleh Pemegang Kad.
+      7.5 Apabila Bank menerima bukti jumlah transaksi sebenar daripada Peniaga Sah, Bank akan
+      melepaskan Jumlah Pra-Kuasa dan Akaun Pembelian Runcit Pemegang Kad akan didebitkan
+      dengan jumlah transaksi sebenar tersebut.
+    </language2>
+  </chunk>
+
+  <chunk number="26">
+    <language1>
+      7.6 The Cardholder may not stop payment on a Card Transaction. For the avoidance of doubt, it is hereby
+      stated that the Bank’s right to debit the Retail Purchase Account in respect of any Card Transaction
+      shall not be limited to the amount that was placed on hold in connection with the Card Transaction, and
+      the Bank shall be entitled to debit the Retail Purchase Account for the full amount of the Card
+      Transaction. The Bank shall have the right to increase the amount that it would hold in respect of any
+      Card Transaction which is denominated in a currency other than Ringgit Malaysia if the Bank is of the
+      view that the amount initially held when converted into that foreign currency would not be sufficient to
+      pay that Card Transaction in full.
+      7.7 The Cardholder shall not use any of the amounts on hold, notwithstanding any other terms and
+      conditions governing the Retail Purchase Account.
+      7.8 The Bank will only credit the Retail Purchase Account with refunds made by any Authorised Merchant
+      or establishment in relation to any retail purchase/online purchases transactions after the Bank receives
+      a properly issued credit voucher. Such refunds shall include but are not limited to the Cardholder
+      returning the items to the retail outlet after purchase.
+    </language1>
+    <language2>
+      7.6 Pemegang Kad tidak boleh memberhentikan pembayaran ke atas Transaksi Kad. Untuk
+      mengelakkan keraguan, dengan ini dinyatakan bahawa hak Bank untuk mendebit Akaun
+      Pembelian Runcit berhubung sebarang Transaksi Kad tidak terhad kepada amaun yang diletakkan
+      dalam pegangan yang berkaitan dengan Transaksi Kad dan Bank berhak untuk mendebit Akaun
+      Pembelian Runcit untuk amaun penuh atas Transaksi Kad. Bank juga berhak untuk menaikkan
+      amaun yang perlu dipegang berkaitan mana-mana Transaksi Kad yang berdenominasi dalam mata
+      wang lain selain daripada Ringgit Malaysia jika Bank berpendapat amaun asal yang dipegang tidak
+      mencukupi untuk membayar Transaksi Kad sepenuhnya apabila ditukar kepada mata wang asing
+      tersebut.
+      7.7 Pemegang Kad tidak boleh menggunakan jumlah yang ditahan, walau apa pun terma dan syarat
+      lain yang mengatur Akaun Pembelian Runcit.
+      7.8 Bank hanya akan mengkreditkan Akaun Pembelian Runcit dengan kembalian yang dibuat oleh
+      Peniaga Sah atau penentuan yang berkaitan dengan mana-mana transaksi runcit/transaksi dalam
+      talian selepas Bank menerima baucer kredit yang dikeluarkan dengan betul. Kembalian ini
+      termasuk tetapi tidak terhad kepada Pemegang Kad memulangkan semula barangan kepada
+      peruncit selepas pembelian.
+    </language2>
+  </chunk>
+
+  <chunk number="27">
+    <language1>
+      8.0 Ownership and Loss or Theft of Debit Card
+      8.1 The Cardholder fully understands that failure to take reasonable care and precaution in the safekeeping
+      of the Debit Card may expose the Cardholder to the consequences of theft, loss and/or fraudulent use
+      of the Debit Card. The Cardholder shall use all precautions to prevent or guard against such an event. If
+      such an event occurs, the Cardholder shall:
+      (i) If the event occurred in Malaysia - Upon discovery of such event, immediately notify the Bank via
+      HLB Contact Centre at 03-76268899 or the National Scam Response Centre (NSRC) at 997.
+      (ii) If the event occurred overseas – Notify Visa Travel Service Centre or any member of Mastercard or
+      its nearest affiliates.
+      8.2 The Bank shall be entitled to act on telephone instructions received by the Bank from the Cardholder
+      and/or the Cardholder’s authorised representative (if applicable and as the case may be) (“Authorised
+      Person”) in good faith and in accordance with its normal operations. In connection herewith, the Bank
+      shall not be liable for acting on the telephone instructions which are given by such Authorised Person
+      regardless of the circumstances prevailing at the time of such instructions.
+    </language1>
+    <language2>
+      8.0 Pemilikan dan Kad Debit Hilang atau Dicuri
+      8.1 Pemegang Kad harus mengambil segala langkah keselamatan untuk mengelakkan Kad Debit
+      daripada kehilangan atau kecurian dan Pemegang Kad tidak boleh meninggalkan Kad Debit tanpa
+      dijaga atau mendedahkan PIN dan/atau butiran Kad Debit kepada mana-mana pihak ketiga.
+      Sekiranya berlaku kehilangan dan/atau kecurian Kad Debit dan/atau pendedahan PIN dan/atau
+      butiran kepada pihak yang tidak dibenarkan, Pemegang Kad apabila menyedarinya hendaklah
+      memaklumkan kepada Bank dengan secepat yang munasabah boleh dilaksanakan selepas itu
+      (jika perkara tersebut berlaku di Malaysia) atau Visa Travel Service Centre atau mana-mana ahli
+      Mastercard atau sekutu terdekatnya (jika perkara tersebut berlaku di luar negara). Pemegang Kad
+      memahami sepenuhnya bahawa kegagalan untuk menjaga dan mengambil langkah keselamatan
+      yang munasabah dalam penyimpanan Kad Debit boleh mendedahkan Pemegang Kad kepada
+      risiko kecurian dan/atau penggunaan tanpa kebenaran Kad Debit.
+      8.2 Bank berhak bertindak atas arahan telefon yang diterima oleh Bank daripada Pemegang Kad
+      dan/atau wakilnya yang diberikuasa oleh Pemegang Kad (jika berkenaan dan mengikut mana-
+      mana yang berkenaan) ("Orang yang Diberi Kuasa") dengan niat yang baik dan mengikut operasi
+      yang biasa. Berhubung dengan ini, Bank tidak akan bertanggungjawab untuk bertindak atas arahan
+      telefon yang diberikan oleh Orang yang Diberi Kuasa tersebut tidak kira keadaan yang wujud pada
+      masa arahan tersebut.
+    </language2>
+  </chunk>
+
+  <chunk number="28">
+    <language1>
+      8.3 In the event of loss/theft of the Debit Card and the Debit Card is subsequently used by any
+      unauthorised person for any Card Transactions, the Cardholder agrees that he/she shall be liable to
+      the Bank for all unauthorised charges incurred including financial charges for any goods or services
+      supplied by the Authorised Merchant, effected through the use of the Debit Card by the said
+      unauthorised person until the date and time of receipt by the Bank of the Cardholder’s notification
+      specified under Clause 8.1 above and subject to the terms of Clause 8.6 herein.
+      8.4 The Cardholder agrees to authorise the Bank to dishonour the abovementioned original Debit Card in
+      the event that same is presented to the Bank for payment after the receipt by the Bank of the
+      Cardholder’s notification specified under Clause 8.1 above.
+      8.5 Upon the issuance of a replacement of the original Debit Card at the Cardholder’s request, the
+      Cardholder agrees to reimburse and pay the Bank if the original Debit Card is used in any way, for
+      which the Cardholder agrees that the Bank may set off or debit from the Cardholder’s Account for such
+      sum.
+    </language1>
+    <language2>
+      8.3 Jika berlaku kecurian/kehilangan Kad Debit dan Kad Debit tersebut telah digunakan oleh orang
+      yang tidak dibenarkan untuk sebarang Transaksi Kad, Pemegang Kad bersetuju bahawa beliau
+      akan bertanggungjawab kepada Bank ke atas semua caj tanpa kebenaran yang ditanggung
+      termasuk caj kewangan untuk sebarang barangan atau perkhidmatan yang diberikan oleh Peniaga
+      Sah, akibat penggunaan Kad Debit oleh pihak yang tidak dibenarkan tersebut sehingga tarikh dan
+      masa penerimaan oleh Bank makluman dari Pemegang Kad yang dinyatakan di dalam Klausa 8.1
+      di atas dan tertakluk kepada terma dan syarat Klausa 8.6 di dalam ini.
+      8.4 Pemegang Kad bersetuju untuk memberi kuasa kepada Bank supaya tidak memperakui Kad Debit
+      asal yang tersebut di atas sekiranya Kad Debit yang sama diserahkan kepada Bank untuk
+      pembayaran setelah penerimaan oleh Bank pemberitahuan Pemegang Kad yang dinyatakan di
+      bawah Klausa 8.1 diatas.
+      8.5 Selepas pengeluaran penggantian Kad Debit asal atas permintaan Pemegang Kad, Pemegang Kad
+      bersetuju untuk membayar balik dan membayar kepada Bank jika Kad Debit asal digunakan dalam
+      apa jua cara, yang mana Pemegang Kad bersetuju bahawa Bank boleh menolak atau mendebit
+      daripada Akaun Pemegang Kad untuk jumlah tersebut.
+    </language2>
+  </chunk>
+
+  <chunk number="29">
+    <language1>
+      8.6 The Cardholder would not be liable for unauthorised transactions which require PIN verification or
+      signature verification or with contactless card, provided always that the Cardholder has not:
+      (i) acted fraudulently;
+      (ii) delayed in notifying the Bank as soon as reasonably after having discovered:
+      (a) any loss or unauthorised use of the Card; or
+      (b) any security breach of the Cardholder banking credentials or the loss of a security device;
+      (iii) voluntarily disclosed the PIN and banking credentials such as access identity (ID) and passcode
+      to a third party;
+      (iv) recorded the PIN on the Card or on anything kept in close proximity with the Card;
+      (v) left the Card or an item containing the Card unattended in places visible and accessible to others;
+      or
+      (vi) voluntarily allowed another person to use the Card and the Cardholder has taken reasonable steps
+      to keep the Cardholder’s security device secure at all times as well as has cooperated with the
+      Bank in the investigation.
+      The Cardholder shall remain liable for the unauthorised transactions if proven acted in any manner as
+      listed (i) to (vi) above. This includes before or after the Bank’s receipt of the Cardholder’s written
+      confirmation. The Bank’s decision however, shall be deemed final, conclusive and binding on this
+      matter on Cardholder.
+    </language1>
+    <language2>
+      8.6 Pemegang Kad tidak akan dipertanggungjawab ke atas urus niaga tanpa kebenaran kad-hadir
+      yang memerlukan pengesahan PIN atau tandatangan yang telah disahkan atau penggunaan kad
+      tanpa-sentuh, dengan syarat Pemegang Kad tidak:
+      8.6.1 melakukan penipuan;
+      8.6.2 tangguh dalam memaklum Bank secepat mungkin setelah diketahui kehilangan atau
+      penggunaan tanpa kebenaran Kad Kredit;
+      8.6.3 secara sukarela mendedahkan PIN kepada orang lain;
+      8.6.4 mencatatkan PIN pada Kad Kredit atau pada apa-apa yang disimpan berdekatan dengan Kad;
+      8.6.5 meninggalkan Kad Kredit atau apa-apa yang mengandungi Kad Kredit tanpa jagaan di mana-
+      mana tempat yang boleh dilihat dan diakses oleh orang lain; atau
+      8.6.6 secara sukarela membenarkan orang lain untuk menggunakan Kad.
+      Untuk mengelakkan keraguan, transaksi tanpa kebenaran yang dinyatakan di atas bermaksud
+      transaksi pembelian runcit dan bukan transaksi ATM. Urus niaga ATM akan merangkumi kedua-
+      dua pengeluaran dan transaksi wang antara bank yang dilakukan dengan Kad Debit. Adalah
+      dipersetujui dengan nyata bahawa Bank tidak bertanggungjawab untuk memastikan Baki Semasa
+      yang ditetapkan oleh Bank tidak melebihi.
+    </language2>
+  </chunk>
+
+  <chunk number="30">
+    <language1>
+      8.7 The Bank may, at the request of the Cardholder, but without being obliged in law, replace the lost,
+      stolen or damaged Debit Card upon payment of a fee. The replacement Debit Card shall be subject to
+      the terms and conditions in these T&Cs as if it was the original Debit Card.
+      8.8 Upon the expiry of the Debit Card or when demanded by the Bank upon cancellation, revocation or
+      suspension of the Debit Card by the Bank or upon finding the Debit Card after notification of its loss or
+      theft, the Cardholder shall not have any further right to use the Debit Card and shall immediately cut the
+      Debit Card in half and return the same to the Bank.
+      9.0 Termination by the Cardholder
+      9.1 The Cardholder may at any time terminate the use of the Debit Card by written notice to the Bank and
+      returning the Debit Card cut in half to the Bank. No refund of the Fee or any part thereof will be made
+      to the Cardholder and the Cardholder shall be and remain liable for any transaction effected through
+      the use of the Debit Card prior to termination of the Cardholder's Debit Card.
+    </language1>
+    <language2>
+      8.7 Bank boleh, atas permintaan Pemegang Kad, tetapi tanpa diwajibkan di sisi undang-undang,
+      mengganti Kad Debit yang hilang, dicuri atau rosak dengan mengenakan bayaran fi. Kad Debit
+      gentian adalah tertakluk kepada terma dan syarat di dalam T&S ini sebagaimana Kad Debit asal.
+      8.8 Setelah Kad Debit tamat tempoh atau apabila diminta oleh Bank selepas pembatalan, pemansuhan
+      atau penggantungan Kad Debit oleh Bank atau apabila diketahui Kad Debit selepas pemberitahuan
+      kehilangannya, Pemegang Kad tidak mempunyai apa-apa hak lagi penggunaan Kad Debit dan
+      akan segera dipotong setengah dan memulangkan Kad Debit tersebut kepada Bank.
+      9.0 Penamatan oleh Pemegang Kad
+      9.1 Pemegang Kad boleh pada bila-bila masa, menamatkan penggunaan Kad Debit dengan
+      memberikan makluman bertulis kepada Bank dan mengembalikan Kad Debit yang dipotong dua
+      kepada Bank. Tiada kembalian Fi atau sebahagiannya akan dibuat kepada Pemegang Kad dan
+      Pemegang Kad akan dan kekal bertanggungjawab ke atas sebarang transaksi yang dilakukan
+      menggunakan Kad Debit sebelum Bank menerima makluman bertulis mengenai penamatan dan
+      pengembalian Kad Debit dipotong dua kepada Bank.
+    </language2>
+  </chunk>
+
+  <chunk number="31">
+    <language1>
+      10.0 Fees, Commissions and Charges
+      10.1 The Bank shall be entitled to impose Fees for the Services including but not limited to the issuance of
+      Debit Card, the printed monthly Statement, Card Replacement Fee, Cash Withdrawal Fee via MEPS
+      network, Visa PLUS/Mastercard Cirrus terminals and International Banks, Sales Draft Retrieval Fee
+      and Annual Fees. Notwithstanding the imposition of such Fees, transactions carried out through the
+      Services will be charged the usual charges and commissions. For the purpose of collecting such Fees,
+      commissions and/or charges, the Cardholder agrees to authorise the Bank to debit the Account with
+      such Fees, commissions and/or charges. In the event the Cardholder does not authorise the Bank to
+      debit the Account with such Fees, commissions and/or charges, the Cardholder agrees that any such
+      failure of payment of Fees, commissions and/or charges for the Services may affect the Services
+      provided until all such Fees, commissions and/or charges have been duly paid by the Cardholder.
+      10.2 The Cardholder agrees to pay all Fees, commissions and/or charges incurred in this clause and
+      authorise the Bank to debit the Account, at any time notwithstanding that such debiting may cause the
+      Account to be overdrawn. The following Fees, commissions and/or charges is imposed at the following
+      rate or such other rate as the Bank shall at its discretion vary from time to time by giving twenty-one
+      (21) calendar days’ prior notice to the Cardholder for transactions effected by use of the Debit Card.
+      For the full list of fees and charges, please visit our website www.hlb.com.my/dc1 or scan here:
+    </language1>
+    <language2>
+      10.0 Fi, Komisyen dan Caj
+      10.1 Bank berhak untuk mengenakan Fi untuk Perkhidmatan termasuk tetapi tidak terhad kepada
+      pengeluaran Kad Debit, Penyata bulanan dicetak, Yuran Penggantian Kad, Fi Pengeluaran Tunai
+      melalui rangkaian MEPS, terminal Visa PLUS/Mastercard Cirrus dan Bank Antarabangsa, Dapatan
+      Semula Draf Jualan dan Fi Bayaran Tahunan. Selain daripada Bayaran Fi tersebut, transaksi yang
+      dijalankan melalui Perkhidmatan akan dikenakan caj dan komisen biasa. Bagi tujuan pengutipan
+      Yuran, komisen dan/atau caj, Pemegang Kad bersetuju untuk memberi kuasa kepada Bank untuk
+      mendebitkan Akaun dengan Yuran, komisyen dan/atau caj yang berkenaan. Sekiranya Pemegang
+      Kad tidak memberi kuasa kepada Bank untuk mendebitkan Akaun dengan Yuran, komisen
+      dan/atau caj, Pemegang Kad bersetuju bahawa kegagalan pembayaran Yuran, komisen dan/atau
+      caj bagi Perkhidmatan boleh menjejaskan Perkhidmatan yang disediakan sehingga semua yuran,
+      komisen dan/atau caj yang telah dibayar dengan sewajarnya oleh Pemegang Kad.
+      10.2 Pemegang Kad bersetuju untuk membayar semua fi, komisen dan/atau caj yang dikenakan dalam
+      klausa ini dan membenarkan Bank untuk mendebit Akaun Pemegang Kad, tanpa mengambilkira
+      pendebitan tersebut mungkin menyebabkan Akaun terlebihguna. Bayaran, komisen dan/atau caj
+      berikut dikenakan pada kadar yang dinyatakan atau kadar lain yang ditetapkan, yang boleh dipinda
+      oleh Bank untuk membuat pemindahan dari semasa ke semasa dengan memberi dua puluh satu
+      (21) hari kalendar notis terlebih dahulu kepada Pemegang Kad untuk transaksi yang dilaksanakan
+      melalui penggunaan Kad Debit. Untuk senarai fi dan caj yang lengkap, sila layari laman web kami
+      www.hlb.com.my/dc2 atau imbas di sini:
+    </language2>
+  </chunk>
+
+  <chunk number="32">
+    <language1>
+      10.3 The Annual Fee is not chargeable on the issuance of the Debit Card and it will only be charged on the
+      anniversary date. The Annual Fee may be varied by the Bank from time to time with twenty-one (21)
+      calendar days' prior notice via the Bank's Websites or in other manner the Bank deems fit.
+      11.0 Government Taxes, Statutory and/or Regulatory Fees and Charges
+      11.1 The Fee and all other monies to be paid by Cardholder to the Bank under these T&Cs, including any
+      amount representing reimbursements to be paid by Cardholder to the Bank is exclusive of any Tax, and
+      shall be paid without any set-off, restriction or condition and without any deduction for or on account
+      of any counterclaim or any deduction or withholding.
+      11.2 In the event the Cardholder is required by law to make any deduction or withholding from the Fee
+      and/or all other monies payable to the Bank under these T&Cs in respect of any Tax or otherwise, the
+      sum payable by the Cardholder in respect of which the deduction or withholding is required shall be
+      increased so that the net Fee and/or the net amount of monies received by the Bank is equal to that
+      which the Bank would otherwise have received had no deduction or withholding been required or made.
+    </language1>
+    <language2>
+      10.3 Fi Tahunan tidak akan dikenakan semasa pengeluaran Kad Debit dan hanya akan dikenakan pada
+      tarikh ulang tahun. Fi Tahunan boleh diubah oleh Bank dari semasa ke semasa. Fi Tahunan tidak
+      akan dikembalikan.
+      11.0 Cukai Kerajaan, Fi dan Caj Berkanun dan/atau Kawal Selia
+      11.1 Sebarang yuran perkhidmatan dan sebarang pembayaran yang kena dibuat oleh Pemegang Kad
+      kepada Bank dibawah T&S ini, termasuk sebarang jumlah yang mewakili pembayaran ganti untuk
+      dibayar oleh Pemegang Kad kepada Bank, adalah tidak termasuk Cukai, dan perlu dijelaskan tanpa
+      sebarang pengecualian, syarat dan tanpa sebarang potongan bagi sebarang jumlah tuntutan balas atau
+      sebarang potongan atau sekatan.
+      11.2 Pada sebarang masa atau keadaan dimana Pemegang Kad dituntut oleh undang-undang untuk
+      membuat sebarang potongan atau menahan dari yuran perkhidmatan dan/atau semua wang lain
+      yang kena dibayar kepada di bawah T&S ini berkaitan dengan Cukai atau sebaliknya, jumlah yang
+      kena dibayar oleh Pemegang Kad dalam hal di mana potongan atau penahanan cukai diperlukan
+      akan ditambah supaya yuran perkhidmatan dan/atau jumlah bersih wang yang diterima oleh Bank
+      kekal dengan apa yang Bank sepatutnya menerima jika sebarang potong atau pengecualian tidak
+      dikenakan.
+    </language2>
+  </chunk>
+
+  <chunk number="33">
+    <language1>
+      11.3 The Cardholder shall in addition to the Fee and all other monies payable, pay to the Bank all applicable
+      Tax at the relevant prevailing rate and/or such amount as is determined by the Bank to cover any Tax
+      payments/liabilities/obligations in connection therewith, without any set-off, restriction or condition and
+      without any deduction for or on account of any counterclaim or any deduction or withholding, apart
+      from any Taxes which may be required under any laws to be paid by the Cardholder directly to any
+      Appropriate Authority, which the Cardholder shall remit directly to the Appropriate Authority.
+      11.4 If at any time an adjustment is made or required to be made between the Bank and the relevant taxing
+      authority on account of any amount paid as Tax as a consequence of any supply made or deemed to
+      be made or other matter in connection with these T&Cs by the Bank, a corresponding adjustment may
+      at the Bank's discretion be made as between the Bank and the Cardholder and in such event, any
+      payment necessary to give effect to the adjustment shall be made.
+      11.5 All Tax as shall be payable by the Cardholder to the Bank as herein provided shall be paid at such
+      times and in such manner as shall be requested by the Bank.
+    </language1>
+    <language2>
+      11.3 Sebagai penambahan atas yuran perkhidmatan dan sebarang bayaran yang perlu dibayar,
+      Pemegang Kad kena bayar kepada Bank semua bayaran Cukai pada kadar terkini dan/atau jumlah
+      yang
+      ditentukan
+      oleh
+      Bank
+      untuk
+      merangkumi
+      sebarang
+      pembayaran
+      Cukai/liabilti
+      Cukai/kewajipan-kewajipan Cukai yang berhubung kait, tanpa sebarang penolakan, sekatan atau
+      syarat-syarat dan tanpa apa-apa potongan untuk atau sebarang jumlah tuntutan balas atau apa-
+      apa potongan atau pengecualian, selain sebarang Cukai-Cukai yang mana mungkin diperlukan
+      di bawah sebarang undang-undang kena dibayar oleh anda secara terus kepada Pihak Berkuasa
+      Yang Berkenaan, dimana anda akan membayar secara terus kepada Pihak Berkuasa Yang
+      Berkenaan.
+      11.4 Jika pada bila-bila masa satu pelarasan dibuat atau dikehendaki untuk dibuat antara Bank
+      dan Pihak Berkuasa Berkenaan bagi sebarang jumlah Cukai berkaitan sebarang bekalan yang
+      dilakukan atau dinilai sebagai telah berlaku, yang berkaitan dengan T&S ini daripada Bank atau
+      segala yang berkaitan dengannya, satu pelarasan, tertakluk pada budi bicara, boleh dibuat diantara
+      Bank and Pemegang Kad dan pada keadaan sedemikian, sebarang pembayaran berkaitan
+      pelarasan tersebut, haruslah dijelaskan sepenuhnya.
+      11.5 Semua Cukai yang mesti dibayar oleh Pelanggan kepada Bank seperti yang diperuntukkan di ini
+      adalah perlu dibayar di masa-masa sedemikian dan di sedemikian cara seperti yang akan diminta
+      oleh Bank.
+    </language2>
+  </chunk>
+
+  <chunk number="34">
+    <language1>
+      11.6 The Cardholder hereby agrees to do all things reasonably requested by the Bank to assist the Bank in
+      complying with its obligations under any applicable legislation under which any Tax is imposed. In the
+      event a new Tax is introduced and such Tax is required to be charged on the transaction contemplated
+      in these T&Cs, the Cardholder agrees to provide its fullest cooperation to the Bank in assisting the Bank
+      in complying with its obligations under the relevant laws.
+      11.7 For the avoidance of doubt, the parties agree that any sum payable or amount to be used in the
+      calculation of a sum payable expressed elsewhere in these T&Cs has been determined without regard
+      to and does not include amounts to be added on under this clause on account of Tax.
+      12.0 Limits on Card Transactions
+      12.1 Unless otherwise instructed by the Cardholder or in the absence of the Cardholder electing a limit to
+      the carrying out of transactions through the Services, the Bank shall be entitled to determine and impose
+      any limit whether in amount, frequency and use of or otherwise of any of the Services and/or Security
+      Codes. The Cardholder may vary the limits on the Card Transactions carried out by giving prior notice
+      in writing to the Bank. The Bank is not bound to ensure that the Cardholder does not exceed such
+      limits nor is the Bank bound to comply with the Cardholder’s request to vary the limits.
+    </language1>
+    <language2>
+      11.6 Pemegang Kad dengan ini bersetuju untuk memenuhi segala permintaan oleh Bank bagi
+      membantu Bank dalam mematuhi dengan kewajipan-kewajipannya di bawah undang-undang
+      percukaian yang berkaitan. Jika terdapat, Cukai baru yang telah berkuatkuasa dan Cukai tersebut
+      adalah diwajibkan untuk dikenakan terhadap sebarang urus niaga yang termaktub di dalam T&S
+      ini, Pemegang Kad bersetuju untuk memberi kerjasama dengan sepenuhnya kepada Bank untuk
+      memudahkan Bank untuk mematuhi tanggungjawab Bank di bawah undang-undang tersebut.
+      11.7 Bagi mengelakkan sebarang keraguan, kesemua pihak terbabit dengan ini bersetuju bahawa
+      mana-mana jumlah yang perlu dibayar atau jumlah yang digunakan untuk menentukan jumlah yang
+      perlu dibayar berdasarkan Terma dan Syarat ini adalah muktamad tanpa mengambil kira untuk
+      Cukai dan tidak termasuk jumlah-jumlah yang perlu ditambah di bawah Klausa ini bekenaan
+      dengan Cukai.
+      12.0 Had Ke Atas Transaksi Kad
+      12.1 Kecuali diarahkan sebaliknya oleh Pemegang Kad atau Pemegang Kad tidak memilih suatu had
+      untuk pelaksanaan transaksi melalui Perkhidmatan, Bank berhak untuk menentukan dan
+      menetapkan sebarang had sama ada dari segi amaun, kekerapan atau kegunaan mana-mana
+      Perkhidmatan dan/atau Kod Keselamatan. Pemegang Kad boleh mengubah had ke atas Transaksi
+      Kad yang dilakukan dengan memberikan makluman awal secara bertulis kepada Bank. Bank tidak
+      bertanggungjawab untuk memastikan Pemegang Kad tidak melebihi had yang ditetapkan
+      mahupun mematuhi permintaan Pemegang Kad supaya Bank mengubah had tersebut.
+    </language2>
+  </chunk>
+
+  <chunk number="35">
+    <language1>
+      12.2 The Daily Cash Withdrawal Limit for Generic and Priority Banking Cardholder is defaulted at Ringgit
+      Malaysia Two Thousand (RM2,000), with a maximum allowable limit of Ringgit Malaysia Ten Thousand
+      (RM10,000) for Generic and Priority Banking Cardholders, or such other limit determined by the Bank
+      from time to time by giving twenty-one (21) calendar days’ prior notice to the Cardholders. The
+      Cardholder can perform the Daily Cash Withdrawal Limit setting at any branches of the Bank or ATMs
+      of the Bank or via Hong Leong Connect.
+      12.3 The Daily Retail Purchase Limit for Generic and Priority Banking Cardholder is defaulted at Ringgit
+      Malaysia Three Thousand (RM3,000), with a maximum allowable limit of Ringgit Malaysia Twenty
+      Thousand (RM20,000) for Generic and Priority Banking Cardholder, or such other limit determined by
+      the Bank from time to time by giving twenty-one (21) calendar days’ prior notice to the Cardholder.
+      The Cardholder can perform the Daily Retail Purchase Limit setting at any branches of the Bank or via
+      Hong Leong Connect. In addition, the Cardholder can apply for a higher Daily Retail Purchase Limit
+      (“Temporary Daily Retail Purchase Limit”) via Hong Leong Connect and such Temporary Daily
+      Retail Purchase Limit shall be valid within a specific time frame selected by the Cardholder (“Date
+      Range”). The Temporary Daily Retail Purchase Limit gives the Cardholder a maximum allowable limit
+      of Ringgit Malaysia Ninety-Nine Thousand, Nine Hundred and Ninety-Nine (RM99,999) during the Date
+      Range. The Temporary Daily Retail Purchase Limit will cease upon the expiry of the Date Range and
+      thereafter the Retail Purchase Limit will revert to the Daily Retail Purchase Limit.
+    </language1>
+    <language2>
+      12.2 Had Pengeluaran Tunai Harian untuk Pemegang Kad Biasa dan Perbankan Prioriti ditetapkan pada
+      Ringgit Malaysia Dua Ribu (RM2,000), dengan had maksimum dibenarkan sebanyak Ringgit
+      Malaysia Sepuluh Ribu (RM10,000) untuk Pemegang Kad Biasa dan Pemegang Kad Perbankan
+      Prioriti, atau suatu amaun lain yang ditentukan oleh Bank dari semasa ke semasa dengan memberi
+      dua puluh satu (21) hari kalendar terlebih dahulu makluman awal kepada Pemegang Kad.
+      Pemegang Kad boleh melakukan penetapan Had Pengeluaran Tunai Harian di mana-mana
+      cawangan Bank atau ATM atau melalui Hong Leong Connect.
+      12.3 Had Belian Runcit Harian untuk Pemegang Kad Biasa dan Perbankan Prioriti ditetapkan pada
+      Ringgit Malaysia Tiga Ribu (RM3,000), dengan had maksimum dibenarkan sebanyak Ringgit
+      Malaysia Dua Puluh Ribu (RM20,000) untuk Pemegang Kad Biasa dan Pemegang Kad Perbankan
+      Prioriti, atau suatu amaun lain yang ditentukan oleh Bank dari semasa ke semasa dengan
+      memberikan notis awal dua puluh satu (21) hari kepada Pemegang Kad. Pemegang Kad boleh
+      melakukan penetapan Had Belian Runcit Harian di mana-mana cawangan Bank atau melalui Hong
+      Leong Connect. Selain daripada itu, Pemegang Kad boleh memohon Had Belian Runcit Harian
+      yang lebih tinggi (“Had Belian Runcit Harian Sementara”) melalui Hong Leong Connect dan Had
+      Belian Runcit Harian Sementara tersebut akan berkuat kuasa sepanjang tempoh masa tertentu
+      yang dipilih oleh Pemegang Kad (“Julat Tarikh”). Had Belian Runcit Harian Sementara
+      memberikan Pemegang Kad had maksimum yang dibenarkan iaitu Ringgit Malaysia Sembilan
+      Puluh Sembilan Ribu Sembilan Ratus Sembilan Puluh Sembilan (RM99,999) semasa Julat Tarikh.
+      Had Belian Runcit Harian Sementara akan ditamatkan apabila Julat Tarikh berakhir dan selepas
+      itu, Had Belian Runcit akan kembali kepada Had Belian Runcit Harian.
+    </language2>
+  </chunk>
+
+  <chunk number="36">
+    <language1>
+      12.4 The Daily Online Purchase Limit for Generic and Priority Banking Cardholder is defaulted at Ringgit
+      Malaysia One Thousand (RM1,000), with a maximum allowable limit of Ringgit Malaysia Twenty
+      Thousand (RM20,000) for Generic and Priority Banking Cardholders, or such other limit determined by
+      the Bank from time to time by giving twenty-one (21) calendar days’ prior notice to the Cardholder.
+      The Cardholder can perform the Daily Online Purchase Limit setting at any branches of the Bank or
+      via Hong Leong Connect. In addition, with effect from 24 September 2022, the Cardholder can apply
+      for a higher Daily Online Purchase Limit (“Temporary Daily Online Purchase Limit”) via Hong Leong
+      Connect and such Temporary Daily Online Purchase Limit shall be valid within a specific time frame
+      selected by the Cardholder (“Date Range”), The Temporary Daily Online Purchase Limit gives the
+      Cardholder a maximum allowable limit of Ringgit Malaysia Thirty Thousand (RM30,000) during the
+      Date Range. The Temporary Daily Online Purchase Limit will cease upon the expiry of the Date Range
+      and thereafter the Online Purchase Limit will revert to the Daily Online Purchase Limit.
+      12.5 The Daily Transfer Limit via ATM for Generic and Priority Banking Cardholder is defaulted at Ringgit
+      Malaysia Two Thousand (RM2,000), with a maximum allowable limit of Ringgit Malaysia Fifty
+      Thousand (RM50,000) for Generic and Priority Banking Cardholders, or such other limit determined by
+      the Bank from time to time by giving twenty-one (21) calendar days’ prior notice to the Cardholders.
+      The Cardholder can perform the Daily Transfer Limit setting at any branches of the Bank or ATMs of
+      the Bank.
+    </language1>
+    <language2>
+      12.4 Had Belian Dalam Talian Harian untuk Pemegang Kad Biasa dan Pemegang Kad Perbankan
+      Prioriti ditetapkan pada Ringgit Malaysia Satu Ribu (RM1,000), dengan had maksimum dibenarkan
+      sebanyak Ringgit Malaysia Dua Puluh Ribu (RM20,000) untuk Pemegang Kad Biasa dan
+      Pemegang Kad Perbankan Prioriti, atau suatu amaun lain yang ditentukan oleh Bank dari semasa
+      ke semasa dengan memberikan notis awal dua puluh satu (21) hari kalendar kepada Pemegang
+      Kad. Pemegang Kad boleh melakukan Had Belian Dalam Talian Harian di mana-mana cawangan
+      Bank atau melalui Hong Leong Connect. Selain daripada itu, berkuat kuasa 24 September 2022,
+      Pemegang Kad boleh memohon Had Belian Dalam Talian Harian yang lebih tinggi (“Had Belian
+      Dalam Talian Harian Sementara”) melalui Hong Leong Connect dan Had Belian Dalam Talian
+      Seharian Sementara tersebut akan berkuat kuasa sepanjang tempoh masa tertentu yang dipilih
+      oleh Pemegang Kad (“Julat Tarikh”). Had Belian Dalam Talian Harian Sementara memberikan
+      Pemegang Kad had maksimum yang dibenarkan iaitu Ringgit Malaysia Tiga Puluh Ribu
+      (RM30,000) semasa Julat Tarikh. Had Belian Dalam Talian Harian Sementara akan ditamatkan
+      apabila Julat Tarikh berakhir dan selepas itu, Had Belian Runcit akan Kembali kepada
+      Had BelianDalam Talian Harian.
+      12.5 Had Pemindahan Harian melalui ATM untuk Pemegang Kad Biasa dan Perbankan Prioriti
+      ditetapkan pada Ringgit Malaysia Dua Ribu (RM2,000), dengan had maksimum dibenarkan
+      sebanyak Ringgit Malaysia Lima Puluh Ribu (RM50,000) untuk Pemegang Kad Biasa dan
+      Perbankan Prioriti, atau suatu amaun lain yang ditentukan oleh Bank dari semasa ke semasa
+      dengan memberikan makluman awal dua puluh satu (21) hari kalendar terlebih dahulu kepada
+      Pemegang Kad. Pemegang Kad boleh melakukan penetapan Had Pemindahan Harian di mana-
+      mana cawangan Bank atau ATM daripada Bank.
+    </language2>
+  </chunk>
+
+  <chunk number="37">
+    <language1>
+      12.6 For the avoidance of doubt, the Daily Transfer Limit via ATM is exclusive from the Daily Transfer Limit
+      via Hong Leong Connect.
+      12.7 The Cardholder who would like to change his/her Notifications via HLB Connect App or SMS
+      transaction alert limit is required to write in for request to change the pre-determined amount/limit or
+      totally opt out of the Notifications via HLB Connect App and/or SMS transaction alert service. The
+      Cardholder can obtain the Debit Card/Debit Card-i i Transaction Alert Service Maintenance Form
+      (“Form”) from the nearest Hong Leong Bank branches or the Bank’s website at www.hlb.com.my. The
+      Cardholder shall fill up the Form and follow the instructions provided in the Form accordingly in order
+      to change his/her Notifications via HLB Connect App or SMS transaction alert limit/opt out the
+      Notifications via HLB Connect App or SMS transaction alert service.
+      13.0 Shariah Compliance
+      13.1 Where the Retail Purchase Account is linked to the Debit Card be a Savings Account-i or Current
+      Account-i, the Debit Card can only be used for the purchase of Shariah-compliant Goods and Services.
+      The Debit Card shall not be used at any merchants who are in the business of providing non-Shariah
+      compliant Goods and Services and/or for any non-Shariah compliant transactions categorized by the
+      following Merchant Category as per below:
+      (i) Bars, Cocktail Lounges, Discotheque, Nightclubs and Taverns
+      (ii) Packages Beer, Wine and Liquor
+      (iii) Cigar Stores and Stands
+      (iv) Gambling Transactions
+      (v) Gambling-Horse Racing, Dog Racing, Non-Sports Intrastate Internet Gambling
+      (vi) Dating and Escort Services
+      Note: The above list of non-Halal merchants/non-Shariah compliant activities may be updated from time
+      to time.
+    </language1>
+    <language2>
+      12.6 Bagi mengelakkan keraguan, Had Pemindahan Harian melalui ATM adalah berasingkan daripada
+      Had Pemindahan Harian melalui Hong Leong Connect.
+      12.7 Pemegang Kad yang ingin menukar had amaran transaksi melalui Paparan Notifikasi Aplikasi HLB
+      Connect atau khidmat pesanan ringkas (“SMS”) dikehendaki membuat permintaan bertulis untuk
+      menukar had yang telah ditetapkan sebelum ini atau menarik diri daripada perkhidmatan amaran
+      transaksi melalui Paparan Notifikasi Aplikasi HLB Connect atau SMS tersebut. Pemegang Kad
+      boleh mendapatkan Borang Penyelenggaraan Perkhidmatan Amaran Transaksi Kad Debit/Kad
+      Debit-i (“Borang”) di mana-mana cawangan Bank atau di Laman Sesawang Bank di
+      www.hlb.com.my. Pemegang Kad perlu melengkapkan Borang tesebut dan mematuhi arahan yang
+      terdapat di dalamnya untuk menukar had amaran transaksi melalui Paparan Notifikasi Aplikasi HLB
+      Connect atau SMS atau menarik diri daripada perkhidmatan amaran transaksi melalui Paparan
+      Notifikasi Aplikasi HLB Connect atau SMS tersebut.
+      13.0 Pematuhan Syariah
+      13.1 Apabila Akaun Pembelian Runcit yang dipautkan dengan Kad Debit adalah Akaun Simpanan atau
+      Akaun Semasa-i, Kad Debit hanya boleh digunakan untuk pembelian barang dan perkhidmatan
+      yang mematuhi Syariah. Kad Debit tidak boleh digunakan di mana-mana peniaga runcit yang
+      menyediakan barang dan perkhidmatan yang tidak mematuhi Syariah dan/atau untuk apa-apa
+      transaksi yang tidak mematuhi Syariah yang dikategorikan mengikut Kategori peniaga seperti yang
+      berikut:
+      (i) Bar, Ruang Koktel, Disko, Kelab Malam dan Kedai Minuman Keras
+      (ii) Pakej Bir, Wain dan Minuman Keras
+      (iii) Kedai dan gerai cerut
+      (iv) Tranksaksi Perjudian
+      (v) Petaruhan-Perlumbaan Kuda, Perlumbaan Anjing, Petaruhan Bukan Sukan Dalam Talian
+      Antara Negeri
+      (vi) Perkhidmatan Janji Temu dan Teman Social
+      Nota: Senarai peniaga runcit dan aktiviti tidak mematuhi Syariah di atas akan dikemas kini dari
+      semasa ke semasa.
+    </language2>
+  </chunk>
+
+  <chunk number="38">
+    <language1>
+      14.0 Undertakings of the Cardholder
+      14.1 Save and except for damages arising directly from the Bank’s wilful default or gross negligence, the
+      Cardholder agrees and undertakes to reimburse and pay the Bank on the Bank’s written demand all
+      claims, demands, losses and expenses (including legal costs as between solicitor and own client) and all
+      other liabilities of whatsoever nature or description which may be incurred or suffered by the Bank in
+      connection with or in any manner arising out of the provision of the Services or the acceptance of any
+      instruction given by the Cardholder or breach by the Cardholder of any of these T&Cs. The liabilities of
+      the Cardholder shall be a continuing liability and will remain in full force and effect until the liability, if
+      any, of the Bank is fully discharged.
+      15.0 Suspension, Cancellation and Termination
+      15.1 The Bank reserves the right to withdraw or suspend at its discretion the Debit Card and/or any of the
+      Services and in such circumstances if the Bank so deems fit to terminate use of the Debit Card by the
+      Cardholder with written notice to the Cardholder. It is further agreed that the Bank is under no obligation
+      whatsoever to reveal the reason for the termination of use of the Debit Card.
+    </language1>
+    <language2>
+      14.0 Kewajipan Pemegang Kad
+      14.1 Kecuali jika kerugian tersebut disebabkan oleh salah laku sengaja atau kecuaian melampau oleh
+      Bank, Pemegang Kad dengan ini bersetuju dan wajib untuk membayar balik kepada Bank atas
+      permintaan bertulis Bank semua tuntutan, kerugian dan perbelanjaan (termasuk kos perundangan
+      sebagaimana peguam cara dengan pelanggan sendiri) dan semua liabiliti dalam apa jua bentuk atau
+      jenis yang ditanggung atau dialami oleh Bank berhubung dengan atau apa jua cara yang timbul
+      daripada peruntukan Perkhidmatan atau penerimaan sebarang arahan yang diberikan oleh
+      Pemegang Kad atau pelanggaran mana-mana Terma dan Syarat ini oleh Pemegang Kad. Liabiliti
+      Pemegang Kad adalah merupakan liabiliti berterusan dan akan kekal berkuat kuasa sepenuhnya
+      sehingga liabiliti Bank, jika ada, dilepaskan sepenuhnya.
+      15.0 Penggangtungan, Pembatalan dan Penamatan
+      15.1 Bank berhak menarik atau menggantung mengikut budi bicaranya Kad Debit dan/atau mana-mana
+      Perkhidmatan dan dalam keadaan seperti itu jika Bank dianggap sesuai untuk menghentikan
+      penggunaan Kad Debit oleh Pemegang Kad dengan pemberitahuan bertulis kepada Pemegang
+      Kad. Selanjutnya disepakati bahawa Bank tidak berkewajiban untuk menyatakan alasan
+      penamatan penggunaan Kad Debit.
+    </language2>
+  </chunk>
+
+  <chunk number="39">
+    <language1>
+      16.0 Bank’s Discretion
+      16.1 The Bank is entitled at any time at its discretion to refuse to approve any Card Transaction
+      notwithstanding that there is Current Balance available in the Cardholder’s Account allows for any such
+      Card Transaction (i.e. there is sufficient funds in the Account).
+      16.2 The Bank is entitled at its discretion to:
+      (a) suspend the Cardholder’s right to use the Debit Card entirely or in respect of specified privileges.
+      (b) refuse to re-issue, renew or replace the Debit Card, without in any case, affecting the obligations
+      of the Cardholder under these T&Cs which will continue in force, and there will be no refund of
+      any Annual Fee or other fees paid if the right to use the Debit Card is suspended by the Bank
+      or if the Debit Card is not renewed or replaced.
+      16.3 Without prejudice to other provisions in these T&Cs, the Bank reserves the right at any time by giving
+      twenty-one (21) calendar days’ prior notice, to introduce, amend, vary, restrict or withdraw all or any
+      of the benefits, Services, facilities and privileges in respect of or in connection with the use of the Debit
+      Card and/or these T&Cs.
+    </language1>
+    <language2>
+      16.0 Budi Bicara Bank
+      16.1 Bank berhak pada bila-bila masa menurut budi bicaranya tidak akan meluluskan sebarang
+      Transaksi Kad walaupun Baki Semasa di dalam Akaun Pemegang Kad membolehkan mana-mana
+      Transaksi Kad (iaitu terdapat dana yang mencukupi di dalam Akaun).
+      16.2 Bank berhak untuk:
+      (a) Menggantung hak Pemegang Kad untuk menggunakan Kad Debit sepenuhnya atau
+      berkenaan keistimewaan tertentu.
+      (b) Menolak untuk menerbit-semula, memperbaharui atau mengganti Kad Debit, tanpa dalam apa
+      jua perkara, menjejaskan tanggungjawab Pemegang Kad di bawah T&S ini yang akan terus
+      berkuatkuasa dan tiada pengembalian akan dibuat untuk sebarang fi tahunan atau fi lain yang
+      telah dibayar jika hak untuk menggunakan Kad Debit digantung oleh Bank atau jika Kad Debit
+      tidak diperbaharui atau diganti.
+      16.3 Tanpa prejudis kepada peruntukan lain di dalam T&S ini, Bank berhak pada bila-bila masa dengan
+      memberi dua puluh satu (21) hari kalendar terlebih dahulu makluman awal, untuk
+      memperkenalkan, menukar, mengubah, mengehad atau menarik balik semua atau mana-mana
+      manfaat, perkhidmatan, kemudahan atau kelebihan yang berkaitan dengan atau berhubung
+      dengan penggunaan Kad Debit dan/atau Terma dan Syarat ini.
+    </language2>
+  </chunk>
+
+  <chunk number="40">
+    <language1>
+      17.0 Suspense Account
+      17.1 For the purpose of enabling the Bank to preserve intact the liability of the Cardholder, once a writ of
+      summons has been issued or to prove in the bankruptcy or insolvency of the Cardholder or for such
+      other reasons as the Bank deems fit the Bank may at any time and place, keep for such time as the
+      Bank may deem prudent any monies received, recovered or realized pursuant to these T&Cs or under
+      any other security or guarantee to the credit of a separate non-interest/income bearing account in the
+      name of the Cardholder as the Bank shall deem fit without an immediate obligation on the part of the
+      Bank to apply the same or any part thereof in or towards the discharge of the sums due and owing to
+      the Bank.
+      18.0 Set-off
+      18.1 The Cardholder agrees that the Bank may, at any time and with prior notice, combine and consolidate
+      all or any Accounts of the Cardholder with the Bank of whatever description and wheresoever located
+      and whether in Ringgit Malaysia or in any other currency or set-off or transfer any sum standing the
+      credit of any such Account including joint accounts where joint accounts are maintained in the names
+      of the Cardholder in or towards discharge of all sums due to the Bank under any account of the
+      Cardholder with the Bank of whatever description and wheresoever located and whether in Ringgit
+      Malaysia or in any other currency and may do so notwithstanding that the balances on such account
+      and the sums due may not be expressed in the same currency and the Cardholder hereby authorises
+      the Bank to effect any such combination consolidation set- off or transfer with the necessary
+      conversions at the Bank’s prevailing exchange rates which shall be determined by the Bank at its sole
+      discretion.
+    </language1>
+    <language2>
+      17.0 Akaun Gantung
+      17.1 Untuk tujuan membolehkan Bank mengekalkan keseluruhan liabiliti Pemegang Kad, apabila writ
+      saman telah dikeluarkan atau untuk membuktikan kebankrapan atau ketakmampuan bayar
+      Pemegang Kad atau untuk tujuan lain yang dianggap wajar oleh Bank, Bank boleh pada bila-bila
+      masa dan tempat, menyimpan untuk suatu tempoh yang wajar, sebarang wang yang diterima,
+      diperoleh semula atau direalisasi selaras dengan T&S ini atau di bawah mana-mana cagaran atau
+      jaminan untuk dikreditkan dalam akaun berasingan yang tidak menawarkan keuntungan di bawah
+      nama Pemegang Kad sebagaimana dianggap wajar oleh Bank. Bank tidak mempunyai kewajipan
+      segera untuk memanfaatkan wang tersebut atau sebahagian daripadanya untuk atau ke arah
+      melunaskan jumlah perlu bayar dan terhutang kepada Bank.
+      18.0 Tolak Selesai
+      18.1 Pemegang Kad bersetuju bahawa Bank boleh, pada bila-bila masa dan dengan memberikan
+      makluman awal, menyatu dan menggabung semua atau mana-mana Akaun Pemegang Kad
+      dengan Bank dalam apa jua bentuk dan di mana-mana lokasi, sama ada di dalam Ringgit Malaysia
+      atau mata wang lain, atau menolak selesai atau memindah sebarang jumlah yang sedia untuk
+      dikredit ke dalam mana-mana Akaun tersebut termasuk akaun bersama di mana akaun bersama
+      tersebut adalah di atas nama Pemegang Kad untuk atau ke arah melunaskan semua jumlah
+      terhutang kepada Bank di bawah mana-mana akaun Pemegang Kad dengan Bank, dalam apa jua
+      bentuk dan di mana-mana lokasi, sama ada di dalam Ringgit Malaysia atau mata wang lain dan
+      Bank boleh berbuat demikian tanpa mengambil kira baki di dalam akaun tersebut dan jumlah
+      terhutang mungkin bukan di dalam mata wang yang sama, dan Pemegang Kad dengan ini
+      membenarkan Bank menguatkuasakan sebarang penyatuan, gabungan, tolak selesai atau
+      pemindahan dengan pertukaran mata wang yang sewajarnya pada kadar tukaran semasa Bank
+      yang akan ditentukan oleh Bank mengikut budi bicaranya.
+    </language2>
+  </chunk>
+
+  <chunk number="41">
+    <language1>
+      19.0 Chargeback
+      19.1 The Bank shall not be held liable for any act or omission by any retail or online merchant howsoever
+      caused, including but not limited to, any refusal to accept the Debit Card or any Statement or other
+      communication made in connection therewith, or any defect or deficiency in goods or services. The
+      Cardholder must liaise directly with the Authorised Merchant on any claim or dispute and will not
+      dispute any payment made by the Bank from the Cardholder’s Account on such claims or disputes.
+      19.2 In some circumstances, card scheme rules allow the Cardholder to charge a Card Transaction back to
+      the Authorised Merchant with whom the transaction was made (if the chargeback right is available)
+      subject to the complaint or dispute was made to the Bank by the Cardholder orally or in writing within
+      twenty-one (21) calendar days’ from the Posting Date of such Card Transaction in the Statement and
+      the Cardholder has provided the necessary information requested by the Bank (i.e. the Cardholder’s
+      name, affected Account, date and amount of the dispute Card Transaction and the reason the
+      Cardholder believes that it is a disputed Card Transaction) to support the chargeback within the
+      requested timeframe.
+    </language1>
+    <language2>
+      19.0 Caj-Balik
+      19.1 Bank tidak boleh dipertanggungjawabkan atas sebarang tindakan atau pengabaian oleh mana-
+      mana peniaga runcit atau dalam talian walau apapun puncanya, termasuk tetapi tidak terhad
+      kepada keengganan menerima Kad Debit atau sebarang Penyata atau komunikasi lain yang dibuat
+      berkaitan dengannya, atau sebarang kecacatan atau kekurangan pada produk atau perkhidmatan.
+      Sekiranya terdapat sebarang kecacatan atau kekurangan pada produk atau perkhidmatan,
+      Pemegang Kad hendaklah berhubung secara langsung dengan Peniaga Sah mengenai sebarang
+      tuntutan atau pertikaian dan tidak akan mempertikaikan sebarang bayaran yang dibuat oleh Bank
+      dari Akaun Pemegang Kad ke atas tuntutan atau pertikaian tersebut.
+      19.2 Dalam keadaan tertentu, peraturan skim kad membenarkan Pemegang Kad untuk mencaj-balik
+      Transaksi Kad kepada Peniaga Sah bagi transaksi yang telah dibuat (jika hak caj-balik disediakan)
+      tertakluk kepada aduan atau pertikaian telah dibuat oleh Pemegang Kad kepada Bank secara lisan
+      atau bertulis dalam masa dua puluh satu (21) hari kalendar daripada Tarikh Pengeposan
+      Transaksi Kad tersebut seperti dalam Penyata dan Pemegang Kad telah menyediakan maklumat
+      yang diperlukan oleh Bank (iaitu: nama Pemegang Kad, Akaun yang terlibat, tarikh dan jumlah Kad
+      transaksi yang dipertikaian dan sebab Pemegang Kad percaya bahawa ia adalah Transaksi Kad
+      yang dipertikaikan) untuk menyokong caj balik dalam tempoh masa yang ditetapkan.
+    </language2>
+  </chunk>
+
+  <chunk number="42">
+    <language1>
+      19.3 In the event the Bank extends the time period for the completion of an investigation beyond fourteen (14)
+      calendar days from the date a disputed Card Transaction is first reported, whether orally or in writing,
+      by Cardholder to the Bank, the Bank must:
+      (a) at a minimum, provisionally credit the full amount of the disputed transaction or Ringgit Malaysia
+      Five Thousand (RM5,000), whichever is lower (including any interest or profit where applicable),
+      into the Retail Purchase Account no later than fourteen (14) calendar days from the date the
+      Cardholder provides the Bank with the information set out under Clause19.2 herein;
+      (b) credit the remaining amount of the disputed Card Transaction (including any interest or profit
+      where applicable) no later than thirty (30) calendar days from the date of the first crediting where
+      the Bank has provisionally credited an amount into the Retail Purchase Account in accordance
+      with Clause 19.3(a) herein which is lesser than the amount of the disputed Card Transaction;
+      and
+      (c) allow the Cardholder the full use of the provisionally credited funds.
+      19.4 In the event the Cardholder is required to pay the amount transacted or is refunded by the Authorised
+      Merchant directly, the Bank has the rights to debit such amount from the Retail Purchase Account.
+    </language1>
+    <language2>
+      19.3 Sekiranya Bank melanjutkan tempoh masa untuk menyelesaikan siasatan selepas empat belas
+      (14) hari kalendar dari tarikh laporan terhadap Transaksi Kad yang dipertikaikan, sama ada secara
+      lisan atau bertulis, oleh Pemegang Kad kepada Bank, Bank boleh: sekurang-kurangnya,
+      sementara mengkreditkan jumlah penuh transaksi yang dipertikaikan atau Ringgit Malaysia Lima
+      Ribu (RM5,000), yang mana lebih rendah (termasuk apa-apa keuntungan yang berkenaan), ke
+      dalam Akaun Pembelian Runcit tidak lewat daripada empat belas (14) hari kalendar dari tarikh
+      Pemegang Kad mengemukakan maklumat yang dinyatakandalam Klausa 19.2 kepada Bank;
+      (a) mengkredit baki Transaksi Kad yang dipertikaikan (termasuk apa-apa keuntungan yang
+      berkenaan) tidak lewat daripada tiga puluh (30) hari kalendar daripada tarikh perkreditan
+      pertama dana sementara ke dalam Akaun Pembelian Runcit oleh Bank mengikut Klausa 19.3
+      (a) di mana dana tersebut adalah kurang daripada amaun Transaksi Kad yang dipertikaikan;
+      dan
+      (b) membenarkan Pemegang Kad menggunakan sepenuhnya dana sementara yang dikreditkan.
+      19.4 Sekiranya Pemegang Kad dikehendaki membayar jumlah transaksi atau Peniaga Sah telah
+      mengembalikan jumlah transkasi tersebut secara langsung kepada Pemegang Kad, Bank berhak
+      mendebitkan amaun berkenaan daripada Akaun Pembelian Runcit.
+    </language2>
+  </chunk>
+
+  <chunk number="43">
+    <language1>
+      19.5 Notwithstanding and without prejudice to the generality of the clauses in these T&Cs, the Cardholder
+      expressly agrees that:
+      (a) the use of the Debit Card is at the Cardholder’s own risk and the Cardholder shall assume all
+      risk incidental to or arising out of the use of the Debit Card; and
+      (b) the Cardholder shall not make or attempt to make any false, fraudulent or unlawful claims in
+      respect of the disputed Card Transaction whether directly or indirectly. The Bank reserves the
+      right at any time in its discretion to commence and institute legal action and/or such other
+      proceedings as the Bank may deem necessary against the Cardholder upon the Bank
+      discovering or becoming aware of any false or fraudulent or unlawful claims in connection with
+      or arising from the disputed Card Transaction.
+      19.6 The Bank reserves the right to institute legal action and/or any other proceedings the Bank deems
+      necessary including lodging such reports as appropriate or necessary with the relevant regulatory
+      authorities, against the Cardholder who delays, obstructs and/or withholds vital information from the
+      Bank, making or attempting to make false claims in respect of any transaction, publish false claims on
+      traditional or social media, and/or lodge false police reports with respect to any transaction.
+    </language1>
+    <language2>
+      19.5 Tanpa mengambilkira dan tanpa prejudis kepada sebutan umum Klausa di dalam T&S ini,
+      Pemegang Kad bersetuju bahawa:
+      (a) penggunaan Kad Debit adalah atas risiko Pemegang Kad sendiri dan Pemegang Kad harus
+      menanggung semua risiko yang berkaitan atau yang timbul daripada penggunaan Kad Debit;
+      dan
+      (b) Pemegang Kad tidak boleh membuat atau cuba untuk membuat apa-apa dakwaan palsu,
+      penipuan atau menyalahi undang-undang berkenaan dengan Transaksi Kad yang
+      dipertikaikan sama ada secara langsung atau tidak langsung. Bank berhak pada bila-bila masa
+      untuk memulakan dan memulakan dan mengambil tindakan undang-undang dan/atau apa-apa
+      prosiding lain sebagaimana yang Bank fikirkan perlu terhadap Pemegang Kad setelah Bank
+      menemui atau menyedari tentang apa-apa tuntutan yang palsu atau penipuan atau menyalahi
+      undang-undang berkaitan dengan atau yang timbul daripada Transaksi Kad yang

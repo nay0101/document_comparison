@@ -11,6 +11,7 @@ import xmltodict
 import json
 from operator import itemgetter
 from helpers.llm_mappings import LLM_MAPPING
+from helpers.suggestions import SuggestionChain
 import streamlit as st
 import os
 
@@ -22,9 +23,16 @@ class DocumentComparisonChain:
         self.chat_model_name = chat_model_name
         self.chat_model = get_llm(model=chat_model_name, temperature=temperature)
         self.document_processor = DocumentProcessor()
+        self.suggestion_chain = SuggestionChain(
+            chat_model_name=chat_model_name, temperature=temperature
+        )
 
-    def _load_xml_file(
-        self, xml_file_path: Optional[str] = None, xml_string: Optional[str] = None
+    def _load_xml_content(
+        self,
+        doc1: List[Dict],
+        doc2: List[Dict],
+        xml_file_path: Optional[str] = None,
+        xml_string: Optional[str] = None,
     ) -> List[str]:
         if xml_string is None:
             with open(f"./{xml_file_path}", "r") as file:
@@ -36,40 +44,73 @@ class DocumentComparisonChain:
         chunks = data["chunked_documents"]["chunk"]
 
         chunk_list = []
+        with open("./content_list_doc1.json", "w") as file:
+            file.write(json.dumps(doc1, indent=2))
+
+        with open("./content_list_doc2.json", "w") as file:
+            file.write(json.dumps(doc2, indent=2))
 
         if isinstance(chunks, list):
             for chunk in chunks:
                 content1 = (
                     chunk["language1"].strip() if chunk["language1"] is not None else ""
                 )
+                content1_page = self.document_processor.find_page_by_paragraph(
+                    content_list=doc1, search_paragraph=content1
+                )
+
                 content2 = (
                     chunk["language2"].strip() if chunk["language2"] is not None else ""
                 )
-                chunk_list.append({"doc1": content1, "doc2": content2})
+                content2_page = self.document_processor.find_page_by_paragraph(
+                    content_list=doc2, search_paragraph=content2
+                )
+
+                chunk_list.append(
+                    {
+                        "doc1": {"content": content1, "page": content1_page},
+                        "doc2": {"content": content2, "page": content2_page},
+                    }
+                )
         else:
             content1 = chunks["language1"].strip()
+            content1_page = self.document_processor.find_page_by_paragraph(
+                content_list=doc1, search_paragraph=content1
+            )
+
             content2 = chunks["language2"].strip()
-            chunk_list.append({"doc1": content1, "doc2": content2})
+            content2_page = self.document_processor.find_page_by_paragraph(
+                content_list=doc2, search_paragraph=content2
+            )
+
+            chunk_list.append(
+                {
+                    "doc1": {"content": content1, "page": content1_page},
+                    "doc2": {"content": content2, "page": content2_page},
+                }
+            )
 
         return chunk_list
 
     def _chunk_documents(
         self,
-        doc1: str,
-        doc2: str,
+        doc1: List[Dict],
+        doc2: List[Dict],
         xml_file_path: Optional[str] = None,
         use_existing_file: bool = False,
-    ) -> List[str]:
+    ) -> List[Dict]:
+        doc1_content = "\n".join(item["content"] for item in doc1)
+        doc2_content = "\n".join(item["content"] for item in doc2)
         if not use_existing_file:
             instruction = """
               You are a skilled document analyst specializing in multilingual content alignment. Your task is to chunk two documents in different languages while maintaining content alignment between chunks. Here are the documents and relevant information:
 
               <document1>
-              {doc1}
+              {doc1_content}
               </document1>
 
               <document2>
-              {doc2}
+              {doc2_content}
               </document2>
 
               ## END OF DOCUMENTS ##
@@ -192,7 +233,9 @@ class DocumentComparisonChain:
 
             model = self.chat_model
 
-            def create_recursive_chain(model, system_instruction, doc1, doc2):
+            def create_recursive_chain(
+                model, system_instruction, doc1_content, doc2_content
+            ):
                 def check_token_limit(
                     _input: Dict, accumulated_responses: str = "", iteration: int = 0
                 ):
@@ -238,7 +281,9 @@ class DocumentComparisonChain:
                         prompt=new_prompt
                     ).assign(llm_result=itemgetter("prompt") | model)
 
-                    chunks = recursive_chain.stream({"doc1": doc1, "doc2": doc2})
+                    chunks = recursive_chain.stream(
+                        {"doc1_content": doc1_content, "doc2_content": doc2_content}
+                    )
                     result = ""
 
                     if environment == "development":
@@ -263,14 +308,23 @@ class DocumentComparisonChain:
                 return check_token_limit
 
             chunking_chain = RunnablePassthrough.assign(
-                prompt={"doc1": itemgetter("doc1"), "doc2": itemgetter("doc2")} | prompt
+                prompt={
+                    "doc1_content": itemgetter("doc1_content"),
+                    "doc2_content": itemgetter("doc2_content"),
+                }
+                | prompt
             ).assign(llm_result=itemgetter("prompt") | model)
 
             recursive_chain = create_recursive_chain(
-                model=model, system_instruction=instruction, doc1=doc1, doc2=doc2
+                model=model,
+                system_instruction=instruction,
+                doc1_content=doc1_content,
+                doc2_content=doc2_content,
             )
 
-            result_chunks = chunking_chain.stream({"doc1": doc1, "doc2": doc2})
+            result_chunks = chunking_chain.stream(
+                {"doc1_content": doc1_content, "doc2_content": doc2_content}
+            )
 
             result = ""
             if environment == "development":
@@ -291,15 +345,19 @@ class DocumentComparisonChain:
             if environment == "development":
                 with open(xml_file_path, "w", encoding="utf-8") as file:
                     file.write(final_result)
-
-        if use_existing_file:
+        else:
             with open(f"./{xml_file_path}", "r") as file:
                 final_result = file.read()
-        chunks = self._load_xml_file(xml_string=final_result)
+
+        chunks = self._load_xml_content(
+            doc1=doc1,
+            doc2=doc2,
+            xml_string=final_result,
+        )
 
         return chunks
 
-    def chunk_documents(self, _input: Dict) -> List[str]:
+    def chunk_documents(self, _input: Dict) -> List[Dict]:
         with st.spinner("Processing Documents"):
             result = self._chunk_documents(
                 doc1=_input["doc1"],
@@ -716,7 +774,7 @@ Remember to use proper JSON formatting, including quotes around keys and string 
               Remember to use proper JSON formatting, including quotes around keys and string values, and commas to separate objects and key-value pairs. Don't need to include any language identifiers like ```json in the output.
                       """
 
-        #         system_prompt = """
+        # system_prompt = """
         # ### Context ###
         # You are a highly skilled linguistic analyst specializing in document comparison across different languages. Your task is to compare two documents and identify **only major discrepancies** that could significantly alter the meaning, interpretation, or usability of the content.
 
@@ -818,10 +876,28 @@ Remember to use proper JSON formatting, including quotes around keys and string 
                 for index, chunk in enumerate(chunks):
                     progress_bar.progress((index + 1) / len(chunks))
                     response = loop_chain.invoke(
-                        {"doc1": chunk["doc1"], "doc2": chunk["doc2"]}
+                        {
+                            "doc1": chunk["doc1"]["content"],
+                            "doc2": chunk["doc2"]["content"],
+                        }
                     )
-                    response = self.document_processor.remove_code_fences(response)
-                    flags.append(json.loads(response)["flags"])
+                    flag_list = json.loads(
+                        self.document_processor.remove_code_fences(response)
+                    )["flags"]
+
+                    for flag in flag_list:
+                        flag["doc1"]["page"] = chunk["doc1"]["page"]
+                        flag["doc2"]["page"] = chunk["doc2"]["page"]
+
+                        suggestions = self.suggestion_chain.invoke_suggestion_chain(
+                            document1=flag["doc1"]["content"],
+                            document2=flag["doc2"]["content"],
+                            target_documents="Document 1, Document 2",
+                            explanation=flag["explanation"],
+                        )
+                        flag["suggestions"] = suggestions
+
+                    flags.append(flag_list)
                 progress_bar.empty()
             return {"flags": sum(flags, [])}
 
@@ -839,8 +915,12 @@ Remember to use proper JSON formatting, including quotes around keys and string 
         use_existing_file: bool = False,
         chat_id: Optional[str] = None,
     ) -> Mismatches:
-        doc1 = self.document_processor.extract_filtered_content(doc1_file_bytes)
-        doc2 = self.document_processor.extract_filtered_content(doc2_file_bytes)
+        doc1 = self.document_processor.extract_filtered_content(doc1_file_bytes)[
+            "document"
+        ]
+        doc2 = self.document_processor.extract_filtered_content(doc2_file_bytes)[
+            "document"
+        ]
         final_chain = self._comparison_chain()
         result = final_chain.invoke(
             {

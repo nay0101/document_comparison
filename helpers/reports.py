@@ -126,7 +126,10 @@ Total Discrepancies Found: {len(result["flags"])}
         for index, flag in enumerate(result["flags"]):
             flag_types = ", ".join(flag["types"])
             content1 = self._escape_table_cell(flag["doc1"]["content"])
+            content1_page = ",".join(str(item) for item in flag["doc1"]["page"])
             content2 = self._escape_table_cell(flag["doc2"]["content"])
+            content2_page = ",".join(str(item) for item in flag["doc2"]["page"])
+            suggestions = flag["suggestions"]
             if correct_results is not None and correct_results[index]:
                 text += f"""## <span style='color: green;'>No. {index + 1} (Correct)</span>"""
             else:
@@ -135,11 +138,23 @@ Total Discrepancies Found: {len(result["flags"])}
 ### Flags: {flag_types}
 |Document 1                      |Document 2                      |
 |--------------------------------|--------------------------------|
+|Page(s): {content1_page}|Page(s): {content2_page}|
 |{content1}|{content2}|
 
-<b>Explanation</b></br>
+### Explanation
 {flag["explanation"]}
 
+### Suggestions for Document 1
+|Before                  |After                 |
+|------------------------|----------------------|
+|{content1}|{"</br>".join(suggestion["modification"] for suggestion in suggestions["document1_suggestions"] if suggestions.get("document1_suggestions")) }|
+
+### Suggestions for Document 2
+|Before                  |After                 |
+|------------------------|----------------------|
+|{content2}|{"</br>".join(suggestion["modification"] for suggestion in suggestions["document2_suggestions"] if suggestions.get("document2_suggestions")) }|
+
+</br>
 """
 
         result = self.convert_using_xhtml2pdf(markdown_content=text)

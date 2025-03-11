@@ -15,12 +15,13 @@ class DocumentProcessor:
         pdf_bytes: Union[BytesIO, bytes],
         similarity_threshold: float = 0.80,
         min_occurrence_percent: int = 90,
-        pagination: bool = False,
     ) -> Dict:
         with st.spinner("Loading Documents"):
             doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
             total_pages = doc.page_count
-            min_occurrences = (total_pages * min_occurrence_percent) / 100
+            min_occurrences = (
+                (total_pages * min_occurrence_percent) / 100 if total_pages > 1 else 1.1
+            )
 
             # Store all content first
             content_occurrences = defaultdict(list)
@@ -126,19 +127,15 @@ class DocumentProcessor:
                 else:
                     pages[page] += "\n" + content
 
-            if pagination:
-                return {
-                    "total_pages": len(pages),
-                    "content": "\n".join(
-                        [
-                            f"<npage>{page}</npage>\n{content}"
-                            for page, content in pages.items()
-                        ]
-                    ),
-                }
             doc.close()
 
-        return "\n".join([content for _, content in pages.items()])
+            return {
+                "total_pages": len(pages),
+                "document": [
+                    {"page": page, "content": content}
+                    for page, content in pages.items()
+                ],
+            }
 
     def extract_titles(self, text: str) -> List[str]:
         # Split the text into lines
@@ -208,91 +205,96 @@ class DocumentProcessor:
 
         return titles
 
+    def replace_special_chars(self, text: str) -> str:
+        special_chars = {
+            # Bullets and List Markers
+            "\uf0b7": "•",  # Common bullet
+            "\uf0a7": "•",  # Another bullet variant
+            "\uf0be": "•",  # Circle bullet
+            "\uf0a8": "○",  # White circle
+            "\uf0d8": "▪",  # Square bullet
+            "\uf0e8": "◆",  # Diamond bullet
+            "\uf0de": "▲",  # Up triangle
+            "\uf0da": "►",  # Right triangle
+            "\uf0dd": "▼",  # Down triangle
+            "\uf0db": "◄",  # Left triangle
+            # Spaces and Breaks
+            "\uf0a0": " ",  # Non-breaking space
+            "\uf020": " ",  # Space
+            "\uf0b6": "¶",  # Paragraph mark
+            "\uf0b8": "¬",  # Line break
+            # Punctuation and Symbols
+            "\uf02d": "-",  # Special hyphen
+            "\uf0ad": "–",  # En dash
+            "\uf0bd": "—",  # Em dash
+            "\uf02e": ".",  # Period
+            "\uf0fc": "✓",  # Checkmark
+            "\uf0fb": "✗",  # Cross mark
+            "\uf0d0": "†",  # Dagger
+            "\uf0d1": "‡",  # Double dagger
+            # Quotes and Brackets
+            "\uf0ab": "«",  # Left double angle quotes
+            "\uf0bb": "»",  # Right double angle quotes
+            "\uf027": "'",  # Single quote
+            "\uf022": '"',  # Double quote
+            "\uf05b": "[",  # Left bracket
+            "\uf05d": "]",  # Right bracket
+            "\uf07b": "{",  # Left brace
+            "\uf07d": "}",  # Right brace
+            # Arrows and Directions
+            "\uf0e0": "→",  # Right arrow
+            "\uf0e1": "←",  # Left arrow
+            "\uf0e2": "↑",  # Up arrow
+            "\uf0e3": "↓",  # Down arrow
+            "\uf0df": "↔",  # Left-right arrow
+            # Mathematical Symbols
+            "\uf0b1": "±",  # Plus-minus
+            "\uf0d7": "×",  # Multiplication
+            "\uf0f7": "÷",  # Division
+            "\uf0b3": "³",  # Superscript 3
+            "\uf0b2": "²",  # Superscript 2
+            # Currency Symbols
+            "\uf0a3": "£",  # Pound
+            "\uf0a5": "¥",  # Yen
+            "\uf0a2": "¢",  # Cent
+            "\uf0b0": "°",  # Degree
+            # Legal and Commercial Symbols
+            "\uf0a4": "®",  # Registered trademark
+            "\uf0a9": "©",  # Copyright
+            "\uf0ae": "™",  # Trademark
+            "\uf0a7": "§",  # Section
+            # Accented Characters
+            "\uf0e4": "ä",  # a umlaut
+            "\uf0f6": "ö",  # o umlaut
+            "\uf0fc": "ü",  # u umlaut
+            "\uf0e9": "é",  # e acute
+            "\uf0e8": "è",  # e grave
+            # Additional Symbols
+            "\uf0ac": "⌂",  # House
+            "\uf0af": "⌐",  # Reversed not
+            "\uf0dc": "♠",  # Spade
+            "\uf0db": "♥",  # Heart
+            "\uf0df": "♣",  # Club
+            "\uf0de": "♦",  # Diamond
+        }
+
+        for special, normal in special_chars.items():
+            text = text.replace(f"{special} \n", normal)
+            text = text.replace(special, normal)
+
+        return text
+
     def extract_full_content(
         self,
         pdf_bytes: Union[BytesIO, bytes],
     ) -> str:
         with st.spinner("Loading Documents"):
             doc = pymupdf.open(stream=pdf_bytes, filetype="pdf")
-            special_chars = {
-                # Bullets and List Markers
-                "\uf0b7": "•",  # Common bullet
-                "\uf0a7": "•",  # Another bullet variant
-                "\uf0be": "•",  # Circle bullet
-                "\uf0a8": "○",  # White circle
-                "\uf0d8": "▪",  # Square bullet
-                "\uf0e8": "◆",  # Diamond bullet
-                "\uf0de": "▲",  # Up triangle
-                "\uf0da": "►",  # Right triangle
-                "\uf0dd": "▼",  # Down triangle
-                "\uf0db": "◄",  # Left triangle
-                # Spaces and Breaks
-                "\uf0a0": " ",  # Non-breaking space
-                "\uf020": " ",  # Space
-                "\uf0b6": "¶",  # Paragraph mark
-                "\uf0b8": "¬",  # Line break
-                # Punctuation and Symbols
-                "\uf02d": "-",  # Special hyphen
-                "\uf0ad": "–",  # En dash
-                "\uf0bd": "—",  # Em dash
-                "\uf02e": ".",  # Period
-                "\uf0fc": "✓",  # Checkmark
-                "\uf0fb": "✗",  # Cross mark
-                "\uf0d0": "†",  # Dagger
-                "\uf0d1": "‡",  # Double dagger
-                # Quotes and Brackets
-                "\uf0ab": "«",  # Left double angle quotes
-                "\uf0bb": "»",  # Right double angle quotes
-                "\uf027": "'",  # Single quote
-                "\uf022": '"',  # Double quote
-                "\uf05b": "[",  # Left bracket
-                "\uf05d": "]",  # Right bracket
-                "\uf07b": "{",  # Left brace
-                "\uf07d": "}",  # Right brace
-                # Arrows and Directions
-                "\uf0e0": "→",  # Right arrow
-                "\uf0e1": "←",  # Left arrow
-                "\uf0e2": "↑",  # Up arrow
-                "\uf0e3": "↓",  # Down arrow
-                "\uf0df": "↔",  # Left-right arrow
-                # Mathematical Symbols
-                "\uf0b1": "±",  # Plus-minus
-                "\uf0d7": "×",  # Multiplication
-                "\uf0f7": "÷",  # Division
-                "\uf0b3": "³",  # Superscript 3
-                "\uf0b2": "²",  # Superscript 2
-                # Currency Symbols
-                "\uf0a3": "£",  # Pound
-                "\uf0a5": "¥",  # Yen
-                "\uf0a2": "¢",  # Cent
-                "\uf0b0": "°",  # Degree
-                # Legal and Commercial Symbols
-                "\uf0a4": "®",  # Registered trademark
-                "\uf0a9": "©",  # Copyright
-                "\uf0ae": "™",  # Trademark
-                "\uf0a7": "§",  # Section
-                # Accented Characters
-                "\uf0e4": "ä",  # a umlaut
-                "\uf0f6": "ö",  # o umlaut
-                "\uf0fc": "ü",  # u umlaut
-                "\uf0e9": "é",  # e acute
-                "\uf0e8": "è",  # e grave
-                # Additional Symbols
-                "\uf0ac": "⌂",  # House
-                "\uf0af": "⌐",  # Reversed not
-                "\uf0dc": "♠",  # Spade
-                "\uf0db": "♥",  # Heart
-                "\uf0df": "♣",  # Club
-                "\uf0de": "♦",  # Diamond
-            }
 
             final_doc = ""
             for page_num in range(len(doc)):
                 page = doc[page_num]
-                text = page.get_text("text")
-                for special, normal in special_chars.items():
-                    text = text.replace(f"{special} \n", normal)
-                    text = text.replace(special, normal)
+                text = self.replace_special_chars(page.get_text("text"))
 
                 final_doc += f"{text.strip()}\n"
                 lines = [
@@ -587,3 +589,134 @@ class DocumentProcessor:
         if chunks[:-1]:
             return "</chunk>".join(chunks[:-1]) + "</chunk>" + end_tag
         return ""
+
+    def find_page_by_paragraph(self, content_list, search_paragraph, threshold=0.8):
+        """
+        Find the page number(s) that contain a given paragraph.
+
+        Args:
+            content_list (list): List of dictionaries with 'page' and 'content' keys
+            search_paragraph (str): The paragraph text to search for
+            threshold (float): Similarity threshold (0.0 to 1.0) for fuzzy matching
+                              1.0 means exact match, lower values allow for partial matches
+
+        Returns:
+            list: List of page numbers where the paragraph was found
+        """
+        search_paragraph = "\n".join(
+            [line.strip() for line in search_paragraph.lower().split("\n")]
+        )
+        result_pages = []
+        # Check for exact matches first
+        for item in content_list:
+            page = item["page"]
+            content = item["content"].strip().lower().replace("\n", " ")
+
+            if search_paragraph.replace("\n", " ") in content:
+                result_pages.append(page)
+
+        # If exact match found, return results
+        if result_pages:
+            return result_pages
+
+        # If no exact match, try fuzzy matching
+        if threshold < 1.0:
+            for item in content_list:
+                page = item["page"]
+                content = item["content"].strip().lower().replace("\n", " ")
+
+                # Check if significant portion of search_paragraph is in content
+                common_words = set(search_paragraph.split()) & set(content.split())
+                similarity = len(common_words) / len(set(search_paragraph.split()))
+
+                if similarity >= threshold:
+                    result_pages.append(page)
+
+        # Line-by-line cross-page detection
+        if not result_pages:
+            # Sort content list by page number
+            sorted_content = sorted(content_list, key=lambda x: x["page"])
+
+            # Split the search paragraph into lines
+            search_lines = search_paragraph.split("\n")
+            if len(search_lines) == 1:  # If no newlines, try to split by periods
+                potential_lines = re.split(r"(?<=[.!?])\s+", search_paragraph.strip())
+                if len(potential_lines) > 1:
+                    search_lines = potential_lines
+
+            # If there's only one line, we can't use this method effectively
+            if len(search_lines) <= 1:
+                return result_pages
+
+            # Initialize tracking variables
+            matched_pages = []
+            remaining_lines = search_lines.copy()
+            start_page_idx = 0
+
+            # Continue until all lines are matched or we've tried all pages
+            while remaining_lines and (start_page_idx < len(sorted_content)):
+                found_match = False
+                current_page_idx = start_page_idx
+                current_page = sorted_content[current_page_idx]
+                current_content = current_page["content"].strip().lower()
+
+                # Try matching with different numbers of lines
+                for num_lines in range(len(remaining_lines), 0, -1):
+                    chunk = " ".join(remaining_lines[:num_lines]).lower()
+
+                    # Check if this chunk is in the current page
+                    if chunk in current_content.replace("\n", " "):
+                        # Match found on this page
+                        matched_pages.append(current_page["page"])
+                        remaining_lines = remaining_lines[
+                            num_lines:
+                        ]  # Remove matched lines
+                        found_match = True
+                        start_page_idx = (
+                            current_page_idx + 1
+                        )  # Move to next page for next iteration
+                        break
+
+                # If no match found with any number of lines on the current page
+                if not found_match:
+                    start_page_idx += 1  # Try the next page
+
+            # Check if we matched all lines across multiple pages
+            if not remaining_lines and len(matched_pages) > 0:
+                # Check for consecutive pages
+                is_consecutive = True
+                for i in range(len(matched_pages) - 1):
+                    if matched_pages[i] + 1 != matched_pages[i + 1]:
+                        is_consecutive = False
+                        break
+
+                if is_consecutive:
+                    return matched_pages
+
+            # If we reach here with no results, try one more approach for two-page spans
+            # This is a fallback for cases where the line-by-line approach doesn't work
+            if len(sorted_content) >= 2:
+                for i in range(len(sorted_content) - 1):
+                    current_page = sorted_content[i]
+                    next_page = sorted_content[i + 1]
+
+                    # Only consider consecutive pages
+                    if next_page["page"] != current_page["page"] + 1:
+                        continue
+
+                    # Get content from both pages
+                    current_content = "\n".join(
+                        [line for line in current_page["content"].lower().split("\n")]
+                    )
+                    next_content = "\n".join(
+                        [line for line in next_page["content"].lower().split("\n")]
+                    )
+
+                    # Check if first part is at the end of current page
+                    # and second part is at the beginning of next page
+                    if search_paragraph.replace("\n", " ") in (
+                        current_content + "\n" + next_content
+                    ).replace("\n", " "):
+                        return [current_page["page"], next_page["page"]]
+
+        return result_pages
