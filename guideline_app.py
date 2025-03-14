@@ -59,7 +59,7 @@ if ss.guidelines:
         filtered_content = document_processor.extract_filtered_content(
             pdf_bytes=ss.guidelines.getvalue()
         )
-        ss.formatted_guidelines["total_page"] = filtered_content["total_pages"]
+        ss.formatted_guidelines["total_pages"] = filtered_content["total_pages"]
         ss.formatted_guidelines["content"] = "\n".join(
             f"<npage>{page['page']}</npage>\n{page['content']}"
             for page in filtered_content["document"]
@@ -74,6 +74,7 @@ st.selectbox(
 )
 # st.text_input("Enter section title to extract", key="section_title")
 load_guidelines_btn = st.button("Load Guidelines", disabled=ss.section_title is None)
+print(ss.formatted_guidelines)
 
 if load_guidelines_btn:
     ss.clauses = document_processor.extract_clauses(
