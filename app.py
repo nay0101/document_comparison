@@ -1,17 +1,21 @@
 import streamlit as st
 from streamlit import session_state
-from helpers.document_comparison import DocumentComparisonChain
+from helpers.document_comparison_gpt import DocumentComparisonGPT
 from helpers.reports import MarkdownPDFConverter
 from time import perf_counter
 from uuid import uuid4
 import os
 from dotenv import load_dotenv
+import io
 
 load_dotenv()
 
 environment = os.getenv("ENVIRONMENT")
-session_state.default_chat_model = "gpt-4o"
-chat_model_list = ["gpt-4o", "gemini-1.5-pro"]
+chat_model_list = [
+    "gpt-4.1",
+    "gemini-2.5-pro-preview-05-06",
+    "gemini-2.5-flash-preview-05-20",
+]
 
 if "result" not in session_state:
     session_state.result = None
@@ -20,7 +24,7 @@ if "chat_id" not in session_state:
     session_state.chat_id = uuid4()
 
 if "chat_model" not in session_state:
-    session_state.chat_model = session_state.default_chat_model
+    session_state.chat_model = "gpt-4.1"
 
 if "compare_btn" in session_state and session_state.compare_btn:
     session_state.chat_id = uuid4()
@@ -40,24 +44,14 @@ if session_state.doc1 is None or session_state.doc2 is None:
 compare_btn = st.button(label="Compare", type="secondary", key="compare_btn")
 
 if compare_btn:
-    chain = DocumentComparisonChain(chat_model_name=session_state.chat_model)
+    chain = DocumentComparisonGPT()
     start_time = perf_counter()
     doc1 = session_state.doc1.getvalue()
     doc2 = session_state.doc2.getvalue()
 
     result = chain.invoke_chain(
-        doc1_file_bytes=doc1,
-        doc2_file_bytes=doc2,
-        xml_file_path=(
-            f"./chunks/{session_state.chunks_file_name}.xml"
-            if os.getenv("ENVIRONMENT") == "development"
-            else None
-        ),
-        use_existing_file=(
-            session_state.use_existing_chunks_file
-            if os.getenv("ENVIRONMENT") == "development"
-            else False
-        ),
+        doc1_file_bytes=io.BytesIO(doc1),
+        doc2_file_bytes=io.BytesIO(doc2),
         chat_id=f"document_{session_state.chat_id}",
     )
     session_state.result = result
@@ -77,26 +71,31 @@ if session_state.result:
                         True,
                     )
                     st.markdown(
-                        f'<b style="font-size: 3rem;">{", ".join(flag["types"])}</b>',
+                        f'<b style="font-size: 1.2rem;">Location: {flag["location"]}</b>',
                         True,
                     )
+                    # st.markdown(
+                    #     f'<b style="font-size: 3rem;">{", ".join(flag["types"])}</b>',
+                    #     True,
+                    # )
                     col1, col2 = st.columns(2)
                     with col1:
                         doc1 = flag["doc1"]
                         st.markdown(
-                            f"<b style='font-size: 1.5rem;'>Document 1</b></br>Page(s): {','.join(str(item) for item in doc1['page'])}",
+                            f"<b style='font-size: 1.5rem;'>Document 1</b>",
                             True,
                         )
                         st.markdown(doc1["content"], True)
                     with col2:
                         doc2 = flag["doc2"]
                         st.markdown(
-                            f"<b style='font-size: 1.5rem;'>Document 2</b></br>Page(s): {','.join(str(item) for item in doc2['page'])}",
+                            f"<b style='font-size: 1.5rem;'>Document 2</b>",
                             True,
                         )
                         st.markdown(doc2["content"], True)
                     st.markdown("<b style='font-size: 1.5rem;'>Explanation</b>", True)
-                    st.markdown(flag["explanation"], True)
+                    for discrepancy in flag["discrepancies"]:
+                        st.markdown(f"{discrepancy}", True)
                     st.divider()
                     suggestions = flag["suggestions"]
                     st.markdown(
@@ -143,8 +142,8 @@ if session_state.result:
                         else:
                             st.markdown("No suggestions available.")
 
-                    if environment == "development":
-                        st.checkbox(label="Correct", key=f"check_{i}")
+                    # if environment == "development":
+                    #     st.checkbox(label="Correct", key=f"check_{i}")
 
     report_generator = MarkdownPDFConverter()
 
@@ -155,14 +154,14 @@ if session_state.result:
         time_taken=session_state.time_taken,
         file1_name=session_state.doc1.name,
         file2_name=session_state.doc2.name,
-        correct_results=(
-            [
-                session_state[f"check_{i}"]
-                for i in range(len(final_result_json["flags"]))
-            ]
-            if environment == "development"
-            else None
-        ),
+        # correct_results=(
+        #     [
+        #         session_state[f"check_{i}"]
+        #         for i in range(len(final_result_json["flags"]))
+        #     ]
+        #     if environment == "development"
+        #     else None
+        # ),
     )
     st.download_button(
         "Download Report",
@@ -175,13 +174,13 @@ with st.sidebar:
     st.selectbox(
         label="Models",
         options=chat_model_list,
-        index=chat_model_list.index(session_state.default_chat_model),
+        index=chat_model_list.index(session_state.chat_model),
         key="chat_model",
     )
-    if environment == "development":
-        st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
-        st.checkbox(
-            label="Use Existing Chunks File",
-            key="use_existing_chunks_file",
-            value=False,
-        )
+    # if environment == "development":
+    #     st.text_input(label="Chunks File Name", key="chunks_file_name", value="test")
+    #     st.checkbox(
+    #         label="Use Existing Chunks File",
+    #         key="use_existing_chunks_file",
+    #         value=False,
+    #     )

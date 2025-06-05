@@ -3,10 +3,13 @@ LLM_MAPPING = {
     "gpt-4o-2024-11-20": "openai",
     "gpt-4o-mini": "openai",
     "gpt-4o": "openai",
+    "gpt-4.1": "openai",
     "o1-mini": "openai",
     "o1": "openai",
     "claude-3-5-sonnet-latest": "anthropic",
     "claude-3-5-haiku-latest": "anthropic",
     "gemini-2.0-flash-exp": "google",
     "gemini-1.5-pro": "google",
+    "gemini-2.5-flash-preview-05-20": "google",
+    "gemini-2.5-pro-preview-05-06": "google",
 }

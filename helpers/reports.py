@@ -124,35 +124,44 @@ class MarkdownPDFConverter:
 Total Discrepancies Found: {len(result["flags"])}
 """
         for index, flag in enumerate(result["flags"]):
-            flag_types = ", ".join(flag["types"])
             content1 = self._escape_table_cell(flag["doc1"]["content"])
-            content1_page = ",".join(str(item) for item in flag["doc1"]["page"])
+            # content1_page = ",".join(str(item) for item in flag["doc1"]["page"])
+            content_location = flag["location"]
             content2 = self._escape_table_cell(flag["doc2"]["content"])
-            content2_page = ",".join(str(item) for item in flag["doc2"]["page"])
+            # content2_page = ",".join(str(item) for item in flag["doc2"]["page"])
+            discrepancies = "\n".join(
+                discrepancy for discrepancy in flag.get("discrepancies", [])
+            )
             suggestions = flag["suggestions"]
+
+            # Defensive: handle None for document1_suggestions and document2_suggestions
+            doc1_suggestions = suggestions.get("document1_suggestions") or []
+            doc2_suggestions = suggestions.get("document2_suggestions") or []
+
             if correct_results is not None and correct_results[index]:
                 text += f"""## <span style='color: green;'>No. {index + 1} (Correct)</span>"""
             else:
-                text += f"""## No. {index + 1}"""
+                text += f"""## Discrepancy No. {index + 1}"""
             text += f"""
-### Flags: {flag_types}
+
+
+### Location: {content_location}
 |Document 1                      |Document 2                      |
 |--------------------------------|--------------------------------|
-|Page(s): {content1_page}|Page(s): {content2_page}|
 |{content1}|{content2}|
 
 ### Explanation
-{flag["explanation"]}
+{discrepancies}
 
 ### Suggestions for Document 1
 |Before                  |After                 |
 |------------------------|----------------------|
-|{content1}|{"</br>".join(suggestion["modification"] for suggestion in suggestions["document1_suggestions"] if suggestions.get("document1_suggestions")) }|
+|{content1}|{self._escape_table_cell('; '.join(suggestion1['modification'] for suggestion1 in doc1_suggestions))}|
 
 ### Suggestions for Document 2
 |Before                  |After                 |
 |------------------------|----------------------|
-|{content2}|{"</br>".join(suggestion["modification"] for suggestion in suggestions["document2_suggestions"] if suggestions.get("document2_suggestions")) }|
+|{content2}|{self._escape_table_cell('; '.join(suggestion2['modification'] for suggestion2 in doc2_suggestions))}|
 
 </br>
 """

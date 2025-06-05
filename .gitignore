@@ -1,5 +1,9 @@
 *venv
 __pycache__
 .env
-test_logs
+test*
 reports
+data_sources
+logs
+chunks
+multilingual_docs

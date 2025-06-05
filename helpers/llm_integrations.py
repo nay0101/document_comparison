@@ -6,21 +6,17 @@ from .llm_mappings import LLM_MAPPING
 
 
 def get_llm(model: Model, temperature: float = 0.0) -> ChatAnthropic | ChatOpenAI:
-    chat_engine: Engine = LLM_MAPPING.get(model, "gpt-4o")
+    chat_engine: Engine = LLM_MAPPING.get(model, "gpt-4.1")
     match chat_engine:
         case "openai":
             return ChatOpenAI(
-                model=model, temperature=temperature, max_completion_tokens=16000
+                model=model, temperature=temperature, use_responses_api=True
             )
         case "anthropic":
             return ChatAnthropic(model=model, temperature=temperature, max_tokens=8000)
         case "google":
-            return ChatGoogleGenerativeAI(
-                model=model, temperature=temperature, max_tokens=8000
-            )
+            return ChatGoogleGenerativeAI(model=model, temperature=temperature)
         case _:
             return ChatOpenAI(
-                model="gpt-4o-mini",
-                temperature=temperature,
-                max_completion_tokens=16000,
+                model="gpt-4.1", temperature=temperature, use_responses_api=True
             )

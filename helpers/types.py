@@ -8,6 +8,7 @@ Model = Literal[
     "claude-3-5-haiku-latest",
     "gpt-4o-2024-11-20",
     "gpt-4o",
+    "gpt-4.1",
     "o1",
     "o1-mini",
     "gemini-1.5-pro",

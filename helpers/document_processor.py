@@ -7,6 +7,12 @@ from collections import defaultdict
 from difflib import SequenceMatcher
 import streamlit as st
 import base64
+from tabulate import tabulate
+import pdfplumber
+import pandas as pd
+import os
+import requests
+import runpod
 
 
 class DocumentProcessor:
@@ -720,3 +726,66 @@ class DocumentProcessor:
                         return [current_page["page"], next_page["page"]]
 
         return result_pages
+
+    def extract_with_pdfplumber(self, pdf_bytes: Union[BytesIO, bytes]) -> str:
+        markdown_content = []
+        with pdfplumber.open(pdf_bytes) as pdf:
+            for page_num, page in enumerate(pdf.pages, start=1):
+                section_md = []
+
+                # --- Extract page text ---
+                text = page.extract_text()
+                if text and text.strip():
+                    section_md.append(text.strip())
+
+                # --- Extract tables ---
+                tables = page.extract_tables()
+                for i, table in enumerate(tables):
+                    if not table or not table[0]:
+                        continue
+
+                    # Create DataFrame
+                    df = pd.DataFrame(table[1:], columns=table[0])
+
+                    # Format table in Markdown
+                    md_table = tabulate(
+                        df.values.tolist(), headers=df.columns.tolist(), tablefmt="pipe"
+                    )
+                    section_md.append(md_table)
+
+                # Append the page content to the document
+                markdown_content.append("\n\n".join(section_md))
+
+        return "\n\n---\n\n".join(markdown_content)
+
+    def extract_with_docling(self, pdf_bytes: Union[BytesIO, bytes]) -> str:
+        """
+        Extract text and tables from a PDF using Docling.
+        """
+        with st.spinner("Loading Documents"):
+
+            runpod.api_key = os.getenv("RUNPOD_API_KEY")
+
+            pods = runpod.get_pods()
+            if pods is None or len(pods) == 0:
+                st.error(
+                    "No document processor found. Please contact the administrator."
+                )
+                return ""
+
+            # Call the Docling API (replace with your actual API URL)
+            api_url = f"https://{pods[0].get('id')}-5001.proxy.runpod.net/v1alpha/convert/file"
+
+            # Upload the PDF file
+            files = {"files": ("document.pdf", pdf_bytes)}
+            data = {
+                "do_table_structure": True,
+                "image_export_mode": "placeholder",
+            }
+            response = requests.post(api_url, files=files, data=data)
+
+            # Check for errors
+            response.raise_for_status()
+
+            # Return the JSON response
+            return response.json()["document"]["md_content"]
