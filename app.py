@@ -67,7 +67,7 @@ if session_state.result:
             for i, flag in enumerate(final_result_json["flags"]):
                 with st.container(border=True):
                     st.markdown(
-                        f'<b style="font-size: 1.5rem; margin-right: 0">No. {i+1}</b>',
+                        f'<b style="font-size: 1.5rem; margin-right: 0">Discrepancy No. {i+1}</b>',
                         True,
                     )
                     st.markdown(

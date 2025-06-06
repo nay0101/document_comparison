@@ -768,10 +768,7 @@ class DocumentProcessor:
 
             pods = runpod.get_pods()
             if pods is None or len(pods) == 0:
-                st.error(
-                    "No document processor found. Please contact the administrator."
-                )
-                return ""
+                return None
 
             # Call the Docling API (replace with your actual API URL)
             api_url = f"https://{pods[0].get('id')}-5001.proxy.runpod.net/v1alpha/convert/file"

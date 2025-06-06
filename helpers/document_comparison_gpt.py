@@ -38,6 +38,9 @@ class DocumentComparisonGPT:
     ) -> str:
         doc1 = self.document_processor.extract_with_docling(doc1_file_bytes)
         doc2 = self.document_processor.extract_with_docling(doc2_file_bytes)
+        if doc1 is None or doc2 is None:
+            st.error("No document processor found. Please contact the administrator.")
+            return
         flags = []
         with st.spinner("Comparing Documents"):
             try:
