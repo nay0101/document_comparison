@@ -78,7 +78,9 @@ class DocumentComparisonGPT:
                 # else:
                 #     print("No flags found in the result.")
             except json.JSONDecodeError as e:
-                return json_str
+                st.error(f"Error during document comparison: {e}")
+                print(json_str)
+                return
 
             # flag_list = json.loads(self.document_processor.remove_code_fences(result))[
             #     "flags"
