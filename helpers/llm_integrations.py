@@ -10,7 +10,10 @@ def get_llm(model: Model, temperature: float = 0.0) -> ChatAnthropic | ChatOpenA
     match chat_engine:
         case "openai":
             return ChatOpenAI(
-                model=model, temperature=temperature, use_responses_api=True
+                model=model,
+                temperature=temperature,
+                use_responses_api=True,
+                max_completion_tokens=32000,
             )
         case "anthropic":
             return ChatAnthropic(model=model, temperature=temperature, max_tokens=8000)

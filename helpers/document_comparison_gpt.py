@@ -29,22 +29,30 @@ class DocumentComparisonGPT:
         self.suggestion_chain = SuggestionChain(
             chat_model_name=chat_model_name, temperature=temperature
         )
+        self.flag_list = []
+        self.doc1 = None
+        self.doc2 = None
 
     def invoke_chain(
         self,
         doc1_file_bytes: Union[BytesIO, bytes],
         doc2_file_bytes: Union[BytesIO, bytes],
+        prev_flag: str = "",
+        remaining_flags: int = 0,
         chat_id: Optional[str] = None,
     ) -> str:
-        doc1 = self.document_processor.extract_with_docling(doc1_file_bytes)
-        doc2 = self.document_processor.extract_with_docling(doc2_file_bytes)
+        if self.doc1 is None or self.doc2 is None:
+            self.doc1 = self.document_processor.extract_with_docling(doc1_file_bytes)
+            self.doc2 = self.document_processor.extract_with_docling(doc2_file_bytes)
+        doc1 = self.doc1
+        doc2 = self.doc2
         if doc1 is None or doc2 is None:
             st.error("No document processor found. Please contact the administrator.")
             return
         flags = []
         with st.spinner("Comparing Documents"):
             try:
-                chunks = self._comparison_chain().stream(
+                chunks = self._comparison_chain(prev_flag, remaining_flags).stream(
                     {
                         "doc1": doc1,
                         "doc2": doc2,
@@ -59,40 +67,40 @@ class DocumentComparisonGPT:
                 return str(e)
 
             json_str = result
-            # Extract JSON from code blocks, ignoring comments and explanatory text
-            # match = re.search(
-            #     r"```json\s*(\{.*?\})\s*(?://.*?(?:\n|$))*\s*```", result, re.DOTALL
-            # )
-            # if match:
-            #     json_str = match.group(1)
-            #     # Remove any inline comments or explanatory text that might be within the JSON
-            #     json_str = re.sub(r"//.*?(?=\n|$)", "", json_str, flags=re.MULTILINE)
-            #     json_str = re.sub(r"/\*.*?\*/", "", json_str, flags=re.DOTALL)
-            #     # Clean up any remaining explanatory text patterns
-            #     json_str = re.sub(
-            #         r"\(Due to length.*?\)",
-            #         "",
-            #         json_str,
-            #         flags=re.DOTALL | re.IGNORECASE,
-            #     )
-            # try:
-            #     result_dict = json.loads(json_str)  # Attempt to parse the JSON
-            #     # if result_dict.get("flags"):  # Check if "flags" key exists and is not empty
-            #     #     print(json.dumps(result_dict, indent=2))
-            #     # else:
-            #     #     print("No flags found in the result.")
-            # except json.JSONDecodeError as e:
-            #     return json_str
+            match = re.search(r"```json\s*(\{.*\})\s*```", result, re.DOTALL)
+            if match:
+                json_str = match.group(1)
+                json_str = re.sub(r"}\s*//.*?(?=\s*\]\s*})", "}", json_str, re.DOTALL)
+            try:
+                result_dict = json.loads(json_str)  # Attempt to parse the JSON
+                # if result_dict.get("flags"):  # Check if "flags" key exists and is not empty
+                #     print(json.dumps(result_dict, indent=2))
+                # else:
+                #     print("No flags found in the result.")
+            except json.JSONDecodeError as e:
+                return json_str
 
             # flag_list = json.loads(self.document_processor.remove_code_fences(result))[
             #     "flags"
             # ]
-            result_dict = self.document_processor.extract_json_with_improved_regex(
-                json_str
-            )
+            # result_dict = self.document_processor.extract_json_with_improved_regex(
+            #     json_str
+            # )
             flag_list = result_dict.get("flags")
+            self.flag_list.extend(flag_list)
+            total = result_dict.get("total")
+            # if flag_list and len(flag_list) < int(total):
+            #     return self.invoke_chain(
+            #         doc1_file_bytes=doc1_file_bytes,
+            #         doc2_file_bytes=doc2_file_bytes,
+            #         chat_id=chat_id,
+            #         prev_flag=json.dumps(flag_list[-1])
+            #         .replace("{", "{{")
+            #         .replace("}", "}}"),
+            #         remaining_flags=int(total) - len(flag_list),
+            #     )
 
-            for flag in flag_list:
+            for flag in self.flag_list:
                 suggestions = self.suggestion_chain.invoke_suggestion_chain(
                     document1=flag["doc1"]["content"],
                     document2=flag["doc2"]["content"],
@@ -104,7 +112,7 @@ class DocumentComparisonGPT:
             flags.append(flag_list)
             return {"flags": sum(flags, [])}
 
-    def _comparison_chain(self) -> Runnable:
+    def _comparison_chain(self, prev_flag, remaining_flags) -> Runnable:
         """Compares two documents"""
 
         instruction = """You are a meticulous linguistic analyst comparing English and Bahasa Malaysia versions of a legal document.
@@ -195,10 +203,10 @@ After your analysis, provide a JSON object with this structure:
     {{
       "location": "Precise location in the document (e.g., 'Paragraph 2, Sentence 1' or 'Section 3.1')",
       "doc1": {{
-        "content": "Content from Document 1"
+        "content": "Content from Document 1 (do not use double quotes in the content, use single quotes instead to avoid JSON parsing issues)",
       }},
       "doc2": {{
-        "content": "Content from Document 2"
+        "content": "Content from Document 2 (do not use double quotes in the content, use single quotes instead to avoid JSON parsing issues)"
       }},
       "discrepancies": [
         "1. List each individual discrepancy found in this location",
@@ -225,7 +233,7 @@ Based on actual review findings, expect to find dozens of discrepancies includin
 
 Completeness is more important than brevity.
 DO NOT summarize the output even if the output is very long. Provide the full detailed analysis of all the discrepancies you detected as specified.
-RESPOSE WITH FULL OUTPUT.
+DO NOT put anything comments in the JSON object. JSON object must be valid JSON.
 ---
 
 Here are the two documents:
@@ -235,9 +243,18 @@ Here are the two documents:
 
 **BAHASA_MALAYSIA_VERSION:**
 {doc2}"""
+        if prev_flag:
+            instruction += f"""This is the previous flag
 
+**PREVIOUS_FLAG:** {prev_flag}
+Generate the next flag after this one. There are {remaining_flags} flags remaining to be generated.
+"""
         prompt = ChatPromptTemplate.from_messages(
             [
+                (
+                    "system",
+                    "Output all flags, even if it’s a long list. Do not truncate or summarize. Continue until everything is shown.",
+                ),
                 ("human", instruction),
             ]
         )

@@ -889,6 +889,122 @@ class DocumentProcessor:
         extracted = self.extract_json_object(text)
         return self._remove_json_comments(extracted)
 
+    # def extract_json_with_improved_regex(self, text: str) -> str:
+    #     import re
+    #     import json
+
+    #     # First try to find ```json blocks
+    #     pattern = r"```json\s*(\{.*?\})\s*```"
+    #     match = re.search(pattern, text, re.DOTALL)
+
+    #     if match:
+    #         json_content = match.group(1)
+    #         # Remove comments from the JSON content
+    #         json_content = self._remove_json_comments(json_content)
+    #         # Escape double quotes in string values
+    #         json_content = self._escape_quotes_in_json_values(json_content)
+    #         # Debug: Print the problematic area around the error
+    #         try:
+    #             json.loads(json_content)
+    #             return json_content
+    #         except json.JSONDecodeError as e:
+    #             print(f"JSON Error at line {e.lineno}, column {e.colno}: {e.msg}")
+    #             # Print the problematic line and surrounding context
+    #             lines = json_content.split("\n")
+    #             error_line = e.lineno - 1
+    #             start_line = max(0, error_line - 2)
+    #             end_line = min(len(lines), error_line + 3)
+
+    #             print("Context around error:")
+    #             for i in range(start_line, end_line):
+    #                 marker = ">>> " if i == error_line else "    "
+    #                 print(f"{marker}Line {i+1}: {lines[i]}")
+
+    #             # Try to fix common JSON issues
+    #             json_content = self._fix_common_json_issues(json_content)
+    #             try:
+    #                 json.loads(json_content)
+    #                 return json_content
+    #             except json.JSONDecodeError:
+    #                 # If still failing, fallback to brace counting method
+    #                 cleaned_text = self._remove_json_comments(
+    #                     self.extract_json_from_markdown(text)
+    #                 )
+    #                 cleaned_text = self._escape_quotes_in_json_values(cleaned_text)
+    #                 return cleaned_text
+
+    #     # If no markdown blocks, try to extract JSON directly
+    #     extracted = self.extract_json_object(text)
+    #     extracted = self._remove_json_comments(extracted)
+    #     extracted = self._escape_quotes_in_json_values(extracted)
+    #     return extracted
+
+    def _escape_quotes_in_json_values(self, text: str) -> str:
+        """Escape double quotes inside JSON string values while preserving JSON structure quotes."""
+        import re
+
+        def escape_quotes_in_string_value(match):
+            # Get the full match and the content inside the quotes
+            quote_start = match.group(1)  # Opening quote
+            content = match.group(2)  # Content between quotes
+            quote_end = match.group(3)  # Closing quote
+
+            # Only escape unescaped quotes within the content
+            # First, temporarily replace already escaped quotes
+            temp_marker = "___TEMP_ESCAPED_QUOTE___"
+            content = content.replace('\\"', temp_marker)
+
+            # Now escape any remaining unescaped quotes
+            content = content.replace('"', '\\"')
+
+            # Restore the originally escaped quotes
+            content = content.replace(temp_marker, '\\"')
+
+            return quote_start + content + quote_end
+
+        # Pattern to match complete JSON string values (including the surrounding quotes)
+        # This matches: "any string content including quotes"
+        # But only when it's a complete string value, not structural JSON quotes
+        pattern = r'(")((?:[^"\\]|\\.)*)(")'
+
+        # We need to be more careful - only process strings that are actual values
+        # Split by lines and process each line to avoid matching structural quotes
+        lines = text.split("\n")
+        processed_lines = []
+
+        for line in lines:
+            # Skip lines that are just structural JSON (opening/closing braces, etc.)
+            stripped = line.strip()
+            if stripped in ["{", "}", "[", "]", ","]:
+                processed_lines.append(line)
+                continue
+
+            # For lines with key-value pairs, only process the value part
+            if ":" in line:
+                # Split at the first colon
+                colon_pos = line.find(":")
+                key_part = line[: colon_pos + 1]
+                value_part = line[colon_pos + 1 :]
+
+                # Only process the value part if it contains quoted strings
+                if '"' in value_part:
+                    value_part = re.sub(
+                        pattern, escape_quotes_in_string_value, value_part
+                    )
+
+                processed_lines.append(key_part + value_part)
+            else:
+                # For lines without colons, process if they contain quoted strings
+                if '"' in line and not (
+                    stripped.startswith('"')
+                    and stripped.endswith('"')
+                    and stripped.count('"') == 2
+                ):
+                    line = re.sub(pattern, escape_quotes_in_string_value, line)
+                processed_lines.append(line)
+
+        return "\n".join(processed_lines)
+
     def _fix_common_json_issues(self, text: str) -> str:
         import re
 
@@ -914,8 +1030,57 @@ class DocumentProcessor:
         except (json.JSONDecodeError, ValueError):
             return False
 
+    # def _remove_json_comments(self, text: str) -> str:
+    #     """Remove comments from JSON content while preserving valid JSON structure."""
+    #     import re
+
+    #     # Remove single-line comments (// comment)
+    #     # But be careful not to remove // inside strings
+    #     lines = text.split("\n")
+    #     cleaned_lines = []
+
+    #     for line in lines:
+    #         # Find // that are not inside strings
+    #         in_string = False
+    #         escape_next = False
+    #         comment_start = -1
+
+    #         for i, char in enumerate(line):
+    #             if escape_next:
+    #                 escape_next = False
+    #                 continue
+
+    #             if char == "\\":
+    #                 escape_next = True
+    #                 continue
+
+    #             if char == '"' and not escape_next:
+    #                 in_string = not in_string
+    #                 continue
+
+    #             if (
+    #                 not in_string
+    #                 and char == "/"
+    #                 and i + 1 < len(line)
+    #                 and line[i + 1] == "/"
+    #             ):
+    #                 comment_start = i
+    #                 break
+
+    #         if comment_start >= 0:
+    #             line = line[:comment_start].rstrip()
+
+    #         cleaned_lines.append(line)
+
+    #     cleaned_text = "\n".join(cleaned_lines)
+
+    #     # Remove multi-line comments (/* comment */)
+    #     # Again, be careful about strings
+    #     cleaned_text = re.sub(r"/\*.*?\*/", "", cleaned_text, flags=re.DOTALL)
+
+    #     return cleaned_text
+
     def _remove_json_comments(self, text: str) -> str:
-        """Remove comments from JSON content while preserving valid JSON structure."""
         import re
 
         # Remove single-line comments (// comment)
@@ -924,25 +1089,24 @@ class DocumentProcessor:
         cleaned_lines = []
 
         for line in lines:
-            # Find // that are not inside strings
+            # Find // that are not inside strings, considering escaped quotes
             in_string = False
-            escape_next = False
+            i = 0
             comment_start = -1
 
-            for i, char in enumerate(line):
-                if escape_next:
-                    escape_next = False
+            while i < len(line):
+                char = line[i]
+
+                # Handle escaped characters (including escaped quotes)
+                if char == "\\" and i + 1 < len(line):
+                    # Skip the escaped character entirely - this preserves \"
+                    i += 2
                     continue
 
-                if char == "\\":
-                    escape_next = True
-                    continue
-
-                if char == '"' and not escape_next:
+                # Handle string delimiters (only unescaped quotes)
+                if char == '"':
                     in_string = not in_string
-                    continue
-
-                if (
+                elif (
                     not in_string
                     and char == "/"
                     and i + 1 < len(line)
@@ -951,6 +1115,8 @@ class DocumentProcessor:
                     comment_start = i
                     break
 
+                i += 1
+
             if comment_start >= 0:
                 line = line[:comment_start].rstrip()
 
@@ -958,11 +1124,46 @@ class DocumentProcessor:
 
         cleaned_text = "\n".join(cleaned_lines)
 
-        # Remove multi-line comments (/* comment */)
-        # Again, be careful about strings
-        cleaned_text = re.sub(r"/\*.*?\*/", "", cleaned_text, flags=re.DOTALL)
+        # Remove multi-line comments (/* comment */) while preserving escaped quotes
+        # Use a more careful approach that respects string boundaries
+        result = []
+        i = 0
+        in_string = False
 
-        return cleaned_text
+        while i < len(cleaned_text):
+            char = cleaned_text[i]
+
+            # Handle escaped characters (preserve them exactly)
+            if char == "\\" and i + 1 < len(cleaned_text):
+                result.append(char)
+                result.append(cleaned_text[i + 1])
+                i += 2
+                continue
+
+            # Handle string delimiters
+            if char == '"':
+                in_string = not in_string
+                result.append(char)
+                i += 1
+            elif (
+                not in_string
+                and char == "/"
+                and i + 1 < len(cleaned_text)
+                and cleaned_text[i + 1] == "*"
+            ):
+                # Found start of multi-line comment outside of string
+                # Skip until we find the end
+                i += 2  # Skip /*
+                while i + 1 < len(cleaned_text):
+                    if cleaned_text[i] == "*" and cleaned_text[i + 1] == "/":
+                        i += 2  # Skip */
+                        break
+                    i += 1
+            else:
+                result.append(char)
+                i += 1
+
+        return "".join(result)
 
     def extract_json_object_preserve_escapes(self, text: str) -> str:
         """
