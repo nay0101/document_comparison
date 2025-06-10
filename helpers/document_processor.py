@@ -839,9 +839,7 @@ class DocumentProcessor:
                 "image_export_mode": "placeholder",
             }
             response = requests.post(api_url, files=files, data=data)
-            with open("./docling_test.md", "w") as f:
-                f.write(response.json()["document"]["md_content"].replace('"', "'"))
-            # Check for errors
+
             response.raise_for_status()  # Return the JSON response
             return response.json()["document"]["md_content"].replace('"', "'")
 
