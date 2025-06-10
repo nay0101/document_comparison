@@ -59,21 +59,37 @@ class DocumentComparisonGPT:
                 return str(e)
 
             json_str = result
-            match = re.search(r"```json\s*(\{.*\})\s*```", result, re.DOTALL)
-            if match:
-                json_str = match.group(1)
-            try:
-                result_dict = json.loads(json_str)  # Attempt to parse the JSON
-                # if result_dict.get("flags"):  # Check if "flags" key exists and is not empty
-                #     print(json.dumps(result_dict, indent=2))
-                # else:
-                #     print("No flags found in the result.")
-            except json.JSONDecodeError as e:
-                return json_str
+            # Extract JSON from code blocks, ignoring comments and explanatory text
+            # match = re.search(
+            #     r"```json\s*(\{.*?\})\s*(?://.*?(?:\n|$))*\s*```", result, re.DOTALL
+            # )
+            # if match:
+            #     json_str = match.group(1)
+            #     # Remove any inline comments or explanatory text that might be within the JSON
+            #     json_str = re.sub(r"//.*?(?=\n|$)", "", json_str, flags=re.MULTILINE)
+            #     json_str = re.sub(r"/\*.*?\*/", "", json_str, flags=re.DOTALL)
+            #     # Clean up any remaining explanatory text patterns
+            #     json_str = re.sub(
+            #         r"\(Due to length.*?\)",
+            #         "",
+            #         json_str,
+            #         flags=re.DOTALL | re.IGNORECASE,
+            #     )
+            # try:
+            #     result_dict = json.loads(json_str)  # Attempt to parse the JSON
+            #     # if result_dict.get("flags"):  # Check if "flags" key exists and is not empty
+            #     #     print(json.dumps(result_dict, indent=2))
+            #     # else:
+            #     #     print("No flags found in the result.")
+            # except json.JSONDecodeError as e:
+            #     return json_str
 
             # flag_list = json.loads(self.document_processor.remove_code_fences(result))[
             #     "flags"
             # ]
+            result_dict = self.document_processor.extract_json_with_improved_regex(
+                json_str
+            )
             flag_list = result_dict.get("flags")
 
             for flag in flag_list:
@@ -179,10 +195,10 @@ After your analysis, provide a JSON object with this structure:
     {{
       "location": "Precise location in the document (e.g., 'Paragraph 2, Sentence 1' or 'Section 3.1')",
       "doc1": {{
-        "content": "Content from Document 1 with <span style=\"color: red\">highlighted differences</span>"
+        "content": "Content from Document 1"
       }},
       "doc2": {{
-        "content": "Content from Document 2 with <span style=\"color: red\">highlighted differences</span>"
+        "content": "Content from Document 2"
       }},
       "discrepancies": [
         "1. List each individual discrepancy found in this location",
@@ -208,8 +224,8 @@ Based on actual review findings, expect to find dozens of discrepancies includin
 **ASYMMETRIC TRANSLATION DETECTION:** Also flag when one version has MORE qualifying words than the other. Both under-translation and over-specification must be detected.
 
 Completeness is more important than brevity.
-DO NOT summarize the output even if the output is very long. Provide the full detailed analysis as specified.
-
+DO NOT summarize the output even if the output is very long. Provide the full detailed analysis of all the discrepancies you detected as specified.
+RESPOSE WITH FULL OUTPUT.
 ---
 
 Here are the two documents:

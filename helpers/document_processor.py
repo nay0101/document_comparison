@@ -557,6 +557,10 @@ class DocumentProcessor:
         return text
 
     def remove_code_fences(self, text: str) -> str:
+        if "```json" in text:
+            return self.extract_json_from_markdown(text)
+
+        # Fallback to original method for simple cases
         if text.startswith("```"):
             newline_pos = text.find("\n")
             text = text[newline_pos + 1 :]
@@ -565,6 +569,61 @@ class DocumentProcessor:
             text = text[:-3]
 
         return text
+
+    def extract_json_from_markdown(self, text: str) -> str:
+        """
+        Extract JSON content from markdown code blocks, properly handling nested braces.
+        This fixes the issue where the regex misses the last brackets due to nested JSON structure.
+        """
+        # Find the start of the JSON code block
+        start_marker = "```json"
+        end_marker = "```"
+
+        start_pos = text.find(start_marker)
+        if start_pos == -1:
+            # No markdown code block found, try to extract JSON directly
+            return self.extract_json_object(text)
+
+        # Move past the start marker and any whitespace
+        start_pos += len(start_marker)
+        while start_pos < len(text) and text[start_pos].isspace():
+            start_pos += 1
+
+        # Find the end marker, but make sure we don't stop at ``` inside the JSON
+        end_pos = text.find(end_marker, start_pos)
+        if end_pos == -1:
+            # No end marker found, take everything after start marker
+            json_content = text[start_pos:]
+        else:
+            json_content = text[start_pos:end_pos]
+
+        # Extract the JSON object from the content
+        return self.extract_json_object(json_content.strip())
+
+    def extract_json_object(self, text: str) -> str:
+        """
+        Extract a complete JSON object from text, properly handling nested braces.
+        """
+        # Find the first opening brace
+        start = text.find("{")
+        if start == -1:
+            return text  # No JSON object found
+
+        # Count braces to find the matching closing brace
+        brace_count = 0
+        i = start
+        while i < len(text):
+            if text[i] == "{":
+                brace_count += 1
+            elif text[i] == "}":
+                brace_count -= 1
+                if brace_count == 0:
+                    # Found the matching closing brace
+                    return text[start : i + 1]
+            i += 1
+
+        # If we get here, the braces weren't balanced
+        return text[start:]  # Return from first brace to end
 
     def get_last_chunk(self, text: str) -> str:
         # Split by chunk opening tags
@@ -782,7 +841,165 @@ class DocumentProcessor:
             response = requests.post(api_url, files=files, data=data)
 
             # Check for errors
-            response.raise_for_status()
-
-            # Return the JSON response
+            response.raise_for_status()  # Return the JSON response
             return response.json()["document"]["md_content"]
+
+    def extract_json_with_improved_regex(self, text: str) -> str:
+        import re
+        import json
+
+        # First try to find ```json blocks
+        pattern = r"```json\s*(\{.*?\})\s*```"
+        match = re.search(pattern, text, re.DOTALL)
+
+        if match:
+            json_content = match.group(1)
+            # Remove comments from the JSON content
+            json_content = self._remove_json_comments(json_content)
+            # Debug: Print the problematic area around the error
+            try:
+                json.loads(json_content)
+                return json_content
+            except json.JSONDecodeError as e:
+                print(f"JSON Error at line {e.lineno}, column {e.colno}: {e.msg}")
+                # Print the problematic line and surrounding context
+                lines = json_content.split("\n")
+                error_line = e.lineno - 1
+                start_line = max(0, error_line - 2)
+                end_line = min(len(lines), error_line + 3)
+
+                print("Context around error:")
+                for i in range(start_line, end_line):
+                    marker = ">>> " if i == error_line else "    "
+                    print(f"{marker}Line {i+1}: {lines[i]}")
+
+                # Try to fix common JSON issues
+                json_content = self._fix_common_json_issues(json_content)
+                try:
+                    json.loads(json_content)
+                    return json_content
+                except json.JSONDecodeError:
+                    # If still failing, fallback to brace counting method
+                    cleaned_text = self._remove_json_comments(
+                        self.extract_json_from_markdown(text)
+                    )
+                    return cleaned_text
+
+        # If no markdown blocks, try to extract JSON directly
+        extracted = self.extract_json_object(text)
+        return self._remove_json_comments(extracted)
+
+    def _fix_common_json_issues(self, text: str) -> str:
+        import re
+
+        # Fix missing commas between array elements or object properties
+        # This regex looks for } or ] followed by whitespace and then { or "
+        text = re.sub(r'(\}|\])\s*(\{|")', r"\1,\2", text)
+
+        # Fix missing commas after closing braces/brackets when followed by quotes
+        text = re.sub(r'(\})\s*(")', r"\1,\2", text)
+
+        # Fix trailing commas before closing braces/brackets
+        text = re.sub(r",(\s*[\}\]])", r"\1", text)
+
+        return text
+
+    def _is_complete_json_object(self, text: str) -> bool:
+        """Check if the text contains a complete JSON object with balanced braces."""
+        import json
+
+        try:
+            json.loads(text)
+            return True
+        except (json.JSONDecodeError, ValueError):
+            return False
+
+    def _remove_json_comments(self, text: str) -> str:
+        """Remove comments from JSON content while preserving valid JSON structure."""
+        import re
+
+        # Remove single-line comments (// comment)
+        # But be careful not to remove // inside strings
+        lines = text.split("\n")
+        cleaned_lines = []
+
+        for line in lines:
+            # Find // that are not inside strings
+            in_string = False
+            escape_next = False
+            comment_start = -1
+
+            for i, char in enumerate(line):
+                if escape_next:
+                    escape_next = False
+                    continue
+
+                if char == "\\":
+                    escape_next = True
+                    continue
+
+                if char == '"' and not escape_next:
+                    in_string = not in_string
+                    continue
+
+                if (
+                    not in_string
+                    and char == "/"
+                    and i + 1 < len(line)
+                    and line[i + 1] == "/"
+                ):
+                    comment_start = i
+                    break
+
+            if comment_start >= 0:
+                line = line[:comment_start].rstrip()
+
+            cleaned_lines.append(line)
+
+        cleaned_text = "\n".join(cleaned_lines)
+
+        # Remove multi-line comments (/* comment */)
+        # Again, be careful about strings
+        cleaned_text = re.sub(r"/\*.*?\*/", "", cleaned_text, flags=re.DOTALL)
+
+        return cleaned_text
+
+    def extract_json_object_preserve_escapes(self, text: str) -> str:
+        """
+        Extract a complete JSON object from text, properly handling nested braces and preserving escaped quotes.
+        """
+        # Find the first opening brace
+        start = text.find("{")
+        if start == -1:
+            return text  # No JSON object found
+
+        # Count braces to find the matching closing brace, handling escaped quotes
+        brace_count = 0
+        i = start
+        in_string = False
+
+        while i < len(text):
+            char = text[i]
+
+            # Handle escaped characters (including escaped quotes)
+            if char == "\\" and i + 1 < len(text):
+                i += 2  # Skip the escaped character
+                continue
+
+            # Handle string delimiters
+            if char == '"':
+                in_string = not in_string
+            elif not in_string:
+                # Only count braces when we're not inside a string
+                if char == "{":
+                    brace_count += 1
+                elif char == "}":
+                    brace_count -= 1
+                    if brace_count == 0:
+                        # Found the matching closing brace
+                        return text[start : i + 1]
+
+            i += 1
+
+        # If we get here, the braces weren't balanced
+        return text[start:]  # Return from first brace to end
