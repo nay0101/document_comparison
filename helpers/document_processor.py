@@ -171,6 +171,10 @@ class DocumentProcessor:
                 i += 1
                 continue
 
+            # Stop if we encounter "SCHEDULE I: BANKING PRODUCTS"
+            if "SCHEDULE I: BANKING PRODUCTS" in clean_line:
+                break
+
             # Check if line is just a number
             if clean_line.replace(".", "").isdigit():
                 # Look ahead to next line for title

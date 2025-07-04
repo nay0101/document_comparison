@@ -12,8 +12,12 @@ import json
 load_dotenv()
 
 environment = os.getenv("ENVIRONMENT")
-ss.default_chat_model = "gpt-4o"
-chat_model_list = ["gpt-4o", "gemini-1.5-pro"]
+ss.default_chat_model = "gpt-4.1"
+chat_model_list = [
+    "gpt-4.1",
+    "gemini-2.5-pro-preview-05-06",
+    "gemini-2.5-flash-preview-05-20",
+]
 document_processor = DocumentProcessor()
 
 if "result" not in ss:
@@ -74,7 +78,6 @@ st.selectbox(
 )
 # st.text_input("Enter section title to extract", key="section_title")
 load_guidelines_btn = st.button("Load Guidelines", disabled=ss.section_title is None)
-print(ss.formatted_guidelines)
 
 if load_guidelines_btn:
     ss.clauses = document_processor.extract_clauses(
