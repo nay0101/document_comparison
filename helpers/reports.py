@@ -183,28 +183,52 @@ Total Discrepancies Found: {len(result["flags"])}
 * Total Cost: ${cost}
 * Time Taken: {time_taken}s
 <div style="page-break-after: always;"></div>
+
 # Comparison Summary
 """
-        for deviation in result:
-            deviation = json.loads(deviation)
-            text += f"""## {deviation["guideline"]}\n"""
-            if len(deviation["exceptions"]) > 0:
-                for i, exception in enumerate(deviation["exceptions"]):
-                    text += f"""### Exception {i+1}\n"""
-                    text += f"""{exception["description"]}\n"""
-                    text += """#### Issue Items\n"""
-                    for j, issue_item in enumerate(exception["issue_items"]):
-                        text += f"""
-  ({j+1}) {issue_item}
-  """
-                    text += """\n#### Recommendations For Fixes\n"""
-                    for k, fix_recommendation in enumerate(
-                        exception["fix_recommendations"]
-                    ):
-                        text += f"""
-  ({k+1}) {fix_recommendation}
+        # Generate summary section for each guideline section
+        for section in result:
+            summary = section["summary"]
+            text += f"""## Summary for {section['title']}
+
+| Status | Clauses |
+|--------|---------|
+| **Complied** | {', '.join(summary['complied']) if summary['complied'] else 'N/A'} |
+| **Not Complied** | {', '.join(summary['nonComplied']) if summary['nonComplied'] else 'N/A'} |
+| **Not Applicable** | {', '.join(summary['notApplicable']) if summary['notApplicable'] else 'N/A'} |
+
 """
-            else:
-                text += """## No Exception Found."""
+
+        text += """<div style="page-break-after: always;"></div>
+
+# Comparison Details
+"""
+
+        # Generate detailed section for each guideline section
+        for section in result:
+            text += f"""## {section['title']}
+
+"""
+            for item in section["results"]:
+                # Format compliance status with appropriate styling
+                if item["isComplied"] == "complied":
+                    status_text = "**Complied**"
+                    status_color = "green"
+                elif item["isComplied"] == "non-complied":
+                    status_text = "**Not Complied**"
+                    status_color = "red"
+                else:
+                    status_text = "**Not Applicable**"
+                    status_color = "orange"
+                text += f"""### {self._escape_table_cell(item['clause'])}
+
+<span style="color: {status_color};">{status_text}</span>
+
+{item['reason']}
+
+---
+
+"""
+
         result = self.convert_using_xhtml2pdf(markdown_content=text)
         return result

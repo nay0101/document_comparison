@@ -46,3 +46,4 @@ class Mismatches(TypedDict):
 class GuidelineInfo(TypedDict):
     clause: str
     image_urls: List[str]
+    title: str

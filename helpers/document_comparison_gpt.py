@@ -42,8 +42,8 @@ class DocumentComparisonGPT:
         chat_id: Optional[str] = None,
     ) -> str:
         if self.doc1 is None or self.doc2 is None:
-            self.doc1 = self.document_processor.extract_with_docling(doc1_file_bytes)
-            self.doc2 = self.document_processor.extract_with_docling(doc2_file_bytes)
+            self.doc1 = self.document_processor.extract_with_pdfplumber(doc1_file_bytes)
+            self.doc2 = self.document_processor.extract_with_pdfplumber(doc2_file_bytes)
         doc1 = self.doc1
         doc2 = self.doc2
         if doc1 is None or doc2 is None:

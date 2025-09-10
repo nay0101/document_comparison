@@ -8,71 +8,28 @@ from langfuse.callback import CallbackHandler
 from .types import Model, Deviation, GuidelineInfo
 from .llm_integrations import get_llm
 from .document_processor import DocumentProcessor
+from .models import ClauseComparisonReport
 import streamlit as st
 import os
+from pydantic import BaseModel, Field
+import json
 
 environment = os.getenv("ENVIRONMENT")
 
 
 class GuidelineComparisonChain:
-    def __init__(self, chat_model_name: Model = "gpt-4o", temperature: float = 0.0):
+    def __init__(
+        self,
+        chat_model_name: Model = "gpt-5",
+        temperature: float = 0.0,
+        instruction: str = None,
+    ):
         self.chat_model_name = chat_model_name
         self.chat_model = get_llm(model=chat_model_name, temperature=temperature)
         self.document_processor = DocumentProcessor()
+        self.instruction = instruction
 
     def _guideline_comparison_chain(self) -> Runnable:
-        # instruction = """
-        # You are an expert analyst tasked with comparing a document against a guideline to identify any deviations or exceptions. Your goal is to provide a comprehensive and exhaustive list of instances where the document does not adhere to or contradicts the guideline.
-
-        # First, carefully read and understand the following guideline:
-
-        # <guideline>
-        # {guideline}
-        # </guideline>
-
-        # Now, read and analyze the following document:
-
-        # <document>
-        # {document}
-        # </document>
-
-        # Your task is to compare the document against the guideline, paying close attention to any deviations or exceptions. Follow these steps:
-
-        # 1. Thoroughly read both the guideline and the document.
-        # 2. Compare the document to the guideline, treating the guideline as a whole.
-        # 3. Identify any instances where the document deviates from or contradicts the guideline.
-        # 4. Group related deviations together under a single exception.
-        # 5. For each group of deviations, formulate a recommendation on how to fix them to align with the guideline.
-
-        # After your comparison breakdown, present your findings in the following JSON format:
-
-        # {{
-        #   "guideline": <Quote the original guideline here>,
-        #   "exceptions": [
-        #     {{
-        #       "description": <Describe the group of related deviations>,
-        #       "issue_items": [
-        #         <List individual deviations within this group>,
-        #         <Repeat for each individual deviation in this group>
-        #       ],
-        #       "fix_recommendations": [
-        #         <Suggest how to fix an issue item from deviation, with an example if possible>,
-        #         <Repeat for each individual issue item in this group>
-        #       ]
-        #     }},
-        #     <Repeat for each group of exceptions found>
-        #   ]
-        # }}
-
-        # If you find no exceptions, your output should look like this:
-
-        # {{
-        #   "guideline": <Quote the original guideline here>,
-        #   "exceptions": [],
-        # }}
-
-        # Remember to be thorough and identify all possible exceptions. Your analysis should cover the entire document and consider all aspects of the guideline.
-        # """
 
         if environment == "development":
             with open("./test.json", "w") as file:
@@ -85,7 +42,8 @@ class GuidelineComparisonChain:
             user_message = [
                 {
                     "type": "text",
-                    "text": f"""<guideline>{guideline}</guideline>\n{'The images are provided as part of the guideline. Refer to the them for accurate output as required by the guideline. If the images are used for comparing the layouts or formats, the document does not need to have the exact same elements as in images. There will be some differences because of comparing text and images. The document just need to resembles the format.' if image_urls else ''}""",
+                    "text": f"""# Document
+{document}\n{'The images are provided as part of the guideline. Refer to the them for accurate output as required by the guideline. If the images are used for comparing the layouts or formats, the document does not need to have the exact same elements as in images. There will be some differences because of comparing text and images. The document just need to resembles the format.' if image_urls else ''}""",
                 },
             ]
             for index, image in enumerate(image_urls):
@@ -97,55 +55,79 @@ class GuidelineComparisonChain:
                     },
                 )
 
-            instruction = f"""
-        You are an expert analyst tasked with comparing a document against a guideline that the user provides to identify any deviations or exceptions. Your goal is to provide a comprehensive and exhaustive list of instances where the document does not adhere to or contradicts the guideline.
+            instruction = """You are an expert compliance analyst. Extract **every clause** from a guideline section (e.g., “S 16.1…”, “G 16.2…”) and compare **each clause** against the provided document. Produce one result **per clause**, covering **all clauses** in order. Also produce a **summary** that lists the clause IDs by outcome.
 
-        First, carefully read and understand the guideline provided by the user.
+## Guideline Section
+{guideline}
 
-        And then, read and analyze the following document:
+## Clause extraction
+- Treat a **clause** as any block that begins with `S` or `G` followed by a space and a numeric identifier (e.g., `S 16.1`, `G 16.2`, `S 16.14`).
+- The **clause text** runs from its identifier to **just before** the next `S xx.x` / `G xx.x` identifier or the end of the guideline section.
+- Define **clause ID** as the leading token (e.g., `S 16.1`, `G 16.2`) that appears at the start of the clause.
 
-        <document>
-        {document}
-        </document>
+## Applicability & evaluation policy
+- **Clause types**:
+  - `S` = **Standard / Mandatory** → evaluate **strictly**.
+  - `G` = **Guidance / Secondary** → evaluate **leniently** (good to follow; okay if not), but still return an outcome.
+- **Applicability test** (per clause):
+  - If a clause applies only under certain conditions (e.g., telemarketing distribution, riders, Islamic products, intermediaries), and the document **does not evidence** that condition, mark **"not-applicable"**.
+- **Verification rules**:
+  - **S (mandatory, strict)**:
+    - Analyse word to word, paragraph to paragraph, and sequence to sequence for the document against the clause.
+    - If the clause references external templates/notes/appendices/actions needed to verify, and these are **not provided** in the inputs, mark **"not-applicable"**.
+    - Otherwise, if any required element is missing/unclear/contradicted/out-of-sequence (where sequence is mandated), mark **"non-complied"**.
+    - Only mark **"complied"** if the document **clearly** satisfies the clause in full.
+  - **G (guidance, lenient)**:
+    - Mark **"complied"** if the document broadly aligns with the clause’s intent (even with different wording/order).
+    - Mark **"non-complied"** **only** if the document **clearly contradicts** the clause’s intent.
+    - If there isn’t enough information to assess alignment (or external references are required but not provided), mark **"not-applicable"**.
 
-        Your task is to compare the document against the guideline, paying close attention to any deviations or exceptions. Follow these steps:
+## Evidence discipline
+- Base your assessment **only** on the provided guideline and document text. Do **not** assume unstated facts or use external sources.
+- Be consistent and deterministic across all clauses.
 
-        1. Thoroughly read both the guideline and the document.
-        2. Compare the document to the guideline, treating the guideline as a whole.
-        3. Identify any instances where the document deviates from or contradicts the guideline.
-        4. Group related deviations together under a single exception.
-        5. For each group of deviations, formulate a recommendation on how to fix them to align with the guideline.
+## Output rules (strict)
+- Respond **only** with a valid **JSON object** (no extra text, no code fences).
+- The object must have **two keys**: `"results"` and `"summary"`.
 
-        After your comparison breakdown, present your findings in the following JSON format:
+**1) `results`**  
+- Type: **array** of objects.  
+- Include **one object per extracted clause**, in the **same order** as in the guideline.  
+- Use **exactly** these keys in every object:
+  - `"clause"`: the full clause text beginning with its identifier (e.g., `"S 16.1 A FSP shall …"`).
+  - `"isComplied"`: `"complied"` | `"non-complied"` | `"not-applicable"`.
+  - `"reason"`:
+    - If `"isComplied" = "complied"` → a **brief description** of why it is complied (reference where the document aligns).
+    - If `"non-complied"` → brief, concrete reason citing what is missing/contradicted/not in required order.
+    - If `"not-applicable"` → state why it cannot be assessed or why it does not apply.
 
-        {{{{
-          "guideline": <Quote the original guideline here>,
-          "exceptions": [
-            {{{{
-              "description": <Describe the group of related deviations>,
-              "issue_items": [
-                <List individual deviations within this group>,
-                <Repeat for each individual deviation in this group>
-              ],
-              "fix_recommendations": [
-                <Suggest how to fix an issue item from deviation, with an example if possible>,
-                <Repeat for each individual issue item in this group>
-              ]
-            }}}},
-            <Repeat for each group of exceptions found>
-          ]
-        }}}}
+**2) `summary`**  
+- Type: **object** with exactly these keys:
+  - `"complied"`: array of **clause IDs** (e.g., `["S 16.1", "G 16.7"]`) in guideline order.
+  - `"nonComplied"`: array of clause IDs in guideline order.
+  - `"notApplicable"`: array of clause IDs in guideline order.
+- A **clause ID** is the leading token of each clause (e.g., `S 16.1`, `G 16.2`). Do **not** include the rest of the clause text in the summary lists.
 
-        If you find no exceptions, your output should look like this:
-
-        {{{{
-          "guideline": <Quote the original guideline here>,
-          "exceptions": [],
-        }}}}
-
-        Remember to be thorough and identify all possible exceptions but do not make up the exceptions. Be comprehensive on issue description. Your analysis should cover the entire document and consider all aspects of the guideline.
-        Remember to just response with the JSON format.
-        """
+### JSON schema (example shape; do not include comments in your output)
+{{{{
+  "results": [
+    {{{{
+      "clause": "S 16.1 A FSP shall provide a PDS …",
+      "isComplied": "non-complied",
+      "reason": "PDS sequence cannot be verified against required template; referenced Notes/templates not provided."
+    }}}},
+    {{{{
+      "clause": "G 16.2 For the avoidance of doubt …",
+      "isComplied": "complied",
+      "reason": "The document’s wording and order broadly align with the clause’s intent."
+    }}}}
+  ],
+  "summary": {{{{
+    "complied": ["G 16.2"],
+    "nonComplied": ["S 16.1"],
+    "notApplicable": []
+  }}}}
+}}}}"""
 
             prompt = ChatPromptTemplate.from_messages(
                 [
@@ -161,7 +143,11 @@ class GuidelineComparisonChain:
             document = _input["document"]
             deviations = []
 
-            loop_chain = formatted_prompt | self.chat_model | StrOutputParser()
+            loop_chain = (
+                formatted_prompt
+                | self.chat_model.with_structured_output(ClauseComparisonReport)
+                # | StrOutputParser()
+            )
 
             with st.spinner("Comparing"):
                 progress_bar = st.progress(0)
@@ -177,9 +163,9 @@ class GuidelineComparisonChain:
                         },
                     )
 
-                    deviations.append(
-                        self.document_processor.remove_code_fences(output)
-                    )
+                    json_response = json.loads(output.model_dump_json())
+                    json_response["title"] = chunk["title"]
+                    deviations.append(json_response)
 
                     if environment == "development":
                         with open("./test.json", "a") as file:
@@ -200,16 +186,16 @@ class GuidelineComparisonChain:
     def invoke_chain(
         self,
         guidelines: List[GuidelineInfo],
-        document_file: Union[BytesIO, bytes],
+        document_file: str,
         chat_id: Optional[str] = None,
     ) -> List[Deviation]:
-        document = self.document_processor.extract_full_content(document_file)
+        # document = self.document_processor.extract_full_content(document_file)
         chain = self._guideline_comparison_chain()
 
         output = chain.invoke(
             {
                 "guidelines": guidelines,
-                "document": document,
+                "document": document_file,
             },
             config={"callbacks": [CallbackHandler(user_id=str(chat_id))]},
         )

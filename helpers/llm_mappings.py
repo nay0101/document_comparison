@@ -4,6 +4,7 @@ LLM_MAPPING = {
     "gpt-4o-mini": "openai",
     "gpt-4o": "openai",
     "gpt-4.1": "openai",
+    "gpt-5": " openai",
     "o1-mini": "openai",
     "o1": "openai",
     "claude-3-5-sonnet-latest": "anthropic",
