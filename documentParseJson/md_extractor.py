@@ -357,8 +357,8 @@ def group_by_section(doc_json: Dict[str, Any]) -> List[Dict[str, str]]:
 
         # Process pre-TOC blocks with normal sectioning
         pre_toc_sections = []
-        # if pre_toc_blocks:
-        #     pre_toc_sections = group_pre_toc_blocks(pre_toc_blocks, all_footnotes)
+        if pre_toc_blocks:
+            pre_toc_sections = group_pre_toc_blocks(pre_toc_blocks, all_footnotes)
 
         # Process post-TOC blocks with TOC-based sectioning
         post_toc_sections = group_by_section_with_toc(
