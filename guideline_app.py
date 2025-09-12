@@ -70,120 +70,120 @@ if "guideline_info" not in ss:
 
 ss.out_dir = Path("./guideline_app").resolve()
 ss.compared_doc_dir = Path("./compared_doc").resolve()
-ss.result = [
-    {
-        "results": [
-            {
-                "clause": "S 16.1 A FSP shall provide a PDS (following the order and sequence of items as specified in the PDS templates provided in the Schedules) for financial consumers to make product comparisons and informed decisions. The FSP shall comply with the “Notes on PDS requirements” provided in the PDS templates.",
-                "isComplied": "non-complied",
-                "reason": "Document’s order and content deviate from Appendix II template: lacks opening consumer guidance text and clear numbered sections matching 1–4; includes extra sections (historical SBR, packages, repayment methods); fees/charges are only via website QR link, not disclosed inline; template Notes N1–N4 not fully followed (e.g., RM350k/35y illustration not provided).",
-            },
-            {
-                "clause": "G 16.2 For the avoidance of doubt, a FSP may use appropriate infographics, illustrations or colours to draw the attention of financial consumers to important terms in the PDS.",
-                "isComplied": "complied",
-                "reason": "Document uses boxes, charts, QR code and highlighted notes to draw attention to terms.",
-            },
-            {
-                "clause": "G 16.3 A FSP is encouraged to provide a PDS containing relevant product information that is tailored to the needs of financial consumers at the pre-contractual stage to facilitate consumers in making informed financial choices.",
-                "isComplied": "complied",
-                "reason": "Document provides product-specific details (facility types, rates, tenure, obligations, scenarios) intended for pre-contract stage.",
-            },
-            {
-                "clause": "S 16.4 A FSP shall ensure the PDS does not exceed two A4 pages and ensure that the information is presented in an easily readable font size.",
-                "isComplied": "non-complied",
-                "reason": "Provided PDS spans 7 pages (page numbers and content).",
-            },
-            {
-                "clause": "S 16.5 A FSP shall use plain language and active verbs to make the PDS easy to read and understand.",
-                "isComplied": "non-complied",
-                "reason": "Contains lengthy, technical sentences and legalistic terms (e.g., tiered amended prescribed rates, detailed OD excess interest clauses), reducing plain-language readability.",
-            },
-            {
-                "clause": "G 16.6 In relation to paragraph 16.5, keeping sentences short will make the PDS easier to read. Most plain language writing guides recommend an average sentence length of not more than twenty words per sentence.",
-                "isComplied": "non-complied",
-                "reason": "Many sentences exceed twenty words, especially in sections 8–10; not aligned with guidance.",
-            },
-            {
-                "clause": "S 16.7 A FSP shall ensure the PDS is clearly distinguishable from other marketing materials to enable financial consumers to refer to the PDS for comparison and decision-making.",
-                "isComplied": "complied",
-                "reason": "Document is titled “PRODUCT DISCLOSURE SHEET”, includes structured sections and version/date; distinguishable from marketing flyers.",
-            },
-            {
-                "clause": "S 16.8 A FSP shall put in place adequate measures to ensure financial consumers are guided to read and understand the PDS prior to entering into a contract. The extent to which the FSP implements these measures shall be commensurate with the complexity of the financial product (i.e. adopting a risk-based approach). The level of measures that must be put in place by FSPs for more complex products would be higher as compared to less complex products. For complex products, the FSP must take additional steps, such as calling customers post-sales, to confirm that the customers are aware of all key terms and risks of the product.",
-                "isComplied": "not-applicable",
-                "reason": "Document content alone cannot evidence organisational measures (e.g., guidance processes or post-sales calls).",
-            },
-            {
-                "clause": "G 16.9 In complying with paragraph 16.8, a FSP may require its front-line sales staff and intermediaries to advise financial consumers to read the PDS and explain the key information in the PDS, such as their obligations and product risks.",
-                "isComplied": "not-applicable",
-                "reason": "Operational practices of staff/intermediaries are not evidenced within the document.",
-            },
-            {
-                "clause": "S 16.10 A FSP shall provide a copy of the PDS to financial consumers at the pre-contractual stage.",
-                "isComplied": "not-applicable",
-                "reason": "Whether and when the PDS is provided cannot be determined from the document text alone.",
-            },
-            {
-                "clause": "S 16.11 If it is not practical to provide the PDS at the pre-contractual stage, particularly for telemarketing transactions, a FSP shall direct financial consumers to its website to view, read or obtain a copy of the PDS.",
-                "isComplied": "not-applicable",
-                "reason": "No evidence of telemarketing or alternative provision context in the document.",
-            },
-            {
-                "clause": "S 16.12 A FSP that distributes its financial products through intermediaries, including a digital channel, shall customise the information contained in the PDS according to the distribution channel. The FSP shall disclose specific charges to be borne by financial consumers for securing the sale through its intermediaries, such as the platform, processing or administrative fees, if any.",
-                "isComplied": "not-applicable",
-                "reason": "Document does not indicate intermediary/digital platform distribution or disclose intermediary-specific charges.",
-            },
-            {
-                "clause": "S 16.13 For riders to an insurance/takaful product offering a variety of benefits, a FSP must provide a separate PDS for such riders. The FSP must provide the PDS for the riders together with the PDS for the basic insurance or takaful product.",
-                "isComplied": "not-applicable",
-                "reason": "Document relates to housing loan/home financing, not insurance/takaful riders.",
-            },
-            {
-                "clause": "S 16.14 For financial products that are not set out in the Schedules, a FSP shall be guided by the format provided in the Schedules in producing a PDS on such products.",
-                "isComplied": "not-applicable",
-                "reason": "Product is housing loan/home financing, which is set out in the Schedules (Appendix II template provided).",
-            },
-            {
-                "clause": "S 16.15 A FSP offering an Islamic financial product must explain the applicable Shariah contract, including the key terms and conditions in the PDS.",
-                "isComplied": "not-applicable",
-                "reason": "Document is for conventional loans; no evidence of Islamic product disclosure requiring Shariah contract explanation.",
-            },
-            {
-                "clause": "G 16.16 BNM reserves the right to require a FSP to make appropriate amendments to a PDS if information contained in the PDS is found to be inaccurate, incomplete or misleading.",
-                "isComplied": "not-applicable",
-                "reason": "This is a regulator reservation; compliance cannot be evidenced within the PDS document.",
-            },
-            {
-                "clause": "S 16.17 A FSP shall immediately make appropriate amendments to the information contained in the PDS upon being informed by BNM in writing that the PDS is inaccurate or misleading.",
-                "isComplied": "not-applicable",
-                "reason": "Action depends on future BNM notification; not assessable from the document.",
-            },
-        ],
-        "summary": {
-            "complied": ["G 16.2", "G 16.3", "S 16.7"],
-            "nonComplied": ["S 16.1", "S 16.4", "S 16.5", "G 16.6"],
-            "notApplicable": [
-                "S 16.8",
-                "G 16.9",
-                "S 16.10",
-                "S 16.11",
-                "S 16.12",
-                "S 16.13",
-                "S 16.14",
-                "S 16.15",
-                "G 16.16",
-                "S 16.17",
-            ],
-        },
-        "title": "16 Product Disclosure Sheet (PDS)",
-    }
-]
+# ss.result = [
+#     {
+#         "results": [
+#             {
+#                 "clause": "S 16.1 A FSP shall provide a PDS (following the order and sequence of items as specified in the PDS templates provided in the Schedules) for financial consumers to make product comparisons and informed decisions. The FSP shall comply with the “Notes on PDS requirements” provided in the PDS templates.",
+#                 "isComplied": "non-complied",
+#                 "reason": "Document’s order and content deviate from Appendix II template: lacks opening consumer guidance text and clear numbered sections matching 1–4; includes extra sections (historical SBR, packages, repayment methods); fees/charges are only via website QR link, not disclosed inline; template Notes N1–N4 not fully followed (e.g., RM350k/35y illustration not provided).",
+#             },
+#             {
+#                 "clause": "G 16.2 For the avoidance of doubt, a FSP may use appropriate infographics, illustrations or colours to draw the attention of financial consumers to important terms in the PDS.",
+#                 "isComplied": "complied",
+#                 "reason": "Document uses boxes, charts, QR code and highlighted notes to draw attention to terms.",
+#             },
+#             {
+#                 "clause": "G 16.3 A FSP is encouraged to provide a PDS containing relevant product information that is tailored to the needs of financial consumers at the pre-contractual stage to facilitate consumers in making informed financial choices.",
+#                 "isComplied": "complied",
+#                 "reason": "Document provides product-specific details (facility types, rates, tenure, obligations, scenarios) intended for pre-contract stage.",
+#             },
+#             {
+#                 "clause": "S 16.4 A FSP shall ensure the PDS does not exceed two A4 pages and ensure that the information is presented in an easily readable font size.",
+#                 "isComplied": "non-complied",
+#                 "reason": "Provided PDS spans 7 pages (page numbers and content).",
+#             },
+#             {
+#                 "clause": "S 16.5 A FSP shall use plain language and active verbs to make the PDS easy to read and understand.",
+#                 "isComplied": "non-complied",
+#                 "reason": "Contains lengthy, technical sentences and legalistic terms (e.g., tiered amended prescribed rates, detailed OD excess interest clauses), reducing plain-language readability.",
+#             },
+#             {
+#                 "clause": "G 16.6 In relation to paragraph 16.5, keeping sentences short will make the PDS easier to read. Most plain language writing guides recommend an average sentence length of not more than twenty words per sentence.",
+#                 "isComplied": "non-complied",
+#                 "reason": "Many sentences exceed twenty words, especially in sections 8–10; not aligned with guidance.",
+#             },
+#             {
+#                 "clause": "S 16.7 A FSP shall ensure the PDS is clearly distinguishable from other marketing materials to enable financial consumers to refer to the PDS for comparison and decision-making.",
+#                 "isComplied": "complied",
+#                 "reason": "Document is titled “PRODUCT DISCLOSURE SHEET”, includes structured sections and version/date; distinguishable from marketing flyers.",
+#             },
+#             {
+#                 "clause": "S 16.8 A FSP shall put in place adequate measures to ensure financial consumers are guided to read and understand the PDS prior to entering into a contract. The extent to which the FSP implements these measures shall be commensurate with the complexity of the financial product (i.e. adopting a risk-based approach). The level of measures that must be put in place by FSPs for more complex products would be higher as compared to less complex products. For complex products, the FSP must take additional steps, such as calling customers post-sales, to confirm that the customers are aware of all key terms and risks of the product.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Document content alone cannot evidence organisational measures (e.g., guidance processes or post-sales calls).",
+#             },
+#             {
+#                 "clause": "G 16.9 In complying with paragraph 16.8, a FSP may require its front-line sales staff and intermediaries to advise financial consumers to read the PDS and explain the key information in the PDS, such as their obligations and product risks.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Operational practices of staff/intermediaries are not evidenced within the document.",
+#             },
+#             {
+#                 "clause": "S 16.10 A FSP shall provide a copy of the PDS to financial consumers at the pre-contractual stage.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Whether and when the PDS is provided cannot be determined from the document text alone.",
+#             },
+#             {
+#                 "clause": "S 16.11 If it is not practical to provide the PDS at the pre-contractual stage, particularly for telemarketing transactions, a FSP shall direct financial consumers to its website to view, read or obtain a copy of the PDS.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "No evidence of telemarketing or alternative provision context in the document.",
+#             },
+#             {
+#                 "clause": "S 16.12 A FSP that distributes its financial products through intermediaries, including a digital channel, shall customise the information contained in the PDS according to the distribution channel. The FSP shall disclose specific charges to be borne by financial consumers for securing the sale through its intermediaries, such as the platform, processing or administrative fees, if any.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Document does not indicate intermediary/digital platform distribution or disclose intermediary-specific charges.",
+#             },
+#             {
+#                 "clause": "S 16.13 For riders to an insurance/takaful product offering a variety of benefits, a FSP must provide a separate PDS for such riders. The FSP must provide the PDS for the riders together with the PDS for the basic insurance or takaful product.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Document relates to housing loan/home financing, not insurance/takaful riders.",
+#             },
+#             {
+#                 "clause": "S 16.14 For financial products that are not set out in the Schedules, a FSP shall be guided by the format provided in the Schedules in producing a PDS on such products.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Product is housing loan/home financing, which is set out in the Schedules (Appendix II template provided).",
+#             },
+#             {
+#                 "clause": "S 16.15 A FSP offering an Islamic financial product must explain the applicable Shariah contract, including the key terms and conditions in the PDS.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Document is for conventional loans; no evidence of Islamic product disclosure requiring Shariah contract explanation.",
+#             },
+#             {
+#                 "clause": "G 16.16 BNM reserves the right to require a FSP to make appropriate amendments to a PDS if information contained in the PDS is found to be inaccurate, incomplete or misleading.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "This is a regulator reservation; compliance cannot be evidenced within the PDS document.",
+#             },
+#             {
+#                 "clause": "S 16.17 A FSP shall immediately make appropriate amendments to the information contained in the PDS upon being informed by BNM in writing that the PDS is inaccurate or misleading.",
+#                 "isComplied": "not-applicable",
+#                 "reason": "Action depends on future BNM notification; not assessable from the document.",
+#             },
+#         ],
+#         "summary": {
+#             "complied": ["G 16.2", "G 16.3", "S 16.7"],
+#             "nonComplied": ["S 16.1", "S 16.4", "S 16.5", "G 16.6"],
+#             "notApplicable": [
+#                 "S 16.8",
+#                 "G 16.9",
+#                 "S 16.10",
+#                 "S 16.11",
+#                 "S 16.12",
+#                 "S 16.13",
+#                 "S 16.14",
+#                 "S 16.15",
+#                 "G 16.16",
+#                 "S 16.17",
+#             ],
+#         },
+#         "title": "16 Product Disclosure Sheet (PDS)",
+#     }
+# ]
 
 output_file = f"{ss.out_dir}/sections.json"
 
-with open(output_file, "r") as f:
-    ss.sections = json.loads(f.read())
-    ss.titles = [section["header"] for section in ss.sections]
+# with open(output_file, "r") as f:
+#     ss.sections = json.loads(f.read())
+#     ss.titles = [section["header"] for section in ss.sections]
 
 st.header("Atenxion Guideline Compare Agent")
 st.caption(f"Session ID: {ss.chat_id }")
