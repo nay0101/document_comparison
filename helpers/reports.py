@@ -176,11 +176,19 @@ Total Discrepancies Found: {len(result["flags"])}
         result: List,
         time_taken: str,
         document_name: str,
+        guideline_info: Optional[List] = None,
     ) -> None:
         cost = get_total_cost(chat_id=chat_id)
+
+        # Count total attachments used
+        total_attachments = 0
+        if guideline_info:
+            for guideline in guideline_info:
+                if guideline.get("attachments"):
+                    total_attachments += len(guideline["attachments"])
+
         text = f"""# Guideline Compare ({chat_model_name})
 * Document: {document_name}
-* Total Cost: ${cost}
 * Time Taken: {time_taken}s
 <div style="page-break-after: always;"></div>
 
@@ -198,7 +206,6 @@ Total Discrepancies Found: {len(result["flags"])}
 | **Not Applicable** | {', '.join(summary['notApplicable']) if summary['notApplicable'] else 'N/A'} |
 
 """
-
         text += """<div style="page-break-after: always;"></div>
 
 # Comparison Details
@@ -207,6 +214,34 @@ Total Discrepancies Found: {len(result["flags"])}
         # Generate detailed section for each guideline section
         for section in result:
             text += f"""## {section['title']}
+
+"""
+            # Add attachment pills for this section if available
+            if guideline_info:
+                section_attachments = []
+                for guideline in guideline_info:
+                    if guideline["title"] == section["title"] and guideline.get(
+                        "attachments"
+                    ):
+                        section_attachments = guideline["attachments"]
+                        break
+
+                if section_attachments:
+                    text += """**Attachments Used:** """
+                    for attachment in section_attachments:
+                        attachment_header = attachment.get(
+                            "header", "Unknown Attachment"
+                        )
+                        text += f"""<span style="color: #2e7d32; padding: 4px 8px; font-size: 12px; margin: 2px 4px 2px 0; display: block;">📎 {attachment_header}</span>"""
+                    text += """
+
+"""
+                else:
+                    text += """
+
+"""
+            else:
+                text += """
 
 """
             for item in section["results"]:

@@ -126,13 +126,18 @@ def split_blocks_by_toc(
     doc_json: Dict[str, Any],
 ) -> tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
     """Split all blocks into pre-TOC and post-TOC blocks.
-    Returns (pre_toc_blocks, post_toc_blocks)."""
+    Returns (pre_toc_blocks, post_toc_blocks).
+    Each block will have additional 'page_info' containing page_number and image_path.
+    """
     all_blocks = []
     toc_started = False
     pre_toc_blocks = []
     post_toc_blocks = []
 
     for page in doc_json.get("pages", []):
+        page_number = page.get("page_number", 1)
+        image_path = page.get("image_path")
+
         for b in page.get("blocks", []):
             # Skip footnotes as they're handled separately
             if b.get("kind") == "footnote":
@@ -142,10 +147,17 @@ def split_blocks_by_toc(
                 toc_started = True
                 continue  # Skip TOC blocks themselves
 
+            # Create a copy of the block with page info
+            block_with_page = b.copy()
+            block_with_page["page_info"] = {
+                "page_number": page_number,
+                "image_path": image_path,
+            }
+
             if not toc_started:
-                pre_toc_blocks.append(b)
+                pre_toc_blocks.append(block_with_page)
             else:
-                post_toc_blocks.append(b)
+                post_toc_blocks.append(block_with_page)
 
     return pre_toc_blocks, post_toc_blocks
 
@@ -285,10 +297,14 @@ def group_pre_toc_blocks(
                 if current:
                     current["content_md"] = "\n\n".join(current["content"])
                     del current["content"]
+                    # Ensure images list exists and remove duplicates
+                    current["images"] = list(
+                        set(filter(None, current.get("images", [])))
+                    )
                     pairs.append(current)
 
                 # Start new section
-                current = {"header": heading_text, "content": []}
+                current = {"header": heading_text, "content": [], "images": []}
                 current_main_section = main_section
 
         # Add content to current section
@@ -298,16 +314,24 @@ def group_pre_toc_blocks(
                 current["content"].append(md)
         else:
             # No section yet, create a default one
-            current = {"header": "Introduction", "content": []}
+            current = {"header": "Introduction", "content": [], "images": []}
             current_main_section = None
             md = render_block_md(b)
             if md.strip():
                 current["content"].append(md)
 
+        # Add image path if available
+        page_info = b.get("page_info")
+        if page_info and page_info.get("image_path"):
+            if current:
+                current["images"].append(page_info["image_path"])
+
     # Handle last section
     if current:
         current["content_md"] = "\n\n".join(current["content"])
         del current["content"]
+        # Ensure images list exists and remove duplicates
+        current["images"] = list(set(filter(None, current.get("images", []))))
         pairs.append(current)
 
     return pairs
@@ -386,10 +410,14 @@ def group_by_section_with_toc(
                 if current:
                     current["content_md"] = "\n\n".join(current["content"])
                     del current["content"]
+                    # Ensure images list exists and remove duplicates
+                    current["images"] = list(
+                        set(filter(None, current.get("images", [])))
+                    )
                     pairs.append(current)
 
                 # Start new section with matched TOC item as header
-                current = {"header": matching_toc_item, "content": []}
+                current = {"header": matching_toc_item, "content": [], "images": []}
                 used_toc_items.add(matching_toc_item)
                 toc_index = matching_toc_index + 1  # Move to next TOC item
 
@@ -397,6 +425,11 @@ def group_by_section_with_toc(
                 heading_block = b.copy()
                 heading_block["level"] = 1
                 current["content"].append(render_block_md(heading_block))
+
+                # Add image path if available
+                page_info = b.get("page_info")
+                if page_info and page_info.get("image_path"):
+                    current["images"].append(page_info["image_path"])
                 continue
             else:
                 # This is a subsection - convert to level 2
@@ -406,6 +439,11 @@ def group_by_section_with_toc(
                     md = render_block_md(subsection_block)
                     if md:
                         current["content"].append(md)
+
+                    # Add image path if available
+                    page_info = b.get("page_info")
+                    if page_info and page_info.get("image_path"):
+                        current["images"].append(page_info["image_path"])
                     continue
 
         # If no current section exists, create one based on next available TOC item
@@ -416,21 +454,28 @@ def group_by_section_with_toc(
 
             if toc_index < len(toc_items):
                 next_toc_item = toc_items[toc_index]
-                current = {"header": next_toc_item, "content": []}
+                current = {"header": next_toc_item, "content": [], "images": []}
                 used_toc_items.add(next_toc_item)
                 toc_index += 1
             else:
-                current = {"header": "Section (unknown)", "content": []}
+                current = {"header": "Section (unknown)", "content": [], "images": []}
 
         # Add block content to current section
         md = render_block_md(b)
         if md:
             current["content"].append(md)
 
+        # Add image path if available
+        page_info = b.get("page_info")
+        if page_info and page_info.get("image_path"):
+            current["images"].append(page_info["image_path"])
+
     # Finalize the last section
     if current:
         current["content_md"] = "\n\n".join(current["content"])
         del current["content"]
+        # Ensure images list exists and remove duplicates
+        current["images"] = list(set(filter(None, current.get("images", []))))
         pairs.append(current)
 
     # Add footnotes to sections
@@ -459,6 +504,18 @@ def group_by_section_original(
     pairs = []
     current = None
     current_main_section = None
+
+    # Create a mapping of block to page and image path
+    block_to_page_info = {}
+    for page in doc_json.get("pages", []):
+        page_number = page.get("page_number", 1)
+        image_path = page.get("image_path")
+        for block in page.get("blocks", []):
+            block_id = id(block)  # Use object id as unique identifier
+            block_to_page_info[block_id] = {
+                "page_number": page_number,
+                "image_path": image_path,
+            }
 
     for page in doc_json.get("pages", []):
         for b in page.get("blocks", []):
@@ -505,11 +562,15 @@ def group_by_section_original(
                     if current:
                         current["content_md"] = "\n\n".join(current["content"])
                         del current["content"]
+                        # Ensure images list exists and remove duplicates
+                        current["images"] = list(
+                            set(filter(None, current.get("images", [])))
+                        )
                         pairs.append(current)
 
                     # Start new section using the actual heading text
                     header_label = heading_text if heading_text else "Untitled Section"
-                    current = {"header": header_label, "content": []}
+                    current = {"header": header_label, "content": [], "images": []}
                     current_main_section = main_section
 
                     # For level 2 headings that become main sections, keep them as level 1
@@ -519,6 +580,11 @@ def group_by_section_original(
                         current["content"].append(render_block_md(main_section_block))
                     else:
                         current["content"].append(render_block_md(b))
+
+                    # Add image path if available
+                    block_info = block_to_page_info.get(id(b))
+                    if block_info and block_info["image_path"]:
+                        current["images"].append(block_info["image_path"])
                     continue
                 else:
                     # This is a subsection - add to current section with appropriate level
@@ -530,11 +596,16 @@ def group_by_section_original(
                         md = render_block_md(subsection_block)
                         if md:
                             current["content"].append(md)
+
+                        # Add image path if available
+                        block_info = block_to_page_info.get(id(b))
+                        if block_info and block_info["image_path"]:
+                            current["images"].append(block_info["image_path"])
                         continue
 
             # If no current section exists, create an unknown section
             if current is None:
-                current = {"header": "Section (unknown)", "content": []}
+                current = {"header": "Section (unknown)", "content": [], "images": []}
                 current_main_section = None
 
             # Add block content to current section
@@ -542,10 +613,17 @@ def group_by_section_original(
             if md:
                 current["content"].append(md)
 
+            # Add image path if available
+            block_info = block_to_page_info.get(id(b))
+            if block_info and block_info["image_path"]:
+                current["images"].append(block_info["image_path"])
+
     # Finalize the last section
     if current:
         current["content_md"] = "\n\n".join(current["content"])
         del current["content"]
+        # Ensure images list exists and remove duplicates
+        current["images"] = list(set(filter(None, current.get("images", []))))
         pairs.append(current)
 
     # Second pass: Find footnote references in each section and add footnotes
@@ -891,6 +969,7 @@ def extract_layout(
 
     all_pages = []
     chunk_results = {}  # Store results with chunk names for ordering
+    job_image_paths = {}  # Store image paths for each job
     completed_chunks = 0  # Track completed chunks for progress
     total_token_usage = {
         "input_tokens": 0,
@@ -914,6 +993,18 @@ def extract_layout(
 
         # Submit all jobs
         future_to_job = {executor.submit(process_func, job): job for job in jobs}
+
+        # Store image paths from jobs for later association
+        for job in jobs:
+            if "pdf_bytes" in job:
+                chunk_name = "pdf_bytes"
+                job_image_paths[chunk_name] = None  # No image path for pdf_bytes
+            elif job.get("type") == "image" and "path" in job:
+                chunk_name = job["path"].name
+                job_image_paths[chunk_name] = str(job["path"])
+            else:
+                chunk_name = job["path"].name
+                job_image_paths[chunk_name] = None
 
         # Collect results as they complete
         for future in as_completed(future_to_job):
@@ -969,7 +1060,15 @@ def extract_layout(
             chunk_name = job["path"].name
 
         if chunk_name in chunk_results:
-            all_pages.extend(chunk_results[chunk_name].get("pages", []))
+            pages_data = chunk_results[chunk_name].get("pages", [])
+            image_path = job_image_paths.get(chunk_name)
+
+            # Add image path to each page if available
+            for page in pages_data:
+                if image_path:
+                    page["image_path"] = image_path
+
+            all_pages.extend(pages_data)
 
     # Save document JSON
     doc_json = {"pages": all_pages}

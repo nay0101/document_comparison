@@ -5,7 +5,7 @@ from langchain_core.runnables import Runnable, RunnableLambda
 from io import BytesIO
 from typing import Union, Optional, List, Dict
 from langfuse.callback import CallbackHandler
-from .types import Model, Deviation, GuidelineInfo
+from .types import Model, Deviation, GuidelineInfo, InputType
 from .llm_integrations import get_llm
 from .document_processor import DocumentProcessor
 from .models import ClauseComparisonReport
@@ -13,6 +13,7 @@ import streamlit as st
 import os
 from pydantic import BaseModel, Field
 import json
+import base64
 
 environment = os.getenv("ENVIRONMENT")
 
@@ -37,28 +38,67 @@ class GuidelineComparisonChain:
 
         def formatted_prompt(_input: Dict):
             guideline = _input["guideline"]
-            image_urls = _input["image_urls"]
+            attachments = _input["attachments"]
             document = _input["document"]
+
             user_message = [
                 {
                     "type": "text",
-                    "text": f"""# Document
-{document}\n{'The images are provided as part of the guideline. Refer to the them for accurate output as required by the guideline. If the images are used for comparing the layouts or formats, the document does not need to have the exact same elements as in images. There will be some differences because of comparing text and images. The document just need to resembles the format.' if image_urls else ''}""",
+                    "text": f"""# Guideline Section
+{guideline["text"]}""",
                 },
             ]
-            for index, image in enumerate(image_urls):
-                user_message.append({"type": "text", "text": f"Image {index+1}"})
+            for image in sorted(guideline["images"]):
+                with open(image, "rb") as f:
+                    base64_image = base64.b64encode(f.read()).decode("utf-8")
                 user_message.append(
                     {
                         "type": "image_url",
-                        "image_url": {"url": image},
+                        "image_url": {"url": f"data:image/png;base64,{base64_image}"},
+                    },
+                )
+
+            if attachments and len(attachments) > 0:
+                user_message.append({"type": "text", "text": f"# Attachments"})
+                for index, attachment in enumerate(attachments):
+                    user_message.append(
+                        {
+                            "type": "text",
+                            "text": f"**Attachment {index+1}:** {attachment['text']}",
+                        }
+                    )
+                    for image in sorted(attachment["images"]):
+                        with open(image, "rb") as f:
+                            base64_image = base64.b64encode(f.read()).decode("utf-8")
+
+                        user_message.append(
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": f"data:image/png;base64,{base64_image}"
+                                },
+                            },
+                        )
+
+            user_message.append(
+                {
+                    "type": "text",
+                    "text": f"""# Document to compare against
+{document['text']}""",
+                }
+            )
+
+            for image in sorted(document["images"]):
+                with open(image, "rb") as f:
+                    base64_image = base64.b64encode(f.read()).decode("utf-8")
+                user_message.append(
+                    {
+                        "type": "image_url",
+                        "image_url": {"url": f"data:image/png;base64,{base64_image}"},
                     },
                 )
 
             instruction = """You are an expert compliance analyst. Extract **every clause** from a guideline section (e.g., “S 16.1…”, “G 16.2…”) and compare **each clause** against the provided document. Produce one result **per clause**, covering **all clauses** in order. Also produce a **summary** that lists the clause IDs by outcome.
-
-## Guideline Section
-{guideline}
 
 ## Clause extraction
 - Treat a **clause** as any block that begins with `S` or `G` followed by a space and a numeric identifier (e.g., `S 16.1`, `G 16.2`, `S 16.14`).
@@ -72,19 +112,18 @@ class GuidelineComparisonChain:
 - **Applicability test** (per clause):
   - If a clause applies only under certain conditions (e.g., telemarketing distribution, riders, Islamic products, intermediaries), and the document **does not evidence** that condition, mark **"not-applicable"**.
 - **Verification rules**:
-  - **S (mandatory, strict)**:
-    - Analyse word to word, paragraph to paragraph, and sequence to sequence for the document against the clause.
-    - If the clause references external templates/notes/appendices/actions needed to verify, and these are **not provided** in the inputs, mark **"not-applicable"**.
-    - Otherwise, if any required element is missing/unclear/contradicted/out-of-sequence (where sequence is mandated), mark **"non-complied"**.
-    - Only mark **"complied"** if the document **clearly** satisfies the clause in full.
-  - **G (guidance, lenient)**:
-    - Mark **"complied"** if the document broadly aligns with the clause’s intent (even with different wording/order).
-    - Mark **"non-complied"** **only** if the document **clearly contradicts** the clause’s intent.
-    - If there isn’t enough information to assess alignment (or external references are required but not provided), mark **"not-applicable"**.
+  - Analyse word-to-word, paragraph-to-paragraph, and sequence-to-sequence against the clause.  
+  - If the clause references external templates, notes, appendices, or **requires external actions outside the provided document (e.g., will provide in person, will check externally)**, mark **"not-applicable"**.  
+  - If *any* required element is missing, unclear, contradicted, out-of-sequence, or only partially satisfied, mark **"non-complied"**.  
+  - Only mark **"complied"** if **every sentence, paragraph, and sequence in the document fully and unambiguously satisfies the clause, with no exceptions or partial alignment**.  
+  - Any doubt = **"non-complied"**.
 
 ## Evidence discipline
 - Base your assessment **only** on the provided guideline and document text. Do **not** assume unstated facts or use external sources.
 - Be consistent and deterministic across all clauses.
+
+## Content Focus
+- Focus on textual content. Images are supplementary and should not be the primary basis for compliance decisions.
 
 ## Output rules (strict)
 - Respond **only** with a valid **JSON object** (no extra text, no code fences).
@@ -153,12 +192,12 @@ class GuidelineComparisonChain:
                 progress_bar = st.progress(0)
                 for index, chunk in enumerate(guidelines):
                     progress_bar.progress((index + 1) / len(guidelines))
-                    guideline = chunk["clause"]
-                    image_urls = chunk["image_urls"]
+                    guideline = chunk["clauses"]
+                    attachments = chunk["attachments"]
                     output = loop_chain.invoke(
                         {
                             "guideline": guideline,
-                            "image_urls": image_urls,
+                            "attachments": attachments,
                             "document": document,
                         },
                     )
@@ -186,7 +225,7 @@ class GuidelineComparisonChain:
     def invoke_chain(
         self,
         guidelines: List[GuidelineInfo],
-        document_file: str,
+        document_file: InputType,
         chat_id: Optional[str] = None,
     ) -> List[Deviation]:
         # document = self.document_processor.extract_full_content(document_file)

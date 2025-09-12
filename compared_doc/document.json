@@ -1,0 +1,676 @@
+{
+  "pages": [
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "MG PDS ver1 Feb 2025 \u2014 1",
+      "blocks": [
+        {
+          "kind": "heading",
+          "level": 1,
+          "text": "PRODUCT DISCLOSURE SHEET"
+        },
+        {
+          "kind": "paragraph",
+          "text": "(Versi Bahasa Malaysia)"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Kindly read and understand this Product Disclosure Sheet together with the terms in the Letter of Offer before you decide to take up the product below:"
+        },
+        {
+          "kind": "paragraph",
+          "text": "\u2611 Please tick whichever is applicable in this document."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Please do not hesitate to contact Hong Leong Bank (\u201cthe Bank\u201d) for clarification, if required."
+        },
+        {
+          "kind": "paragraph",
+          "text": "<Product Name>\n\nDate: <<Date Letter of Offer issued>>"
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "1. What is this product about?"
+        },
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Hong Leong Housing Loan/ Shop Loan",
+              "This facility is calculated on a variable rate basis and you are offering your property as a security to the Bank. It offers flexibility in repayment and interest savings. Any excess payment received after deducting your instalment and any charges payable, is deemed as an \u201cAdvance Payment\u201d. Advance Payment will not be considered as prepayment and thereafter will affect your loan outstanding balance for interest calculation purposes. Interest is calculated on the Eligible Outstanding Balance, which is the difference between the loan outstanding balance (inclusive of charges) (\u201cOutstanding Balance\u201d) and the Advance Payment or up to 30% of the Outstanding Balance, whichever is lower. Withdrawals are allowed from excess payment under Advance Payment with written notice."
+            ],
+            [
+              "Hong Leong MortgagePlus Housing Loan/Shop Loan",
+              "This facility is calculated on a variable rate basis and you are offering your property as a security to the Bank. It offers flexibility in repayment and interest savings by linking your loan account directly to your MortgagePlus Current Account. Any excess payment received after deducting your instalment and any charges payable, is deemed as \u201cAdvance Payment\u201d; which is not considered prepayment and will affect your loan outstanding balance for interest calculation purposes. Interest is calculated on the Eligible Outstanding Balance which is the difference between the loan outstanding balance (inclusive of charges) (\u201cOutstanding Balance\u201d) and the sum of the Advance Payment and the credit balance in your MortgagePlus Current Account or up to 70% of the Outstanding Balance, whichever is lower. You can repay this facility and withdraw excess payment on top of your instalment payable from your MortgagePlus Current Account at anytime."
+            ]
+          ]
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0000_1.png"
+    },
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "MG PDS ver1 Feb 2025 \u2014 2",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "This facility is calculated on a variable rate basis and you are offering your property as a security to the Bank."
+        },
+        {
+          "kind": "paragraph",
+          "text": "This facility is granted to you subject to you fulfilling all the criteria under Bank Negara Malaysia\u2019s guideline on \u201cLending/Financing to the Priority Sectors\u201d or Syarikat Jaminan Kredit Perumahan (SJKP)."
+        },
+        {
+          "kind": "heading",
+          "level": 1,
+          "text": "Hong Leong Special Housing Loan/ Housing Guarantee Scheme"
+        },
+        {
+          "kind": "paragraph",
+          "text": "This facility is granted to you for the purpose of installation of solar panels."
+        },
+        {
+          "kind": "paragraph",
+          "text": "This facility is calculated on a variable rate basis and you are offering your property as a security to the Bank."
+        },
+        {
+          "kind": "paragraph",
+          "text": "It offers flexibility in repayment and interest savings."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Any excess payment received after deducting your instalment and any charges payable, is deemed as an \u201cAdvance Payment\u201d."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Advance Payment will not be considered as prepayment and thereafter will affect your loan outstanding balance for interest calculation purposes. Interest is calculated on the Eligible Outstanding Balance, which is the difference between the loan outstanding balance (inclusive of charges) (\u201cOutstanding Balance\u201d) and the Advance Payment or up to 30% of the Outstanding Balance, whichever is lower."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Withdrawals are allowed from excess payment under Advance Payment with written notice."
+        },
+        {
+          "kind": "heading",
+          "level": 1,
+          "text": "HLB Solar Plus Loan"
+        },
+        {
+          "kind": "paragraph",
+          "text": "This facility is granted to you for the purpose of purchasing properties, refinancing a loan or investment opportunity."
+        },
+        {
+          "kind": "paragraph",
+          "text": "This facility is calculated on a variable rate basis and you are offering your property as a security to the Bank."
+        },
+        {
+          "kind": "paragraph",
+          "text": "It offers flexibility in repayment & withdrawal of funds within the facility limits through Overdraft Current Account."
+        },
+        {
+          "kind": "paragraph",
+          "text": "The facility is subjected to monthly reduction & the facility limit will be reset to zero by the time you reach 65 years old in which for: (a) Combination of Term Loan & Overdraft \u2013 monthly reduction commencing from the 61st month from the date of full availability of Overdraft Facility."
+        },
+        {
+          "kind": "paragraph",
+          "text": "(b) Overdraft only \u2013 monthly reduction commencing from the 37th month from the date of full availability of Overdraft Facility."
+        },
+        {
+          "kind": "paragraph",
+          "text": "For combination of Overdraft Facility with Term Loan, the Overdraft Facility will only be available once the Term Loan is fully disbursed."
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "2. What do I get from this product?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Facility 1 - <Product Name>"
+        },
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Item",
+              "Description"
+            ],
+            [
+              "Facility Amount",
+              "RM <Total Amount Borrowed>"
+            ],
+            [
+              "Margin of Financing *",
+              "<__>%"
+            ],
+            [
+              "Repayment Period",
+              "<Approved Tenure> months"
+            ]
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "MG PDS ver1 Feb 2025"
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0001_1.png"
+    },
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "MG PDS ver1 Feb 2025 \u2014 3",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Prescribed Rate Effective Lending Rate Year 1 : SBR + <__>% <__>% Year 2-3 : SBR + <__>% <__>% Thereafter : SBR + <__>% <__>%"
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "Facility 2 - <Product Name>"
+        },
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Item",
+              "Description"
+            ],
+            [
+              "Facility Amount",
+              "RM <Total Amount Borrowed>"
+            ],
+            [
+              "Margin of Financing *",
+              "<__>%"
+            ],
+            [
+              "Repayment Period",
+              "<Approved Tenure> months"
+            ],
+            [
+              "Prescribed Rate/Effective Lending Rate",
+              "Prescribed Rate / Effective Lending Rate Year 1 : SBR + <__>% <__>% Year 2-3 : SBR + <__>% <__>% Thereafter : SBR + <__>% <__>%"
+            ]
+          ]
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Overdraft Repayment: On demand",
+            "Standardised Base Rate (SBR) is currently at <3.00%>.",
+            "* Note: The Margin of Financing is calculated based on the net selling price/current market value of the property and not based on the SPA price."
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "3. What is the Standardised Base Rate (SBR)?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "The SBR we offer on this product is based on the benchmark rate specified by Bank Negara Malaysia. The benchmark rate is currently set as the Overnight Policy Rate (OPR), which reflects the monetary policy stance as decided by the Monetary Policy Committee of Bank Negara Malaysia."
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "4. What are possible scenarios that may trigger a change in the SBR?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "The SBR can rise or fall due to changes in the benchmark rate, i.e. changes in the Overnight Policy Rate (OPR)."
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "5. Historical SBR for the past 3 years"
+        },
+        {
+          "kind": "figure",
+          "caption": "Published SBR, BR and BLR line chart showing historical rates over time.",
+          "alt": ""
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0002_1.png"
+    },
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "MG PDS ver1 Feb 2025 \u2014 4",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "The SBR was introduced on 1 August 2022. The dotted line shows the historical series of the OPR, which is the benchmark rate of the SBR."
+        },
+        {
+          "kind": "paragraph",
+          "text": "For a longer historical series, please refer to our website."
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "6. What are my obligations?"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Your monthly instalment is RM [x]",
+            "Total repayment/financing payment amount at the end of [xx] years is RM [x]"
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Important: Your monthly instalment and total repayment/financing payment amount will vary if the SBR changes."
+        },
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Rate",
+              "Today (SBR=<b>%)",
+              "If SBR increases to <b+1>%",
+              "If SBR increases to <b+2>%"
+            ],
+            [
+              "Facility 1 \u2013 <Product Name>",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Monthly Instalment",
+              "RM <xx>",
+              "RM <aa>",
+              "RM <dd>"
+            ],
+            [
+              "Total interest cost at the end of <Approved Tenure> years",
+              "RM <yy>",
+              "RM <bb>",
+              "RM <ee>"
+            ],
+            [
+              "Total repayment amount at the end of <Approved Tenure> years",
+              "RM <zz>",
+              "RM <cc>",
+              "RM <ff>"
+            ],
+            [
+              "Facility 2 \u2013 <Product Name>",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Monthly Instalment",
+              "RM <xx>",
+              "RM <aa>",
+              "RM <dd>"
+            ],
+            [
+              "Total interest cost at the end of <Approved Tenure> years",
+              "RM <yy>",
+              "RM <bb>",
+              "RM <ee>"
+            ],
+            [
+              "Total repayment amount at the end of <Approved Tenure> years",
+              "RM <zz>",
+              "RM <cc>",
+              "RM <ff>"
+            ]
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Applicable to HLB Mortgage Overdraft only"
+        },
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Rate",
+              "Today SBR=<b>%",
+              "If SBR increases to <b+1>%",
+              "If SBR increases to <b+2>%"
+            ],
+            [
+              "Facility 1 \u2013 HLB Mortgage Overdraft",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Monthly Interest Payment",
+              "On demand",
+              "On demand",
+              "On demand"
+            ]
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "Note:"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "If you make loan repayment/financing payment via a standing order, you should change the instalment amount whenever there is a change to the SBR."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "1. Pending commencement of the monthly repayment as provided in the table above, you are required to pay the Bank monthly interest (if any) and calculated at the Prescribed Rate/Effective Lending Rate on the daily outstanding amount (or based on monthly rest where specified and applicable) from the first disbursement of the Facility or commencing from such date as advised by the Bank in writing."
+        },
+        {
+          "kind": "paragraph",
+          "text": "2. The Bank may vary your monthly repayment amount when:"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "it is insufficient to service your loan interest; or",
+            "when the monthly principal repayment portion is less than 10% of your monthly repayment amount; or",
+            "whenever a revision of your monthly repayment amount by the Bank or you are required."
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "7. What other charges do I have to pay?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "For full list of fees and charges, please visit our website www.hlb.com.my/loan1 or scan here:"
+        },
+        {
+          "kind": "figure",
+          "caption": "QR code for website link",
+          "alt": ""
+        },
+        {
+          "kind": "footnote",
+          "ref": "1",
+          "text": "MG PDS ver1 Feb 2025"
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0003_1.png"
+    },
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "MG PDS ver1 Feb 2025 \u2014 5",
+      "blocks": [
+        {
+          "kind": "heading",
+          "level": 1,
+          "text": "8. What if I fail to fulfil my obligations?"
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "For Term Loan"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Late payment charges of 1% p.a. on the amount in arrears, causing the total outstanding to increase.",
+            "If you defaults on any payment of monies due under the Facilities during the duration of the Facilities for a period of 31 days for at least 3 times over the past 12 months, the Bank shall at its discretion be entitled to vary the Prescribed Rate, which shall thereafter comprise of Additional Interest (chargeable at 1.5% p.a and/or such other rates as determined by the Bank from time to time) above the Prescribed Rate (\"1st tier Amended Prescribed Rate\") on daily rests or such other rate as the Bank may prescribe on the balance outstanding.",
+            "Upon the application of the 1st tier Amended Prescribed Rate and in the event if you defaults on any payment of monies due under the Facilities during the duration of the Facilities for a period of 100 days from the date such monies become due and payable or such other period as the Bank may notify you from time to time, the Bank shall at its discretion be entitled to vary the 1st tier Amended Prescribed Rate by imposing an additional interest at 1.00% p.a over and above the 1st tier Amended Prescribed Rate (\"2nd tier Amended Prescribed Rate\") on daily rests or such other rate as the Bank may prescribe on the balance outstanding.",
+            "The 2nd tier Amended Prescribed Rate will continue to apply until such time when: (aa) you have paid all amounts outstanding under the Facilities, i.e. your account has regularized, in which event the applicable interest rate would be adjusted to the Prescribed Rate; or (bb) the monies due and payable by you have been outstanding for less than a period of 91 days (or such other period as the Bank may notify you from time to time) from the date when such monies were due for payment, upon which the applicable interest rate will be adjusted to the 1st tier Amended Prescribed Rate.",
+            "The 1st tier Amended Prescribed Rate will continue to apply until such time when the amounts due and payable under the Facilities have been outstanding for less than a period of 31 days (or such other period as the Bank may notify the you from time to time), in which event the applicable interest rate would be adjusted to the Prescribed Rate."
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "For Overdraft Facility"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "You must not draw in excess of the Overdraft limit. If you have drawn or utilised sums in excess of the limit, interest on Overdraft Excess (\"OD Excess Interest\") above the Reference Rate or such other rate as may be determined by the Bank shall be charged on all sums drawn in excess of the limit at SBR + 7.50% per annum."
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "For Term Loan & Overdraft"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "We may set-off any credit balance in any account maintained with the Bank against any outstanding balance of this Facility with written notice.",
+            "Legal action will be taken if you fail to respond to reminder notices given by the Bank. Your property may be foreclosed and you will have to bear all the costs. You are also responsible to settle any shortfall after your property has been sold.",
+            "Legal action against you may affect your credit score leading to credit being more difficult or expensive to you."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Important: For more information, please refer to the attached Main Terms and Conditions."
+        },
+        {
+          "kind": "heading",
+          "level": 1,
+          "text": "9. What if I fully settle the loan during the lock-in period?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "If you redeem or settle in full the Facilities within the first <36 or 60> months the following settlement charges will apply:"
+        },
+        {
+          "kind": "paragraph",
+          "text": "For Residential Property- 3% on 90% of the total approved Facilities limit for the first thirty-six (36) months from first release, and 80% of the total approved Facilities limit for month thirty-seven (37) to sixty (60) (if applicable)."
+        },
+        {
+          "kind": "paragraph",
+          "text": "For Non-Residential Property- 3% on 85% of the total approved Facilities limit for the first thirty-six (36) months from first release, and 70% of the total approved Facilities limit for month thirty-seven (37) to sixty (60) (if applicable)."
+        },
+        {
+          "kind": "paragraph",
+          "text": "The early redemption/settlement fee reflects the costs incurred or to be incurred by the Bank as a result of the early settlement which may include the cost of fund, cost of capital, liquidity cost, statutory reserve cost, discounted interest rate, and other cost, as well as any legal fees, stamp duty and/or valuation fees which have"
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0004_1.png"
+    },
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "MG PDS ver1 Feb 2025 \u2014 6",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "been incurred under the terms of the Facilities. The early redemption/settlement fee is payable at the point of redemption."
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "10. Do I need any insurance/takaful coverage?"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "All residential property(ies) are required to be insured or takaful coverage obtained under houseowner policy(ies), whilst commercial and vacant property(ies) to be insured or covered under fire policy(ies)."
+          ]
+        },
+        {
+          "kind": "list",
+          "ordered": true,
+          "items": [
+            "a) You are to ensure that the property(ies) are adequately insured up to their full insurable value, against loss or damage by fire, lighting, tempest, floor, riot, civil commotion, malicious acts and strike and such other risk as the Bank may require;",
+            "b) You are to furnish a certified true copy of the policy or policies so bought/taken up with the Bank endorsed as loss payee/mortgagee together with evidence of premium/takaful payment/contribution payable under such policy or policies to the Bank. In the event that the Bank takes up the insurance or takaful coverage on your behalf, the Bank will debit the fire insurance premium/takaful contribution into your loan/financing account with prior written notice to you."
+          ]
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Mortgage Decreasing Term Assurance (MDTA)/Mortgage Reducing Term Takaful (MRTT)/Mortgage Level Term Assurance (MLTA)/Mortgage Level Term Takaful (MLTT) is optional unless it is under a promotional criterion as stated in Letter of Offer.",
+            "However, you are encouraged to take up the MDTA/MRTT/MLTA/MLTT to protect your family from losing the property due to unforeseen circumstances.",
+            "Where the MDTA/MRTT/MLTA/MLTT is financed by the Bank, the Bank shall only release the premium/takaful contribution either with the first loan release towards financing of the Property(ies) or at any time thereafter at the Bank\u2019s discretion subject to the following:"
+          ]
+        },
+        {
+          "kind": "list",
+          "ordered": true,
+          "items": [
+            "(a) the Bank has received the letter of acceptance/letter of offer issued by an insurance/takaful company which is acceptable to the Bank;",
+            "(b) the Bank has not received any notification from the insurance/takaful company of your rejection and/or appeal of the letter of offer;",
+            "(c) you/insured are/is not deceased prior to the first release of the loan; and",
+            "(d) in the event the letter of acceptance/letter of offer issued by the insurance/takaful company expires on or before the first loan release, you will submit a fresh proposal form for evaluation and a fresh letter of acceptance/letter of offer shall be procured by you."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "The coverage of the MDTA/MRTT/MLTA/MLTT shall be effective upon receipt of the full premium/takaful contribution (including any loading or excess to the original premium/takaful contribution quoted) by the insurance/takaful company."
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "11. What do I need to do if there are changes to my contact details?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "It is important that you inform the Bank of any changes in your contact details at the earliest possible opportunity to ensure that all correspondences reach you in a timely manner."
+        },
+        {
+          "kind": "paragraph",
+          "text": "To update your correspondence details, please contact the Bank at +603-7626 8899 or visit any of our branches nationwide."
+        },
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "12. Where can I get assistance and redress?"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "If you have any difficulties in making repayments, you should contact us earliest possible to discuss repayment alternatives. You may contact us at: Consumer Collection Centre Level 2, PJ City Development, No. 15A, Jalan 219, Section 51A, 46100 Petaling Jaya, Selangor Tel: +603-7959 1888 Fax: +603-7873 8228 Email: MCC2@hlbb.hongleong.com.my",
+            "Alternatively, you may seek the services of Agensi Kaunseling dan Pengurusan Kredit (AKPK), an agency established by Bank Negara Malaysia (BNM) to provide free services on money management, credit counselling, financial education and debt restructuring for individuals. You can contact AKPK at: Level 5 and 6, Menara Aras Raya (Formerly known as Menara Bumiputera Commerce), Jalan Raja Laut, 50350 Kuala Lumpur Tel: +603-2616 7766 Website: akpk.org.my/contact-us"
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "MG PDS ver1 Feb 2025"
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0005_1.png"
+    },
+    {
+      "page_number": 1,
+      "header": "",
+      "footer": "",
+      "blocks": [
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "POWER! (Pengurusan Wang Ringgit Anda) Programme, offered by AKPK, promotes prudent money management and financial discipline to individual borrowers. To register and for further information, kindly call 03-2616 7766 or visit the website at www.akpk.org.my",
+            "If you wish to complain on the products or services provided by us, you may contact us at: Customer Advocacy Hong Leong Bank Berhad, Level 13A, Menara Hong Leong, No 6, Jalan Damanlela, Bukit Damansara, 50490 Kuala Lumpur. Tel: +603-7626 8821/7626 8802/7626 8812 E-mail: customerservice@hlbb.hongleong.com.my",
+            "If your query or complaint is not satisfactorily resolved by us, you may contact BNMLINK at: 4th Floor, Podium Bangunan AICB, No.10, Jalan Dato\u2019 Onn, 50480 Kuala Lumpur. Web: bnmlink.bnm.gov.my Tel: 1-300-88-5465 or 03-2174-1717 (for overseas calls)"
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "13. Other housing/property loan packages available"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Hong Leong Housing Loan",
+            "Hong Leong MortgagePlus Housing Loan",
+            "Hong Leong Shop Loan",
+            "Hong Leong MortgagePlus Shop Loan",
+            "Hong Leong Special Housing Loan",
+            "Housing Guarantee Scheme",
+            "HLB Solar Plus Loan",
+            "HLB Mortgage Overdraft"
+          ]
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "14. How do I make my monthly repayments?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Making your monthly repayment is hassle free through:"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "Standing Instructions from your Hong Leong Bank/Hong Leong Islamic Bank savings/current account",
+            "Internet Banking (www.hongleongconnect.my) or via mobile phone app or tablet app",
+            "Malaysian Electronic Payment System (MEPS) or Interbank Giro (IBG)*"
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Alternative repayment methods include:"
+        },
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            "ATM transfer to your financing account.",
+            "Bank-in to your financing account via Cash Deposit Machine.",
+            "Cheque deposit to your financing account via Cheque Deposit Machine. **",
+            "Make your payment over-the-counter at the nearest branch."
+          ]
+        },
+        {
+          "kind": "paragraph",
+          "text": "Important:"
+        },
+        {
+          "kind": "paragraph",
+          "text": "*There is no charge for online IBG payment and IBG payment via ATM machine is RM0.10 per transaction. **Effective 2 January 2015, RM0.50 processing fee and RM0.15 stamp duty will be charged per cheque issued. Subject to Government Taxes, if applicable"
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "15. Where can I get further information?"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Should you require additional information about taking a loan/property financing, please log on to HLB\u2019s website: www.hlb.com.my/mg-loan or call Hong Leong Contact Centre at Tel: 03-76268899."
+        },
+        {
+          "kind": "figure",
+          "caption": "Boxed important note about foreclosure of house/property if repayments are not kept up.",
+          "alt": ""
+        },
+        {
+          "kind": "paragraph",
+          "text": "The information provided in this disclosure sheet is valid as at <Date LO printed>"
+        },
+        {
+          "kind": "paragraph",
+          "text": "MG PDS ver1 Feb 2025"
+        },
+        {
+          "kind": "paragraph",
+          "text": "7"
+        }
+      ],
+      "image_path": "D:\\Projects\\document_comparison\\compared_doc\\pdf_chunks_images\\image_0006_1.png"
+    }
+  ]
+}

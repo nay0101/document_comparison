@@ -17,15 +17,21 @@ Model = Literal[
 Engine = Literal["openai", "anthropic"]
 
 
-class Exception(TypedDict):
-    description: str
-    issue_items: List[str]
-    fix_recommendations: List[str]
+class Result(TypedDict):
+    clause: str
+    isComplied: Literal["complied", "non-complied", "not-applicable"]
+    reason: str
+
+
+class Summary(TypedDict):
+    compliant: List[str]
+    nonComplied: List[str]
+    notApplicable: List[str]
 
 
 class Deviation(TypedDict):
-    guideline: str
-    exceptions: List[Exception]
+    results: List[Result]
+    summary: Summary
 
 
 class DocSnippet(TypedDict):
@@ -43,7 +49,12 @@ class Mismatches(TypedDict):
     flags: List[Flag]
 
 
+class InputType(TypedDict):
+    images: List[str]
+    text: str
+
+
 class GuidelineInfo(TypedDict):
-    clause: str
-    image_urls: List[str]
+    clauses: List[InputType]
+    attachments: List[InputType]
     title: str
