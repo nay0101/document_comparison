@@ -11,7 +11,6 @@ from base64 import b64encode
 import pymupdf
 from pypdf import PdfReader, PdfWriter
 import io
-import tempfile
 
 # ============ Prompts & Schema ============
 SCHEMA = json.loads(
@@ -95,29 +94,133 @@ def extract_section_number(text: str) -> tuple[int | None, int | None]:
     return None, None
 
 
-def extract_toc_items(doc_json: Dict[str, Any]) -> List[str]:
-    """Extract all TOC items from consecutive TOC blocks in the document."""
-    toc_items = []
+def _is_toc_candidate_page(blocks: List[Dict[str, Any]]) -> bool:
+    """Check if a page only contains headings, lists, and tables (potential TOC page)."""
+    for block in blocks:
+        kind = block.get("kind", "")
+        # If we find substantial content (paragraphs), this is not a TOC candidate page
+        if kind == "paragraph":
+            return False
+    return True
 
-    for page in doc_json.get("pages", []):
-        for b in page.get("blocks", []):
+
+def extract_toc_items(doc_json: Dict[str, Any]) -> List[str]:
+    """Extract all TOC items from consecutive TOC blocks in the document.
+    Also includes any 'list' blocks that appear before the first TOC block,
+    but only within the first 10 pages.
+    Additionally, for the first 5 pages, if a page only contains headings, lists,
+    and tables (no paragraphs), then list blocks from those pages are considered
+    potential TOC items.
+    """
+    toc_items = []
+    found_toc = False
+    pre_toc_lists = []
+    toc_candidate_lists = []
+
+    # First pass: collect all TOC candidate lists from first 5 pages
+    for page_index, page in enumerate(doc_json.get("pages", [])):
+        if page_index >= 5:  # Only consider first 5 pages for TOC candidates
+            break
+
+        page_blocks = page.get("blocks", [])
+        is_toc_candidate = _is_toc_candidate_page(page_blocks)
+
+        if is_toc_candidate:
+            for b in page_blocks:
+                if b.get("kind") == "list":
+                    toc_candidate_lists.append(b)
+
+    # Add TOC candidate lists first
+    if toc_candidate_lists:
+        for list_block in toc_candidate_lists:
+            list_items = list_block.get("items", [])
+            toc_items.extend(list_items)
+
+    # Second pass: process all pages for TOC blocks and pre-TOC lists
+    for page_index, page in enumerate(doc_json.get("pages", [])):
+        # Only consider pages within the first 10 pages for TOC detection (0-based indexing)
+        if page_index >= 10:
+            break
+
+        page_blocks = page.get("blocks", [])
+
+        # For first 5 pages, check if page only contains headings, lists, and tables
+        is_first_5_pages = page_index < 5
+        is_toc_candidate = (
+            _is_toc_candidate_page(page_blocks) if is_first_5_pages else False
+        )
+
+        for b in page_blocks:
             if b.get("kind") == "toc":
+                # If this is the first TOC block, add any collected pre-TOC lists
+                if not found_toc:
+                    if pre_toc_lists:
+                        for list_block in pre_toc_lists:
+                            list_items = list_block.get("items", [])
+                            toc_items.extend(list_items)
+
+                found_toc = True
                 items = b.get("items", [])
                 toc_items.extend(items)
+            elif b.get("kind") == "list" and not found_toc:
+                # Skip lists from TOC candidate pages as they're already processed
+                if not (is_first_5_pages and is_toc_candidate):
+                    # Collect list blocks that appear before any TOC block (original logic)
+                    pre_toc_lists.append(b)
 
     return toc_items
 
 
 def find_toc_position(doc_json: Dict[str, Any]) -> int:
     """Find the position (block index) where TOC starts in the document.
+    If there are list blocks before the first TOC block (within first 10 pages),
+    returns the position of the first such list.
+    Additionally, for the first 5 pages, if a page only contains headings, lists,
+    and tables (no paragraphs), then the first list block from those pages is considered
+    the TOC start position.
     Returns -1 if no TOC is found."""
     block_index = 0
+    first_pre_toc_list_index = None
+    first_toc_candidate_list_index = None
 
-    for page in doc_json.get("pages", []):
-        for b in page.get("blocks", []):
+    for page_index, page in enumerate(doc_json.get("pages", [])):
+        # Only consider pages within the first 10 pages for TOC detection (0-based indexing)
+        if page_index >= 10:
+            break
+
+        page_blocks = page.get("blocks", [])
+
+        # For first 5 pages, check if page only contains headings, lists, and tables
+        is_first_5_pages = page_index < 5
+        is_toc_candidate = (
+            _is_toc_candidate_page(page_blocks) if is_first_5_pages else False
+        )
+
+        for b in page_blocks:
             if b.get("kind") == "toc":
-                return block_index
+                # Return the position of the first TOC-related list if found, otherwise this TOC position
+                if first_toc_candidate_list_index is not None:
+                    return first_toc_candidate_list_index
+                elif first_pre_toc_list_index is not None:
+                    return first_pre_toc_list_index
+                else:
+                    return block_index
+            elif b.get("kind") == "list":
+                if (
+                    is_first_5_pages
+                    and is_toc_candidate
+                    and first_toc_candidate_list_index is None
+                ):
+                    # Record the first list block from TOC candidate pages
+                    first_toc_candidate_list_index = block_index
+                elif first_pre_toc_list_index is None:
+                    # Record the first list block position (potential pre-TOC list)
+                    first_pre_toc_list_index = block_index
             block_index += 1
+
+    # If no TOC block was found, return the position of TOC candidate lists if available
+    if first_toc_candidate_list_index is not None:
+        return first_toc_candidate_list_index
 
     return -1
 
@@ -128,24 +231,50 @@ def split_blocks_by_toc(
     """Split all blocks into pre-TOC and post-TOC blocks.
     Returns (pre_toc_blocks, post_toc_blocks).
     Each block will have additional 'page_info' containing page_number and image_path.
+    Also treats any 'list' blocks before the first TOC block as part of the TOC boundary,
+    but only within the first 10 pages.
+    Additionally, for the first 5 pages, if a page only contains headings, lists,
+    and tables (no paragraphs), then list blocks from those pages are considered
+    part of the TOC boundary.
     """
     all_blocks = []
     toc_started = False
+    found_toc = False
     pre_toc_blocks = []
     post_toc_blocks = []
+    pre_toc_list_started = False
+    toc_candidate_list_started = False
 
-    for page in doc_json.get("pages", []):
+    for page_index, page in enumerate(doc_json.get("pages", [])):
         page_number = page.get("page_number", 1)
         image_path = page.get("image_path")
 
-        for b in page.get("blocks", []):
+        page_blocks = page.get("blocks", [])
+
+        # For first 5 pages, check if page only contains headings, lists, and tables
+        is_first_5_pages = page_index < 5
+        is_toc_candidate = (
+            _is_toc_candidate_page(page_blocks) if is_first_5_pages else False
+        )
+
+        for b in page_blocks:
             # Skip footnotes as they're handled separately
             if b.get("kind") == "footnote":
                 continue
 
             if b.get("kind") == "toc":
+                found_toc = True
                 toc_started = True
                 continue  # Skip TOC blocks themselves
+            elif b.get("kind") == "list" and not found_toc:
+                if is_first_5_pages and is_toc_candidate:
+                    # Mark that we've found a TOC candidate list (first 5 pages with only headings/lists/tables)
+                    toc_candidate_list_started = True
+                    continue  # Skip TOC candidate list blocks
+                elif page_index < 10:
+                    # Mark that we've found a pre-TOC list (only within first 10 pages, 0-based indexing)
+                    pre_toc_list_started = True
+                    continue  # Skip pre-TOC list blocks as they're now considered part of TOC
 
             # Create a copy of the block with page info
             block_with_page = b.copy()
@@ -154,7 +283,12 @@ def split_blocks_by_toc(
                 "image_path": image_path,
             }
 
-            if not toc_started:
+            # If we haven't started TOC yet, and haven't found any pre-TOC lists or TOC candidate lists
+            if (
+                not toc_started
+                and not pre_toc_list_started
+                and not toc_candidate_list_started
+            ):
                 pre_toc_blocks.append(block_with_page)
             else:
                 post_toc_blocks.append(block_with_page)
@@ -257,12 +391,16 @@ def find_matching_heading_in_content(
 def group_pre_toc_blocks(
     blocks: List[Dict[str, Any]], all_footnotes: Dict[str, Any]
 ) -> List[Dict[str, str]]:
-    """Apply normal sectioning to blocks that appear before TOC."""
+    """Apply the same sectioning logic as group_by_section_original to pre-TOC blocks."""
     pairs = []
     current = None
     current_main_section = None
 
     for b in blocks:
+        # Skip footnotes
+        if b.get("kind") == "footnote":
+            continue
+
         # Check for headings that could be new sections (level 1 - 4)
         if b.get("kind") == "heading" and b.get("level") in [1, 2, 3, 4]:
             heading_text = b.get("text", "")
@@ -286,14 +424,18 @@ def group_pre_toc_blocks(
                     is_new_main_section = True
 
             elif b.get("level") != 1:
-                # Level 2+ headings: new section if it's a different main section number
+                # Level 2 headings: new section if it's a different main section number
                 if main_section is not None and (
                     current_main_section is None or main_section != current_main_section
                 ):
+                    # This level 2 heading is actually a new main section
                     is_new_main_section = True
+                else:
+                    # This is a regular subsection
+                    is_new_main_section = False
 
             if is_new_main_section:
-                # Save previous section
+                # Finalize previous section if it exists
                 if current:
                     current["content_md"] = "\n\n".join(current["content"])
                     del current["content"]
@@ -303,36 +445,82 @@ def group_pre_toc_blocks(
                     )
                     pairs.append(current)
 
-                # Start new section
-                current = {"header": heading_text, "content": [], "images": []}
+                # Start new section using the actual heading text
+                header_label = heading_text if heading_text else "Untitled Section"
+                current = {"header": header_label, "content": [], "images": []}
                 current_main_section = main_section
 
-        # Add content to current section
-        if current:
-            md = render_block_md(b)
-            if md.strip():
-                current["content"].append(md)
-        else:
-            # No section yet, create a default one
-            current = {"header": "Introduction", "content": [], "images": []}
+                # For level 2 headings that become main sections, keep them as level 1
+                if b.get("level") != 1:
+                    main_section_block = b.copy()
+                    main_section_block["level"] = 1  # Promote to level 1
+                    current["content"].append(render_block_md(main_section_block))
+                else:
+                    current["content"].append(render_block_md(b))
+
+                # Add image path if available
+                page_info = b.get("page_info")
+                if page_info and page_info.get("image_path"):
+                    current["images"].append(page_info["image_path"])
+                continue
+            else:
+                # This is a subsection - add to current section with appropriate level
+                if current is not None:
+                    subsection_block = b.copy()
+                    # Ensure subsections are at least level 2
+                    if subsection_block["level"] == 1:
+                        subsection_block["level"] = 2
+                    md = render_block_md(subsection_block)
+                    if md:
+                        current["content"].append(md)
+
+                    # Add image path if available
+                    page_info = b.get("page_info")
+                    if page_info and page_info.get("image_path"):
+                        current["images"].append(page_info["image_path"])
+                    continue
+
+        # If no current section exists, create an unknown section
+        if current is None:
+            current = {"header": "Section (unknown)", "content": [], "images": []}
             current_main_section = None
-            md = render_block_md(b)
-            if md.strip():
-                current["content"].append(md)
+
+        # Add block content to current section
+        md = render_block_md(b)
+        if md:
+            current["content"].append(md)
 
         # Add image path if available
         page_info = b.get("page_info")
         if page_info and page_info.get("image_path"):
-            if current:
-                current["images"].append(page_info["image_path"])
+            current["images"].append(page_info["image_path"])
 
-    # Handle last section
+    # Finalize the last section
     if current:
         current["content_md"] = "\n\n".join(current["content"])
         del current["content"]
         # Ensure images list exists and remove duplicates
         current["images"] = list(set(filter(None, current.get("images", []))))
         pairs.append(current)
+
+    # Second pass: Find footnote references in each section and add footnotes
+    for section in pairs:
+        content_md = section["content_md"]
+        # Find all footnote references in this section's content
+        footnote_refs = re.findall(r"\[(\^[^\]]+)\]", content_md)
+
+        footnotes_to_add = []
+        for ref in footnote_refs:
+            # Remove the ^ prefix to match footnote ref format
+            clean_ref = ref[1:] if ref.startswith("^") else ref
+            if clean_ref in all_footnotes:
+                footnote_md = render_block_md(all_footnotes[clean_ref])
+                if footnote_md and footnote_md not in footnotes_to_add:
+                    footnotes_to_add.append(footnote_md)
+
+        # Add footnotes to the section's content
+        if footnotes_to_add:
+            section["content_md"] += "\n\n" + "\n\n".join(footnotes_to_add)
 
     return pairs
 
@@ -378,13 +566,207 @@ def group_by_section_with_toc(
     all_footnotes: Dict[str, Any],
     post_toc_blocks: List[Dict[str, Any]],
 ) -> List[Dict[str, str]]:
-    """Group sections based on TOC items in sequential order."""
+    """Group sections based on TOC items, but use original logic for early sections before TOC matching begins."""
+
+    # First pass: find where TOC-based matching actually starts working
+    toc_match_start_index = find_toc_matching_start(post_toc_blocks, toc_items)
+
+    # Split blocks into pre-TOC-matching and TOC-matching sections
+    pre_toc_matching_blocks = []
+    toc_matching_blocks = []
+
+    current_block_index = 0
+    for b in post_toc_blocks:
+        if current_block_index < toc_match_start_index:
+            pre_toc_matching_blocks.append(b)
+        else:
+            toc_matching_blocks.append(b)
+        current_block_index += 1
+
+    # Process pre-TOC-matching blocks with original logic
+    pre_toc_matching_sections = []
+    if pre_toc_matching_blocks:
+        pre_toc_matching_sections = group_blocks_with_original_logic(
+            pre_toc_matching_blocks, all_footnotes
+        )
+
+    # Process TOC-matching blocks with TOC-based logic
+    toc_based_sections = []
+    if toc_matching_blocks:
+        toc_based_sections = group_blocks_with_toc_logic(
+            toc_matching_blocks, toc_items, all_footnotes, toc_match_start_index
+        )
+
+    return pre_toc_matching_sections + toc_based_sections
+
+
+def find_toc_matching_start(
+    post_toc_blocks: List[Dict[str, Any]], toc_items: List[str]
+) -> int:
+    """Find the block index where reliable TOC matching starts."""
+    for block_index, b in enumerate(post_toc_blocks):
+        if b.get("kind") == "heading":
+            heading_text = b.get("text", "")
+
+            # Check if this heading matches any TOC item
+            for toc_item in toc_items:
+                if texts_match_flexibly(toc_item, heading_text):
+                    return block_index
+
+    # If no TOC matches found, use original logic for all blocks
+    return len(post_toc_blocks)
+
+
+def group_blocks_with_original_logic(
+    blocks: List[Dict[str, Any]], all_footnotes: Dict[str, Any]
+) -> List[Dict[str, str]]:
+    """Apply original sectioning logic to a set of blocks."""
     pairs = []
     current = None
-    toc_index = 0  # Track current position in TOC items
+    current_main_section = None
+
+    for b in blocks:
+        # Skip footnotes
+        if b.get("kind") == "footnote":
+            continue
+
+        # Check for headings that could be new sections (level 1 - 4)
+        if b.get("kind") == "heading" and b.get("level") in [1, 2, 3, 4]:
+            heading_text = b.get("text", "")
+            main_section, subsection = extract_section_number(heading_text)
+
+            # Determine if this should be a new section or subsection
+            is_new_main_section = False
+
+            if b.get("level") == 1:
+                # Level 1 headings: new section unless it's a subsection of current
+                if (
+                    current is not None
+                    and current_main_section is not None
+                    and main_section == current_main_section
+                    and subsection is not None
+                ):
+                    # This is a subsection of current main section
+                    is_new_main_section = False
+                else:
+                    # This is a new main section
+                    is_new_main_section = True
+
+            elif b.get("level") != 1:
+                # Level 2 headings: new section if it's a different main section number
+                if main_section is not None and (
+                    current_main_section is None or main_section != current_main_section
+                ):
+                    # This level 2 heading is actually a new main section
+                    is_new_main_section = True
+                else:
+                    # This is a regular subsection
+                    is_new_main_section = False
+
+            if is_new_main_section:
+                # Finalize previous section if it exists
+                if current:
+                    current["content_md"] = "\n\n".join(current["content"])
+                    del current["content"]
+                    # Ensure images list exists and remove duplicates
+                    current["images"] = list(
+                        set(filter(None, current.get("images", [])))
+                    )
+                    pairs.append(current)
+
+                # Start new section using the actual heading text
+                header_label = heading_text if heading_text else "Untitled Section"
+                current = {"header": header_label, "content": [], "images": []}
+                current_main_section = main_section
+
+                # For level 2 headings that become main sections, keep them as level 1
+                if b.get("level") != 1:
+                    main_section_block = b.copy()
+                    main_section_block["level"] = 1  # Promote to level 1
+                    current["content"].append(render_block_md(main_section_block))
+                else:
+                    current["content"].append(render_block_md(b))
+
+                # Add image path if available
+                page_info = b.get("page_info")
+                if page_info and page_info.get("image_path"):
+                    current["images"].append(page_info["image_path"])
+                continue
+            else:
+                # This is a subsection - add to current section with appropriate level
+                if current is not None:
+                    subsection_block = b.copy()
+                    # Ensure subsections are at least level 2
+                    if subsection_block["level"] == 1:
+                        subsection_block["level"] = 2
+                    md = render_block_md(subsection_block)
+                    if md:
+                        current["content"].append(md)
+
+                    # Add image path if available
+                    page_info = b.get("page_info")
+                    if page_info and page_info.get("image_path"):
+                        current["images"].append(page_info["image_path"])
+                    continue
+
+        # If no current section exists, create an unknown section
+        if current is None:
+            current = {"header": "Section (unknown)", "content": [], "images": []}
+            current_main_section = None
+
+        # Add block content to current section
+        md = render_block_md(b)
+        if md:
+            current["content"].append(md)
+
+        # Add image path if available
+        page_info = b.get("page_info")
+        if page_info and page_info.get("image_path"):
+            current["images"].append(page_info["image_path"])
+
+    # Finalize the last section
+    if current:
+        current["content_md"] = "\n\n".join(current["content"])
+        del current["content"]
+        # Ensure images list exists and remove duplicates
+        current["images"] = list(set(filter(None, current.get("images", []))))
+        pairs.append(current)
+
+    # Add footnotes to sections
+    for section in pairs:
+        content_md = section["content_md"]
+        # Find all footnote references in this section's content
+        footnote_refs = re.findall(r"\[(\^[^\]]+)\]", content_md)
+
+        footnotes_to_add = []
+        for ref in footnote_refs:
+            # Remove the ^ prefix to match footnote ref format
+            clean_ref = ref[1:] if ref.startswith("^") else ref
+            if clean_ref in all_footnotes:
+                footnote_md = render_block_md(all_footnotes[clean_ref])
+                if footnote_md and footnote_md not in footnotes_to_add:
+                    footnotes_to_add.append(footnote_md)
+
+        # Add footnotes to the section's content
+        if footnotes_to_add:
+            section["content_md"] += "\n\n" + "\n\n".join(footnotes_to_add)
+
+    return pairs
+
+
+def group_blocks_with_toc_logic(
+    blocks: List[Dict[str, Any]],
+    toc_items: List[str],
+    all_footnotes: Dict[str, Any],
+    start_toc_index: int = 0,
+) -> List[Dict[str, str]]:
+    """Apply TOC-based sectioning logic to blocks."""
+    pairs = []
+    current = None
+    toc_index = start_toc_index  # Start from where TOC matching begins
     used_toc_items = set()  # Track which TOC items have been used
 
-    for b in post_toc_blocks:
+    for b in blocks:
         # Check if this is a heading that matches the next expected TOC item
         if b.get("kind") == "heading":
             heading_text = b.get("text", "")

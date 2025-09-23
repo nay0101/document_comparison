@@ -12,6 +12,7 @@ from documentParseJson.md_extractor import extract_layout
 import shutil
 from pathlib import Path
 import pandas as pd
+import time
 
 load_dotenv()
 
@@ -329,6 +330,7 @@ if ss.formatted_document is None and ss.doc:
     )
 
     # Clear progress indicators
+    time.sleep(2)
     doc_progress_bar.empty()
 
 compare_btn = st.button(
