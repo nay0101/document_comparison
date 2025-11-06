@@ -180,88 +180,81 @@ Total Discrepancies Found: {len(result["flags"])}
     ) -> None:
         cost = get_total_cost(chat_id=chat_id)
 
-        # Count total attachments used
-        total_attachments = 0
-        if guideline_info:
-            for guideline in guideline_info:
-                if guideline.get("attachments"):
-                    total_attachments += len(guideline["attachments"])
-
         text = f"""# Guideline Compare ({chat_model_name})
 * Document: {document_name}
-* Time Taken: {time_taken}s
 <div style="page-break-after: always;"></div>
-
-# Comparison Summary
-"""
-        # Generate summary section for each guideline section
-        for section in result:
-            summary = section["summary"]
-            text += f"""## Summary for {section['title']}
-
-| Status | Clauses |
-|--------|---------|
-| **Complied** | {', '.join(summary['complied']) if summary['complied'] else 'N/A'} |
-| **Not Complied** | {', '.join(summary['nonComplied']) if summary['nonComplied'] else 'N/A'} |
-| **Not Applicable** | {', '.join(summary['notApplicable']) if summary['notApplicable'] else 'N/A'} |
-
-"""
-        text += """<div style="page-break-after: always;"></div>
 
 # Comparison Details
 """
 
         # Generate detailed section for each guideline section
         for section in result:
-            text += f"""## {section['title']}
+            text += f"""## {section.section}
 
 """
             # Add attachment pills for this section if available
             if guideline_info:
                 section_attachments = []
                 for guideline in guideline_info:
-                    if guideline["title"] == section["title"] and guideline.get(
+                    if guideline["title"] == section.section and guideline.get(
                         "attachments"
                     ):
                         section_attachments = guideline["attachments"]
                         break
 
                 if section_attachments:
-                    text += """**Attachments Used:** """
+                    text += """**Attachments Used:**
+
+"""
                     for attachment in section_attachments:
                         attachment_header = attachment.get(
                             "header", "Unknown Attachment"
                         )
-                        text += f"""<span style="color: #2e7d32; padding: 4px 8px; font-size: 12px; margin: 2px 4px 2px 0; display: block;">📎 {attachment_header}</span>"""
+                        text += f"""📎 {attachment_header}
+
+"""
                     text += """
 
 """
-                else:
-                    text += """
+
+            # Process each clause comparison
+            for comparison in section.comparisons:
+                text += f"""### {self._escape_table_cell(comparison.clause)}
 
 """
-            else:
-                text += """
+
+                # Process each result for this clause
+                for clause_result in comparison.results:
+                    # Format compliance status with appropriate styling and icons
+                    if clause_result.isComplied == "complied":
+                        status_text = "■ **Complied**"
+                        status_color = "green"
+                    elif clause_result.isComplied == "non-complied":
+                        status_text = "■ **Not Complied**"
+                        status_color = "red"
+                    else:
+                        status_text = "■ **Not Applicable**"
+                        status_color = "orange"
+
+                    # Build analysis content with reason and suggestions
+                    analysis_content = f"""<span style="color: {status_color};">{status_text}</span><br/><br/>{self._escape_table_cell(clause_result.reason)}"""
+
+                    # Add suggestions to analysis if any
+                    if clause_result.suggestions:
+                        analysis_content += "<br/><br/>**Suggestions:**<br/>"
+                        for suggestion in clause_result.suggestions:
+                            analysis_content += (
+                                f"• {self._escape_table_cell(suggestion)}<br/>"
+                            )
+
+                    text += f"""
+| Document Excerpt | Analysis |
+|------------------|----------|
+| {self._escape_table_cell(clause_result.snippet)} | {analysis_content} |
 
 """
-            for item in section["results"]:
-                # Format compliance status with appropriate styling
-                if item["isComplied"] == "complied":
-                    status_text = "**Complied**"
-                    status_color = "green"
-                elif item["isComplied"] == "non-complied":
-                    status_text = "**Not Complied**"
-                    status_color = "red"
-                else:
-                    status_text = "**Not Applicable**"
-                    status_color = "orange"
-                text += f"""### {self._escape_table_cell(item['clause'])}
 
-<span style="color: {status_color};">{status_text}</span>
-
-{item['reason']}
-
----
+                text += """---
 
 """
 

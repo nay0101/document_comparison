@@ -168,7 +168,18 @@ def extract_toc_items(doc_json: Dict[str, Any]) -> List[str]:
                     # Collect list blocks that appear before any TOC block (original logic)
                     pre_toc_lists.append(b)
 
-    return toc_items
+    # Remove duplicates while preserving order
+    seen = set()
+    unique_toc_items = []
+    for item in toc_items:
+        # Normalize the item for comparison to catch similar duplicates
+        normalized_item = normalize_toc_item(item)
+        if (
+            normalized_item not in seen and normalized_item.strip()
+        ):  # Also skip empty items
+            seen.add(normalized_item)
+            unique_toc_items.append(item)
+    return unique_toc_items
 
 
 def find_toc_position(doc_json: Dict[str, Any]) -> int:
@@ -298,8 +309,11 @@ def split_blocks_by_toc(
 
 def normalize_toc_item(item: str) -> str:
     """Normalize TOC item for matching with headings."""
+    # Remove null characters first
+    normalized = item.replace("\x00", "").strip()
+
     # Remove leading hash symbols for headings
-    normalized = re.sub(r"^#+\s*", "", item.strip())
+    normalized = re.sub(r"^#+\s*", "", normalized)
     # Remove leading numbers, dots, and whitespace
     normalized = re.sub(r"^\d+\.?\s*", "", normalized)
     # Remove common prefixes
@@ -318,13 +332,16 @@ def normalize_toc_item(item: str) -> str:
     # This handles cases where words end with numbers
     normalized = re.sub(r"\b([a-zA-Z]+)\d+\b", r"\1", normalized)
 
-    # 4. Normalize multiple spaces to single spaces
+    # 4. Replace Unicode dash characters (en dash \u2013, em dash \u2014, etc.) with spaces
+    normalized = re.sub(r"[\u2013\u2014\u2015\u2212]", " ", normalized)
+
+    # 5. Normalize multiple spaces to single spaces (including after dash replacements)
     normalized = re.sub(r"\s+", " ", normalized)
 
-    # 5. Normalize slash spacing: remove spaces around slashes
+    # 6. Normalize slash spacing: remove spaces around slashes
     normalized = re.sub(r"\s*/\s*", "/", normalized)
 
-    # 6. Convert to lowercase for case-insensitive matching
+    # 7. Convert to lowercase for case-insensitive matching
     normalized = normalized.lower()
 
     return normalized.strip()
@@ -336,6 +353,8 @@ def texts_match_flexibly(toc_text: str, heading_text: str) -> bool:
     norm_toc = normalize_toc_item(toc_text)
     norm_heading = normalize_toc_item(heading_text)
 
+    with open("debug_norm.txt", "a", encoding="utf-8") as f:
+        f.write(f"TOC: '{norm_toc}' | Heading: '{norm_heading}'\n")
     # 1. Try exact match first
     if norm_toc == norm_heading:
         return True
@@ -569,8 +588,7 @@ def group_by_section_with_toc(
     """Group sections based on TOC items, but use original logic for early sections before TOC matching begins."""
 
     # First pass: find where TOC-based matching actually starts working
-    toc_match_start_index = find_toc_matching_start(post_toc_blocks, toc_items)
-
+    toc_match_start_index = find_toc_position(doc_json)
     # Split blocks into pre-TOC-matching and TOC-matching sections
     pre_toc_matching_blocks = []
     toc_matching_blocks = []
@@ -594,9 +612,10 @@ def group_by_section_with_toc(
     toc_based_sections = []
     if toc_matching_blocks:
         toc_based_sections = group_blocks_with_toc_logic(
-            toc_matching_blocks, toc_items, all_footnotes, toc_match_start_index
+            toc_matching_blocks, toc_items, all_footnotes, 0
         )
 
+    # print(toc_based_sections)
     return pre_toc_matching_sections + toc_based_sections
 
 
@@ -611,6 +630,7 @@ def find_toc_matching_start(
             # Check if this heading matches any TOC item
             for toc_item in toc_items:
                 if texts_match_flexibly(toc_item, heading_text):
+                    print(block_index)
                     return block_index
 
     # If no TOC matches found, use original logic for all blocks
@@ -760,62 +780,152 @@ def group_blocks_with_toc_logic(
     all_footnotes: Dict[str, Any],
     start_toc_index: int = 0,
 ) -> List[Dict[str, str]]:
-    """Apply TOC-based sectioning logic to blocks."""
+    """Apply sequential TOC-based sectioning logic to blocks.
+
+    This function matches TOC items in order:
+    - Wait for first successful TOC match before creating any sections
+    - For index 0: Look for next TOC match (index 1) to determine boundary. If can't find after 10 headings, move to index 1
+    - For index 1 and middle blocks: When matched with 10 headings and still haven't found a match, leave it blank and move on to next TOC
+    - For last index: Put everything left under that TOC
+    - When a TOC item fails after 10 attempts, the next TOC item starts from where the failed TOC item began
+    """
     pairs = []
     current = None
-    toc_index = start_toc_index  # Start from where TOC matching begins
-    used_toc_items = set()  # Track which TOC items have been used
+    current_toc_index = start_toc_index  # Current TOC item we're looking for
+    heading_match_attempts = 0  # Track heading match attempts for middle blocks
+    toc_start_position = 0  # Track where current TOC item search started
+    block_index = 0  # Track current block position
+    restart_needed = False  # Flag to indicate if we need to restart processing
+    max_fail_match = 20
+    first_match_found = False  # Track if we've found our first successful TOC match
+    while block_index < len(blocks):
+        b = blocks[block_index]
 
-    for b in blocks:
-        # Check if this is a heading that matches the next expected TOC item
+        # Check if this is a heading that matches the current expected TOC item
         if b.get("kind") == "heading":
             heading_text = b.get("text", "")
 
-            # Look for the next unused TOC item that matches this heading
-            matching_toc_item = None
-            matching_toc_index = None
+            # Check if this heading matches the current TOC item we're looking for
+            if current_toc_index < len(toc_items):
+                current_toc_item = toc_items[current_toc_index]
+                print(f"{current_toc_item} -> {heading_text}")
+                # Special handling for last index: put everything under this TOC
+                if current_toc_index == len(toc_items) - 1:
+                    # For last TOC item, collect everything remaining (only if first match found)
+                    if current is not None and first_match_found:
+                        subsection_block = b.copy()
+                        subsection_block["level"] = 2
+                        md = render_block_md(subsection_block)
+                        if md:
+                            current["content"].append(md)
 
-            # Search from current toc_index onwards for the first match
-            for i in range(toc_index, len(toc_items)):
-                toc_item = toc_items[i]
-                if toc_item in used_toc_items:
-                    continue
+                        # Add image path if available
+                        page_info = b.get("page_info")
+                        if page_info and page_info.get("image_path"):
+                            current["images"].append(page_info["image_path"])
+                        block_index += 1
+                        continue
+                    elif not first_match_found:
+                        # Before first match: skip content
+                        block_index += 1
+                        continue
 
-                # Use flexible matching to handle formatting variations
-                if texts_match_flexibly(toc_item, heading_text):
-                    matching_toc_item = toc_item
-                    matching_toc_index = i
-                    break
+                # Normal handling for all TOC items (including index 0, 1, and middle blocks)
+                else:
+                    # Set start position when beginning to look for a new TOC item
+                    if heading_match_attempts == 0:
+                        toc_start_position = block_index
 
-            if matching_toc_item:
-                # Finalize previous section if it exists
-                if current:
-                    current["content_md"] = "\n\n".join(current["content"])
-                    del current["content"]
-                    # Ensure images list exists and remove duplicates
-                    current["images"] = list(
-                        set(filter(None, current.get("images", [])))
-                    )
-                    pairs.append(current)
+                    heading_match_attempts += 1
 
-                # Start new section with matched TOC item as header
-                current = {"header": matching_toc_item, "content": [], "images": []}
-                used_toc_items.add(matching_toc_item)
-                toc_index = matching_toc_index + 1  # Move to next TOC item
+                    # Use flexible matching to handle formatting variations
+                    if texts_match_flexibly(current_toc_item, heading_text):
+                        # Finalize previous section if it exists
+                        if current:
+                            current["content_md"] = "\n\n".join(current["content"])
+                            del current["content"]
+                            # Ensure images list exists and remove duplicates
+                            current["images"] = list(
+                                set(filter(None, current.get("images", [])))
+                            )
+                            pairs.append(current)
 
-                # Add the heading as level 1
-                heading_block = b.copy()
-                heading_block["level"] = 1
-                current["content"].append(render_block_md(heading_block))
+                        # Start new section with matched TOC item as header
+                        current = {
+                            "header": current_toc_item,
+                            "content": [],
+                            "images": [],
+                        }
+                        current_toc_index += 1  # Move to next TOC item in sequence
+                        heading_match_attempts = 0
+                        first_match_found = (
+                            True  # Mark that we've found our first match
+                        )
 
-                # Add image path if available
-                page_info = b.get("page_info")
-                if page_info and page_info.get("image_path"):
-                    current["images"].append(page_info["image_path"])
-                continue
+                        # Add the heading as level 1
+                        heading_block = b.copy()
+                        heading_block["level"] = 1
+                        current["content"].append(render_block_md(heading_block))
+
+                        # Add image path if available
+                        page_info = b.get("page_info")
+                        if page_info and page_info.get("image_path"):
+                            current["images"].append(page_info["image_path"])
+                        block_index += 1
+                        continue
+                    else:
+                        # Check if we've exceeded the heading match limit for all TOC items
+                        if heading_match_attempts >= max_fail_match:
+                            # Failed TOC item - behavior depends on whether we've found first match
+                            current_toc_index += 1
+                            heading_match_attempts = 0
+
+                            if not first_match_found:
+                                # Before first match: just skip the failed TOC item and restart
+                                block_index = toc_start_position
+                                continue
+                            else:
+                                # After first match: extend previous section with failed TOC content
+                                if current is None and pairs:
+                                    # Extend the last created section by reopening it temporarily
+                                    last_section = pairs[-1]
+                                    current = {
+                                        "header": last_section["header"],
+                                        "content": (
+                                            [last_section["content_md"]]
+                                            if last_section.get("content_md")
+                                            else []
+                                        ),
+                                        "images": last_section.get("images", []),
+                                    }
+                                    # Remove the last section since we're extending it
+                                    pairs.pop()
+
+                                # Restart from where the failed TOC item started searching
+                                block_index = toc_start_position
+                                continue
+
+                        # This heading doesn't match current TOC item - treat as subsection
+                        if current is not None and first_match_found:
+                            subsection_block = b.copy()
+                            subsection_block["level"] = 2
+                            md = render_block_md(subsection_block)
+                            if md:
+                                current["content"].append(md)
+
+                            # Add image path if available
+                            page_info = b.get("page_info")
+                            if page_info and page_info.get("image_path"):
+                                current["images"].append(page_info["image_path"])
+                            block_index += 1
+                            continue
+                        elif not first_match_found:
+                            # Before first match: skip this heading
+                            block_index += 1
+                            continue
             else:
-                # This is a subsection - convert to level 2
-                if current is not None:
+                # No more TOC items to match - treat as subsection
+                if current is not None and first_match_found:
                     subsection_block = b.copy()
                     subsection_block["level"] = 2
                     md = render_block_md(subsection_block)
@@ -826,32 +936,55 @@ def group_blocks_with_toc_logic(
                     page_info = b.get("page_info")
                     if page_info and page_info.get("image_path"):
                         current["images"].append(page_info["image_path"])
+                    block_index += 1
+                    continue
+                elif not first_match_found:
+                    # Before first match: skip this heading
+                    block_index += 1
                     continue
 
-        # If no current section exists, create one based on next available TOC item
+        # If no current section exists, handle consecutive failure case
         if current is None:
-            # Find next unused TOC item
-            while toc_index < len(toc_items) and toc_items[toc_index] in used_toc_items:
-                toc_index += 1
-
-            if toc_index < len(toc_items):
-                next_toc_item = toc_items[toc_index]
-                current = {"header": next_toc_item, "content": [], "images": []}
-                used_toc_items.add(next_toc_item)
-                toc_index += 1
+            if not first_match_found:
+                # Before first match: skip content entirely, just move to next block
+                block_index += 1
+                continue
+            elif pairs:
+                # After first match: consecutive failures - extend the last created section
+                last_section = pairs[-1]
+                current = {
+                    "header": last_section["header"],
+                    "content": (
+                        [last_section["content_md"]]
+                        if last_section.get("content_md")
+                        else []
+                    ),
+                    "images": last_section.get("images", []),
+                }
+                # Remove the last section since we're extending it
+                pairs.pop()
+            elif current_toc_index < len(toc_items):
+                current_toc_item = toc_items[current_toc_index]
+                current = {
+                    "header": current_toc_item,
+                    "content": [],
+                    "images": [],
+                }
             else:
                 current = {"header": "Section (unknown)", "content": [], "images": []}
 
-        # Add block content to current section
-        md = render_block_md(b)
-        if md:
-            current["content"].append(md)
+        # Add block content to current section (only if first match found)
+        if first_match_found:
+            md = render_block_md(b)
+            if md:
+                current["content"].append(md)
 
-        # Add image path if available
-        page_info = b.get("page_info")
-        if page_info and page_info.get("image_path"):
-            current["images"].append(page_info["image_path"])
+            # Add image path if available
+            page_info = b.get("page_info")
+            if page_info and page_info.get("image_path"):
+                current["images"].append(page_info["image_path"])
 
+        block_index += 1
     # Finalize the last section
     if current:
         current["content_md"] = "\n\n".join(current["content"])
@@ -1454,6 +1587,22 @@ def extract_layout(
 
     # Save document JSON
     doc_json = {"pages": all_pages}
+
+    # Convert TOC blocks to list blocks after the first 10 pages
+    for page_idx, page in enumerate(doc_json.get("pages", [])):
+        page_number = page_idx + 1
+        if page_number > 10:  # Only modify pages after the first 10
+            for block in page.get("blocks", []):
+                if block.get("kind") == "toc":
+                    # Convert TOC block to list block
+                    items = block.get("items", [])
+                    block["kind"] = "list"
+                    block["ordered"] = False
+                    block["items"] = items
+                    # Remove TOC-specific fields if they exist
+                    if "toc_items" in block:
+                        del block["toc_items"]
+
     (outdir / "document.json").write_text(
         json.dumps(doc_json, indent=2), encoding="utf-8"
     )
