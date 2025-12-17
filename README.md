@@ -1,5 +1,10 @@
 # Multilingual Document Comparison
 
+## Documentation
+
+- Language (document-to-document) comparison: `DOCUMENT_COMPARISON.md`
+- Guideline comparison: `GUIDELINE_COMPARISON.md`
+
 ## Set Up
 
 ### Create Virtual Environment

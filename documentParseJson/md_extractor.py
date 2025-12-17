@@ -353,8 +353,6 @@ def texts_match_flexibly(toc_text: str, heading_text: str) -> bool:
     norm_toc = normalize_toc_item(toc_text)
     norm_heading = normalize_toc_item(heading_text)
 
-    with open("debug_norm.txt", "a", encoding="utf-8") as f:
-        f.write(f"TOC: '{norm_toc}' | Heading: '{norm_heading}'\n")
     # 1. Try exact match first
     if norm_toc == norm_heading:
         return True
